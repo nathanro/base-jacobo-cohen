@@ -8,7 +8,7 @@ import { showError } from '@/utils/toast';
 
 // In a real app, you would have proper admin role management
 // For this demo, we'll use a simple check against a list of admin emails
-const ADMIN_EMAILS = ['admin@example.com']; // Replace with your email to test
+const ADMIN_EMAILS = ['nathan@publiexpert.com']; // Replace with your email to test
 
 const Admin = () => {
   const { user, loading } = useAuth();
