@@ -5,6 +5,7 @@ import { ExcelUploader } from '@/components/admin/ExcelUploader';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { showError, showSuccess } from '@/utils/toast';
+import { MadeWithDyad } from '@/components/powered-by-publiexpert';
 
 // Actualizado para incluir tu correo electrónico
 const ADMIN_EMAILS = ['nathan@publiexpert.com']; 
@@ -87,7 +88,7 @@ const Admin = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold text-gray-900">Panel de Administración</h1>
@@ -98,7 +99,7 @@ const Admin = () => {
         </div>
       </header>
       
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
         <div className="space-y-8">
           {profile?.subscription_status !== 'premium' && (
             <div className="bg-white p-6 rounded-lg shadow mb-6">
@@ -119,6 +120,12 @@ const Admin = () => {
           </div>
         </div>
       </main>
+      
+      <footer className="bg-white border-t mt-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <MadeWithDyad />
+        </div>
+      </footer>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { FinancialDataTable } from '@/components/data/FinancialDataTable';
 import { useAuth } from '@/contexts/AuthContext';
+import { MadeWithDyad } from '@/components/powered-by-publiexpert';
 
 const DatasetView = () => {
   const { id } = useParams<{ id: string }>();
@@ -32,7 +33,7 @@ const DatasetView = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold text-gray-900">Financial Dataset</h1>
@@ -43,9 +44,15 @@ const DatasetView = () => {
         </div>
       </header>
       
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
         <FinancialDataTable datasetId={id} />
       </main>
+      
+      <footer className="bg-white border-t mt-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <MadeWithDyad />
+        </div>
+      </footer>
     </div>
   );
 };

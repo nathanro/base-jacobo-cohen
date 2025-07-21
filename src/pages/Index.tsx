@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { DatasetList } from '@/components/data/DatasetList';
 import { useAuth } from '@/contexts/AuthContext';
-import { MadeWithDyad } from '@/components/made-with-dyad';
+import { MadeWithDyad } from '@/components/powered-by-publiexpert';
 
 const Index = () => {
   const { user, profile, signOut, loading } = useAuth();
