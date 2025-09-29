@@ -1,110 +1,136 @@
 {
-  "nav": {
+  "navigation": {
     "home": "Inicio",
     "datasets": "Conjuntos de Datos",
-    "account": "Cuenta", 
+    "account": "Cuenta",
     "admin": "Administrador",
     "login": "Iniciar Sesión",
-    "logout": "Cerrar Sesión"
+    "logout": "Cerrar Sesión",
+    "language": "Idioma"
+  },
+  "hero": {
+    "title1": "Análisis de Big Data",
+    "title2": "Investigación de Mercados",
+    "title": "Análisis de Big Data e Investigación de Mercados Líder",
+    "subtitle": "Desbloquea el poder de los insights basados en datos con nuestras soluciones integrales de análisis de big data e investigación de mercados. Transforma tus decisiones de negocio con inteligencia en tiempo real y análisis predictivos.",
+    "cta": "Comenzar",
+    "cta1": "Explorar Soluciones",
+    "cta2": "Ver Demo",
+    "learnMore": "Saber Más",
+    "stat1": "Informes de Investigación",
+    "stat2": "Sectores Industriales",
+    "stat3": "Puntos de Datos Analizados"
+  },
+  "services": {
+    "title": "Nuestros Servicios",
+    "subtitle": "Soluciones integrales de big data y servicios de investigación de mercados para el éxito empresarial",
+    "realTimeData": {
+      "title": "Análisis en Tiempo Real",
+      "description": "Accede a flujos de datos de mercado en vivo y dashboards de análisis en tiempo real para obtener insights de negocio instantáneos e inteligencia competitiva."
+    },
+    "historicalAnalysis": {
+      "title": "Análisis Predictivos",
+      "description": "Aprovecha algoritmos de machine learning y patrones de datos históricos para pronosticar tendencias de mercado y comportamiento del consumidor."
+    },
+    "customReports": {
+      "title": "Informes de Investigación Personalizados",
+      "description": "Informes de investigación de mercado a medida y soluciones de visualización de datos diseñados específicamente para tu industria y necesidades de negocio."
+    },
+    "marketAnalysis": {
+      "title": "Análisis de Mercado",
+      "description": "Análisis integral del tamaño del mercado, tendencias de crecimiento y panorama competitivo en varias industrias y regiones."
+    },
+    "bigDataAnalytics": {
+      "title": "Análisis de Big Data",
+      "description": "Análisis avanzados y modelos de machine learning para extraer insights significativos de grandes conjuntos de datos."
+    },
+    "industryResearch": {
+      "title": "Investigación Industrial",
+      "description": "Estudios industriales profundos que cubren dinámicas del mercado, actores clave y oportunidades emergentes."
+    },
+    "trendAnalysis": {
+      "title": "Análisis de Tendencias",
+      "description": "Identificación y análisis de tendencias de mercado, patrones de comportamiento del consumidor y proyecciones futuras."
+    },
+    "globalMarketIntelligence": {
+      "title": "Inteligencia de Mercado Global",
+      "description": "Insights de mercados transfronterizos y estrategias de expansión internacional para negocios globales."
+    },
+    "customResearch": {
+      "title": "Investigación Personalizada",
+      "description": "Soluciones de investigación a medida diseñadas para satisfacer necesidades específicas de negocio y objetivos estratégicos."
+    }
+  },
+  "marketInsights": {
+    "title": "Inteligencia de Mercado",
+    "subtitle": "Mantente por delante de la competencia con insights de mercado de vanguardia impulsados por análisis de big data",
+    "viewAll": "Ver Todos los Insights"
+  },
+  "featuredReports": {
+    "title": "Informes de Investigación Destacados",
+    "subtitle": "Análisis profundos del mercado e informes industriales integrales respaldados por investigación de big data",
+    "downloadReport": "Descargar Informe"
+  },
+  "companyInfo": {
+    "title": "Acerca de DataInsights Analytics",
+    "description": "Somos una empresa premier de investigación de mercados de big data, que proporciona soluciones de análisis avanzados a empresas Fortune 500, startups y organizaciones gubernamentales en todo el mundo. Nuestra experiencia abarca múltiples industrias incluyendo tecnología, salud, finanzas y retail.",
+    "experience": "Años de Experiencia",
+    "clients": "Clientes Globales",
+    "datasets": "Informes de Investigación Publicados"
+  },
+  "contact": {
+    "title": "Contacta a Nuestro Equipo de Investigación",
+    "subtitle": "Ponte en contacto con nuestros expertos en big data para soluciones personalizadas de investigación de mercados",
+    "name": "Nombre Completo",
+    "email": "Correo Comercial",
+    "message": "Requerimientos de Investigación",
+    "send": "Enviar Consulta",
+    "address": "Dirección",
+    "phone": "Teléfono",
+    "businessHours": "Horario Comercial"
   },
   "auth": {
+    "login": "Iniciar Sesión",
+    "register": "Registrarse",
     "email": "Correo Electrónico",
     "password": "Contraseña",
     "confirmPassword": "Confirmar Contraseña",
     "name": "Nombre",
-    "login": "Iniciar Sesión",
-    "register": "Registrarse",
-    "loginTitle": "Inicia sesión en tu cuenta",
-    "registerTitle": "Crea tu cuenta",
-    "switchToRegister": "¿No tienes cuenta? Regístrate",
-    "switchToLogin": "¿Ya tienes cuenta? Inicia sesión",
     "forgotPassword": "¿Olvidaste tu contraseña?",
+    "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+    "dontHaveAccount": "¿No tienes una cuenta?",
+    "signIn": "Iniciar Sesión",
+    "signUp": "Registrarse",
     "resetPassword": "Restablecer Contraseña",
-    "resetPasswordTitle": "Restablece tu contraseña",
-    "resetPasswordDescription": "Introduce tu dirección de correo electrónico y te enviaremos un enlace para restablecer tu contraseña.",
     "sendResetEmail": "Enviar Correo de Restablecimiento",
-    "resetEmailSent": "¡Correo de restablecimiento enviado exitosamente!",
-    "resetEmailError": "Error al enviar correo de restablecimiento",
     "newPassword": "Nueva Contraseña",
-    "confirmNewPassword": "Confirmar Nueva Contraseña",
-    "resetPasswordSuccess": "¡Contraseña restablecida exitosamente!",
-    "resetPasswordError": "Error al restablecer contraseña"
-  },
-  "home": {
-    "hero": {
-      "title": "Inteligencia Financiera Avanzada",
-      "subtitle": "Transforma tus decisiones de inversión con nuestra plataforma integral de análisis económico y financiero",
-      "cta": "Explorar Conjuntos de Datos",
-      "ctaSecondary": "Saber Más"
-    },
-    "services": {
-      "title": "Nuestros Servicios",
-      "subtitle": "Soluciones integrales para el análisis financiero",
-      "economicAnalysis": "Análisis Económico",
-      "economicAnalysisDesc": "Análisis profundo de indicadores económicos y tendencias del mercado",
-      "financialData": "Datos Financieros",
-      "financialDataDesc": "Datos financieros en tiempo real e históricos de mercados globales",
-      "expertConsulting": "Consultoría Experta",
-      "expertConsultingDesc": "Servicios de consultoría profesional para decisiones financieras estratégicas"
-    },
-    "insights": {
-      "title": "Perspectivas del Mercado",
-      "subtitle": "Mantente a la vanguardia con nuestro último análisis de mercado",
-      "globalMarkets": "Mercados Globales",
-      "globalMarketsDesc": "Análisis de los principales mercados financieros globales y sus interconexiones",
-      "emergingTrends": "Tendencias Emergentes",
-      "emergingTrendsDesc": "Identificación y análisis de nuevas tendencias financieras y económicas",
-      "riskAssessment": "Evaluación de Riesgos",
-      "riskAssessmentDesc": "Evaluación integral de riesgos financieros y de mercado"
-    },
-    "reports": {
-      "title": "Informes Destacados",
-      "subtitle": "Accede a nuestra investigación y análisis premium",
-      "monthlyOutlook": "Perspectiva Mensual del Mercado",
-      "monthlyOutlookDesc": "Análisis integral de las condiciones del mercado y pronósticos",
-      "sectorAnalysis": "Análisis Sectorial",
-      "sectorAnalysisDesc": "Análisis profundo de sectores industriales específicos y su rendimiento",
-      "economicIndicators": "Informe de Indicadores Económicos",
-      "economicIndicatorsDesc": "Indicadores económicos clave y su impacto en los mercados"
-    },
-    "company": {
-      "title": "Sobre Nuestra Empresa",
-      "subtitle": "Experiencia líder en análisis financiero",
-      "experience": "Años de Experiencia",
-      "experienceDesc": "Historial comprobado en análisis financiero e investigación de mercados",
-      "expertise": "Experiencia Global",
-      "expertiseDesc": "Comprensión profunda de mercados internacionales y sistemas económicos",
-      "innovation": "Enfoque en Innovación",
-      "innovationDesc": "Herramientas y metodologías analíticas de vanguardia"
-    },
-    "contact": {
-      "title": "Contáctanos",
-      "subtitle": "Ponte en contacto con nuestro equipo experto",
-      "address": "Dirección",
-      "phone": "Teléfono",
-      "email": "Correo Electrónico",
-      "hours": "Horario Comercial"
-    }
-  },
-  "datasets": {
-    "title": "Conjuntos de Datos Financieros",
-    "loading": "Cargando conjuntos de datos...",
-    "error": "Error al cargar conjuntos de datos",
-    "noData": "No hay conjuntos de datos disponibles"
+    "resetPasswordSuccess": "Contraseña restablecida exitosamente",
+    "backToLogin": "Volver al Login"
   },
   "account": {
-    "title": "Información de la Cuenta",
-    "subscription": "Suscripción",
+    "title": "Configuración de Cuenta",
+    "subscription": "Suscripción de Investigación",
+    "profile": "Información de Perfil",
     "billing": "Información de Facturación"
   },
   "admin": {
     "title": "Panel de Administración",
-    "accessDenied": "Acceso denegado. Se requieren privilegios de administrador.",
-    "dashboard": "Panel de Control",
-    "users": "Gestión de Usuarios",
-    "roles": "Gestión de Roles",
-    "upload": "Subida de Datos", 
-    "settings": "Configuración del Sistema",
+    "loading": "Cargando...",
+    "accessDenied": "Acceso Denegado",
+    "noPermission": "No tienes permisos para acceder a esta página.",
+    "backToHome": "Volver al Inicio",
+    "welcomeTitle": "Bienvenido Administrador",
+    "userName": "Usuario:",
+    "userEmail": "Correo:",
+    "userRole": "Rol:",
+    "description": "Como administrador, puedes gestionar el contenido del sitio web, subir datos financieros y realizar tareas de mantenimiento.",
+    "tabs": {
+      "dashboard": "Panel de Control",
+      "users": "Gestión de Usuarios",
+      "roles": "Gestión de Roles",
+      "data": "Gestión de Datos",
+      "settings": "Configuración del Sistema"
+    },
     "userManagement": {
       "title": "Gestión de Usuarios",
       "addUser": "Agregar Usuario",
@@ -112,7 +138,7 @@
       "deleteUser": "Eliminar Usuario",
       "confirmDelete": "¿Estás seguro de que deseas eliminar este usuario?",
       "userName": "Nombre",
-      "userEmail": "Correo Electrónico",
+      "userEmail": "Correo",
       "userPhone": "Número de Teléfono",
       "userRole": "Rol",
       "userStatus": "Estado",
@@ -166,15 +192,62 @@
         "nameMinLength": "El nombre del rol debe tener al menos 2 caracteres",
         "descriptionMaxLength": "La descripción no debe exceder los 500 caracteres"
       }
+    },
+    "dashboard": {
+      "title": "Panel de Administración",
+      "subtitle": "Resumen del sistema y acceso rápido a funciones administrativas",
+      "stats": {
+        "totalUsers": "Total de Usuarios",
+        "activeUsers": "Usuarios Activos",
+        "totalDatasets": "Total de Conjuntos de Datos",
+        "systemHealth": "Estado del Sistema"
+      }
+    },
+    "dataManagement": {
+      "title": "Gestión de Datos",
+      "description": "Subir y gestionar conjuntos de datos financieros",
+      "uploadData": "Subir Datos Financieros",
+      "uploadDescription": "Usa esta sección para subir archivos Excel con datos financieros al sistema.",
+      "datasetName": "Nombre del Conjunto de Datos",
+      "datasetDescription": "Descripción",
+      "excelFile": "Archivo Excel",
+      "premiumContent": "Contenido Premium",
+      "uploadFinancialData": "Subir Datos Financieros",
+      "uploadFinancialDataDescription": "Sube archivos Excel que contengan datos financieros e información de investigación de mercados."
+    },
+    "systemSettings": {
+      "title": "Configuración del Sistema",
+      "description": "Configurar ajustes y preferencias del sistema",
+      "general": "Configuración General",
+      "maintenance": "Modo de Mantenimiento",
+      "backups": "Gestión de Respaldos",
+      "logs": "Registros del Sistema"
+    },
+    "instructions": {
+      "title": "Instrucciones de Administración",
+      "userManagementInstructions": "Usa la sección de Gestión de Usuarios para crear, editar y gestionar cuentas de usuario. Puedes asignar roles y activar/desactivar cuentas.",
+      "roleManagementInstructions": "La Gestión de Roles te permite definir permisos de usuario y asignar roles a usuarios para el control de acceso.",
+      "dataManagementInstructions": "Sube datos financieros a través de archivos Excel en la sección de Gestión de Datos. Puedes marcar contenido como premium.",
+      "systemSettingsInstructions": "Configura ajustes del sistema incluyendo modo de mantenimiento y horarios de respaldo."
     }
   },
+  "datasetView": {
+    "title": "Portal de Investigación de Big Data",
+    "filters": "Filtros de Datos",
+    "export": "Exportar Datos",
+    "loading": "Cargando...",
+    "noData": "No hay datos disponibles",
+    "rowsPerPage": "Filas por página",
+    "of": "de",
+    "previous": "Anterior",
+    "next": "Siguiente"
+  },
   "subscription": {
-    "title": "Planes de Suscripción",
-    "basic": "Básico",
-    "premium": "Premium",
-    "enterprise": "Empresarial",
-    "selectPlan": "Seleccionar Plan",
-    "currentPlan": "Plan Actual"
+    "title": "Planes de Investigación",
+    "currentPlan": "Plan Actual",
+    "upgrade": "Actualizar Plan",
+    "features": "Funciones incluidas",
+    "price": "Precio"
   },
   "common": {
     "loading": "Cargando...",
@@ -184,23 +257,34 @@
     "save": "Guardar",
     "delete": "Eliminar",
     "edit": "Editar",
-    "add": "Agregar",
     "close": "Cerrar",
-    "confirm": "Confirmar",
-    "back": "Atrás",
-    "next": "Siguiente",
+    "ok": "Aceptar",
+    "yes": "Sí",
+    "no": "No",
     "search": "Buscar",
     "filter": "Filtrar",
-    "clear": "Limpiar"
+    "clear": "Limpiar",
+    "apply": "Aplicar",
+    "reset": "Reiniciar",
+    "create": "Crear",
+    "update": "Actualizar",
+    "actions": "Acciones",
+    "name": "Nombre",
+    "email": "Correo",
+    "role": "Rol",
+    "status": "Estado",
+    "active": "Activo",
+    "inactive": "Inactivo"
+  },
+  "onAuthSuccess": {
+    "title": "¡Registro Exitoso!",
+    "message": "Tu cuenta ha sido verificada exitosamente. Serás redirigido a la página de inicio de sesión en",
+    "seconds": "segundos",
+    "redirecting": "Redirigiendo a la página de inicio de sesión..."
   },
   "notFound": {
     "title": "Página No Encontrada",
-    "description": "La página que buscas no existe.",
-    "backHome": "Volver al Inicio"
-  },
-  "authSuccess": {
-    "title": "Registro Exitoso",
-    "description": "Tu cuenta ha sido verificada exitosamente. Redirigiendo a la página de inicio de sesión...",
-    "redirecting": "Redirigiendo en {{seconds}} segundos..."
+    "message": "La página que buscas no existe.",
+    "goHome": "Ir al Inicio"
   }
 }

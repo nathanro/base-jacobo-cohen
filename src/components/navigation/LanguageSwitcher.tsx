@@ -10,26 +10,32 @@ import {
 import { Globe } from 'lucide-react';
 
 const LanguageSwitcher: React.FC = () => {
-  const { i18n, t } = useTranslation();
+  const { i18n } = useTranslation();
 
   const handleLanguageChange = (value: string) => {
     i18n.changeLanguage(value);
     localStorage.setItem('language', value);
   };
 
+  const currentLanguage = i18n.language.startsWith('en') ? 'en' : 
+                         i18n.language.startsWith('es') ? 'es' : 'en';
+
   return (
-    <Select value={i18n.language} onValueChange={handleLanguageChange}>
+    <Select value={currentLanguage} onValueChange={handleLanguageChange}>
       <SelectTrigger className="w-[140px] h-9">
         <div className="flex items-center gap-2">
           <Globe className="h-4 w-4" />
-          <SelectValue />
+          <SelectValue>
+            {currentLanguage === 'es' ? 'Español' : 'English'}
+          </SelectValue>
         </div>
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="en">English</SelectItem>
         <SelectItem value="es">Español</SelectItem>
       </SelectContent>
-    </Select>);
+    </Select>
+  );
 
 };
 
