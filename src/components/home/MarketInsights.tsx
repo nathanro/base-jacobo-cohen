@@ -1,17 +1,17 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { 
-  TrendingUp, 
-  TrendingDown, 
-  Calendar, 
-  ArrowUpRight, 
-  BarChart3, 
-  Globe, 
-  DollarSign, 
-  Users, 
-  Zap 
-} from "lucide-react";
+import {
+  TrendingUp,
+  TrendingDown,
+  Calendar,
+  ArrowUpRight,
+  BarChart3,
+  Globe,
+  DollarSign,
+  Users,
+  Zap } from
+"lucide-react";
 import { useTranslation } from 'react-i18next';
 
 const insights = [
@@ -51,72 +51,72 @@ const insights = [
 
 export default function MarketInsights() {
   const { t } = useTranslation();
-  
+
   const keyMetrics = [
-    {
-      title: t('insights.metrics.globalMarket.title', 'Global Market Size'),
-      value: '$847.2B',
-      change: '+12.5%',
-      isPositive: true,
-      icon: Globe,
-      description: t('insights.metrics.globalMarket.description', 'Total addressable market across all sectors'),
-      period: '2024 YTD'
-    },
-    {
-      title: t('insights.metrics.techGrowth.title', 'Tech Sector Growth'),
-      value: '23.4%',
-      change: '+2.1%',
-      isPositive: true,
-      icon: TrendingUp,
-      description: t('insights.metrics.techGrowth.description', 'Year-over-year growth in technology markets'),
-      period: 'Q3 2024'
-    },
-    {
-      title: t('insights.metrics.consumerSpending.title', 'Consumer Spending'),
-      value: '$2.3T',
-      change: '-1.2%',
-      isPositive: false,
-      icon: DollarSign,
-      description: t('insights.metrics.consumerSpending.description', 'Total consumer spending across categories'),
-      period: 'Monthly'
-    },
-    {
-      title: t('insights.metrics.marketPenetration.title', 'Digital Adoption'),
-      value: '78.9%',
-      change: '+5.3%',
-      isPositive: true,
-      icon: Users,
-      description: t('insights.metrics.marketPenetration.description', 'Digital service adoption rate globally'),
-      period: '2024'
-    }
-  ];
+  {
+    title: t('insights.metrics.globalMarket.title', 'Global Market Size'),
+    value: '$847.2B',
+    change: '+12.5%',
+    isPositive: true,
+    icon: Globe,
+    description: t('insights.metrics.globalMarket.description', 'Total addressable market across all sectors'),
+    period: '2024 YTD'
+  },
+  {
+    title: t('insights.metrics.techGrowth.title', 'Tech Sector Growth'),
+    value: '23.4%',
+    change: '+2.1%',
+    isPositive: true,
+    icon: TrendingUp,
+    description: t('insights.metrics.techGrowth.description', 'Year-over-year growth in technology markets'),
+    period: 'Q3 2024'
+  },
+  {
+    title: t('insights.metrics.consumerSpending.title', 'Consumer Spending'),
+    value: '$2.3T',
+    change: '-1.2%',
+    isPositive: false,
+    icon: DollarSign,
+    description: t('insights.metrics.consumerSpending.description', 'Total consumer spending across categories'),
+    period: 'Monthly'
+  },
+  {
+    title: t('insights.metrics.marketPenetration.title', 'Digital Adoption'),
+    value: '78.9%',
+    change: '+5.3%',
+    isPositive: true,
+    icon: Users,
+    description: t('insights.metrics.marketPenetration.description', 'Digital service adoption rate globally'),
+    period: '2024'
+  }];
+
 
   const insights = [
-    {
-      title: t('insights.trending.ai.title', 'AI Market Explosion'),
-      description: t('insights.trending.ai.description', 'Artificial intelligence market projected to reach $1.8 trillion by 2030, driven by enterprise adoption and consumer applications.'),
-      impact: 'High',
-      category: 'Technology',
-      readTime: '5 min read',
-      color: 'blue'
-    },
-    {
-      title: t('insights.trending.sustainability.title', 'Sustainability Revolution'),
-      description: t('insights.trending.sustainability.description', 'Green technology investments surging as companies prioritize ESG initiatives and carbon neutrality goals.'),
-      impact: 'Medium',
-      category: 'Environment',
-      readTime: '3 min read',
-      color: 'green'
-    },
-    {
-      title: t('insights.trending.remote.title', 'Remote Work Evolution'),
-      description: t('insights.trending.remote.description', 'Hybrid work models becoming permanent, reshaping real estate, technology, and service industries globally.'),
-      impact: 'High',
-      category: 'Workplace',
-      readTime: '4 min read',
-      color: 'purple'
-    }
-  ];
+  {
+    title: t('insights.trending.ai.title', 'AI Market Explosion'),
+    description: t('insights.trending.ai.description', 'Artificial intelligence market projected to reach $1.8 trillion by 2030, driven by enterprise adoption and consumer applications.'),
+    impact: 'High',
+    category: 'Technology',
+    readTime: '5 min read',
+    color: 'blue'
+  },
+  {
+    title: t('insights.trending.sustainability.title', 'Sustainability Revolution'),
+    description: t('insights.trending.sustainability.description', 'Green technology investments surging as companies prioritize ESG initiatives and carbon neutrality goals.'),
+    impact: 'Medium',
+    category: 'Environment',
+    readTime: '3 min read',
+    color: 'green'
+  },
+  {
+    title: t('insights.trending.remote.title', 'Remote Work Evolution'),
+    description: t('insights.trending.remote.description', 'Hybrid work models becoming permanent, reshaping real estate, technology, and service industries globally.'),
+    impact: 'High',
+    category: 'Workplace',
+    readTime: '4 min read',
+    color: 'purple'
+  }];
+
 
   const getColorClasses = (color: string) => {
     const colors = {
@@ -157,11 +157,11 @@ export default function MarketInsights() {
                       <IconComponent className="w-6 h-6 text-blue-600" />
                     </div>
                     <div className={`flex items-center space-x-1 ${metric.isPositive ? 'text-green-600' : 'text-red-600'}`}>
-                      {metric.isPositive ? (
-                        <TrendingUp className="w-4 h-4" />
-                      ) : (
-                        <TrendingDown className="w-4 h-4" />
-                      )}
+                      {metric.isPositive ?
+                      <TrendingUp className="w-4 h-4" /> :
+
+                      <TrendingDown className="w-4 h-4" />
+                      }
                       <span className="text-sm font-medium">{metric.change}</span>
                     </div>
                   </div>
@@ -176,8 +176,8 @@ export default function MarketInsights() {
                     </div>
                   </div>
                 </CardContent>
-              </Card>
-            );
+              </Card>);
+
           })}
         </div>
 
@@ -194,8 +194,8 @@ export default function MarketInsights() {
           </div>
           
           <div className="grid md:grid-cols-3 gap-6">
-            {insights.map((insight, index) => (
-              <Card key={index} className="group hover:shadow-xl transition-all duration-300 cursor-pointer">
+            {insights.map((insight, index) =>
+            <Card key={index} className="group hover:shadow-xl transition-all duration-300 cursor-pointer">
                 <CardHeader className="space-y-4">
                   <div className="flex items-center justify-between">
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${getColorClasses(insight.color)}`}>
@@ -226,7 +226,7 @@ export default function MarketInsights() {
                   </div>
                 </CardContent>
               </Card>
-            ))}
+            )}
           </div>
         </div>
 
@@ -248,6 +248,6 @@ export default function MarketInsights() {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 }

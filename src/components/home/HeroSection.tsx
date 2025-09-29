@@ -5,7 +5,7 @@ import { TrendingUp, BarChart3, Globe, Users } from 'lucide-react';
 
 const HeroSection = () => {
   const { t } = useTranslation();
-  
+
   return (
     <section className="relative bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-20 md:py-32 overflow-hidden">
       {/* Background pattern */}
@@ -117,8 +117,8 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 export default HeroSection;

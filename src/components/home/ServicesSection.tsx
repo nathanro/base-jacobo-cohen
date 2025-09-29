@@ -1,91 +1,91 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from 'react-i18next';
-import { 
-  BarChart, 
-  TrendingUp, 
-  Users, 
-  Globe, 
-  Target, 
+import {
+  BarChart,
+  TrendingUp,
+  Users,
+  Globe,
+  Target,
   Zap,
   ArrowRight,
   CheckCircle,
   Database,
   Search,
-  PieChart
-} from 'lucide-react';
+  PieChart } from
+'lucide-react';
 
 const ServicesSection = () => {
   const { t } = useTranslation();
-  
+
   const services = [
-    {
-      title: t('services.marketAnalysis.title', 'Market Analysis'),
-      description: t('services.marketAnalysis.description', 'Comprehensive analysis of market trends, size, growth potential, and competitive landscape across industries.'),
-      icon: BarChart,
-      features: [
-        t('services.marketAnalysis.feature1', 'Market Size & Forecast'),
-        t('services.marketAnalysis.feature2', 'Competitive Analysis'),
-        t('services.marketAnalysis.feature3', 'Growth Opportunities')
-      ],
-      color: 'blue'
-    },
-    {
-      title: t('services.bigDataAnalytics.title', 'Big Data Analytics'),
-      description: t('services.bigDataAnalytics.description', 'Advanced analytics processing large datasets to extract valuable insights and patterns for strategic decision-making.'),
-      icon: Database,
-      features: [
-        t('services.bigDataAnalytics.feature1', 'Data Processing'),
-        t('services.bigDataAnalytics.feature2', 'Pattern Recognition'),
-        t('services.bigDataAnalytics.feature3', 'Predictive Modeling')
-      ],
-      color: 'green'
-    },
-    {
-      title: t('services.industryResearch.title', 'Industry Research'),
-      description: t('services.industryResearch.description', 'In-depth analysis of specific industries including market dynamics, key players, and regulatory environment.'),
-      icon: Search,
-      features: [
-        t('services.industryResearch.feature1', 'Sector Analysis'),
-        t('services.industryResearch.feature2', 'Competitive Landscape'),
-        t('services.industryResearch.feature3', 'Regulatory Insights')
-      ],
-      color: 'purple'
-    },
-    {
-      title: t('services.trendAnalysis.title', 'Trend Analysis'),
-      description: t('services.trendAnalysis.description', 'Predictive analytics and trend identification to help businesses stay ahead of market changes.'),
-      icon: TrendingUp,
-      features: [
-        t('services.trendAnalysis.feature1', 'Predictive Models'),
-        t('services.trendAnalysis.feature2', 'Industry Trends'),
-        t('services.trendAnalysis.feature3', 'Future Scenarios')
-      ],
-      color: 'orange'
-    },
-    {
-      title: t('services.globalMarketIntelligence.title', 'Global Intelligence'),
-      description: t('services.globalMarketIntelligence.description', 'International market research covering emerging and established markets worldwide.'),
-      icon: Globe,
-      features: [
-        t('services.globalMarketIntelligence.feature1', 'Regional Analysis'),
-        t('services.globalMarketIntelligence.feature2', 'Cross-cultural Studies'),
-        t('services.globalMarketIntelligence.feature3', 'Market Entry Strategy')
-      ],
-      color: 'red'
-    },
-    {
-      title: t('services.customResearch.title', 'Custom Research'),
-      description: t('services.customResearch.description', 'Tailored research solutions designed to meet specific business requirements and objectives.'),
-      icon: PieChart,
-      features: [
-        t('services.customResearch.feature1', 'Bespoke Methodology'),
-        t('services.customResearch.feature2', 'Dedicated Support'),
-        t('services.customResearch.feature3', 'Flexible Timeline')
-      ],
-      color: 'indigo'
-    }
-  ];
+  {
+    title: t('services.marketAnalysis.title', 'Market Analysis'),
+    description: t('services.marketAnalysis.description', 'Comprehensive analysis of market trends, size, growth potential, and competitive landscape across industries.'),
+    icon: BarChart,
+    features: [
+    t('services.marketAnalysis.feature1', 'Market Size & Forecast'),
+    t('services.marketAnalysis.feature2', 'Competitive Analysis'),
+    t('services.marketAnalysis.feature3', 'Growth Opportunities')],
+
+    color: 'blue'
+  },
+  {
+    title: t('services.bigDataAnalytics.title', 'Big Data Analytics'),
+    description: t('services.bigDataAnalytics.description', 'Advanced analytics processing large datasets to extract valuable insights and patterns for strategic decision-making.'),
+    icon: Database,
+    features: [
+    t('services.bigDataAnalytics.feature1', 'Data Processing'),
+    t('services.bigDataAnalytics.feature2', 'Pattern Recognition'),
+    t('services.bigDataAnalytics.feature3', 'Predictive Modeling')],
+
+    color: 'green'
+  },
+  {
+    title: t('services.industryResearch.title', 'Industry Research'),
+    description: t('services.industryResearch.description', 'In-depth analysis of specific industries including market dynamics, key players, and regulatory environment.'),
+    icon: Search,
+    features: [
+    t('services.industryResearch.feature1', 'Sector Analysis'),
+    t('services.industryResearch.feature2', 'Competitive Landscape'),
+    t('services.industryResearch.feature3', 'Regulatory Insights')],
+
+    color: 'purple'
+  },
+  {
+    title: t('services.trendAnalysis.title', 'Trend Analysis'),
+    description: t('services.trendAnalysis.description', 'Predictive analytics and trend identification to help businesses stay ahead of market changes.'),
+    icon: TrendingUp,
+    features: [
+    t('services.trendAnalysis.feature1', 'Predictive Models'),
+    t('services.trendAnalysis.feature2', 'Industry Trends'),
+    t('services.trendAnalysis.feature3', 'Future Scenarios')],
+
+    color: 'orange'
+  },
+  {
+    title: t('services.globalMarketIntelligence.title', 'Global Intelligence'),
+    description: t('services.globalMarketIntelligence.description', 'International market research covering emerging and established markets worldwide.'),
+    icon: Globe,
+    features: [
+    t('services.globalMarketIntelligence.feature1', 'Regional Analysis'),
+    t('services.globalMarketIntelligence.feature2', 'Cross-cultural Studies'),
+    t('services.globalMarketIntelligence.feature3', 'Market Entry Strategy')],
+
+    color: 'red'
+  },
+  {
+    title: t('services.customResearch.title', 'Custom Research'),
+    description: t('services.customResearch.description', 'Tailored research solutions designed to meet specific business requirements and objectives.'),
+    icon: PieChart,
+    features: [
+    t('services.customResearch.feature1', 'Bespoke Methodology'),
+    t('services.customResearch.feature2', 'Dedicated Support'),
+    t('services.customResearch.feature3', 'Flexible Timeline')],
+
+    color: 'indigo'
+  }];
+
 
   const getColorClasses = (color: string) => {
     const colors = {
@@ -151,7 +151,7 @@ const ServicesSection = () => {
           {services.map((service, index) => {
             const IconComponent = service.icon;
             const colors = getColorClasses(service.color);
-            
+
             return (
               <Card key={index} className="group hover:shadow-xl transition-all duration-300 border-0 shadow-lg hover:-translate-y-2">
                 <CardHeader className="space-y-4">
@@ -168,24 +168,24 @@ const ServicesSection = () => {
                   </p>
                   
                   <div className="space-y-3">
-                    {service.features.map((feature, featureIndex) => (
-                      <div key={featureIndex} className="flex items-center space-x-2">
+                    {service.features.map((feature, featureIndex) =>
+                    <div key={featureIndex} className="flex items-center space-x-2">
                         <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
                         <span className="text-sm text-muted-foreground">{feature}</span>
                       </div>
-                    ))}
+                    )}
                   </div>
                   
-                  <Button 
-                    variant="ghost" 
-                    className={`w-full justify-between group-hover:bg-opacity-100 transition-all duration-300 ${colors.button}`}
-                  >
+                  <Button
+                    variant="ghost"
+                    className={`w-full justify-between group-hover:bg-opacity-100 transition-all duration-300 ${colors.button}`}>
+
                     {t('services.learnMore', 'Learn More')}
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                   </Button>
                 </CardContent>
-              </Card>
-            );
+              </Card>);
+
           })}
         </div>
         
@@ -209,8 +209,8 @@ const ServicesSection = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 
 };
 

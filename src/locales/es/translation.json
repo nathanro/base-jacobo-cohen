@@ -9,17 +9,100 @@
     "language": "Idioma"
   },
   "hero": {
-    "title1": "Análisis de Big Data",
-    "title2": "Investigación de Mercados",
-    "title": "Análisis de Big Data e Investigación de Mercados Líder",
-    "subtitle": "Desbloquea el poder de los insights basados en datos con nuestras soluciones integrales de análisis de big data e investigación de mercados. Transforma tus decisiones de negocio con inteligencia en tiempo real y análisis predictivos.",
-    "cta": "Comenzar",
-    "cta1": "Explorar Soluciones",
-    "cta2": "Ver Demo",
-    "learnMore": "Saber Más",
-    "stat1": "Informes de Investigación",
-    "stat2": "Sectores Industriales",
-    "stat3": "Puntos de Datos Analizados"
+    "title": "Big Data para Análisis de Inversiones Financieras",
+    "subtitle": "Analiza grandes cantidades de información de forma rápida para tomar mejores decisiones de inversión utilizando el poder del Big Data",
+    "description": "Nuestra plataforma utiliza tecnología de Big Data para procesar y analizar miles de empresas, permitiéndote identificar oportunidades de inversión con datos precisos y análisis profundo.",
+    "cta1": "Solicitar Demo",
+    "cta2": "Ver Análisis",
+    "stat1": "5,000+ Empresas Analizadas",
+    "stat2": "4 Años de Datos Históricos",
+    "stat3": "81 Empresas con 1000%+ Crecimiento"
+  },
+  "keyMetrics": {
+    "title": "6 Puntos de Datos Clave para Decisiones de Inversión",
+    "subtitle": "Nuestro análisis se basa en métricas fundamentales que determinan el éxito empresarial",
+    "salesGrowth": {
+      "title": "Crecimiento de Ventas",
+      "description": "Análisis del crecimiento anual de ventas para identificar tendencias sostenibles"
+    },
+    "debtLevels": {
+      "title": "Niveles de Deuda",
+      "description": "Evaluación de la estructura de deuda y capacidad financiera"
+    },
+    "grossMargin": {
+      "title": "Margen Bruto",
+      "description": "Análisis de rentabilidad y eficiencia operativa"
+    },
+    "economicSector": {
+      "title": "Sector Económico",
+      "description": "Clasificación y análisis sectorial para diversificación"
+    },
+    "historicalData": {
+      "title": "4 Años de Datos Históricos",
+      "description": "Tendencias y patrones a largo plazo para predicciones precisas"
+    },
+    "companiesAnalyzed": {
+      "title": "5,000 Empresas Analizadas",
+      "description": "Base de datos comprensiva con análisis detallado"
+    }
+  },
+  "targetAudience": {
+    "title": "¿Para Quién es Esta Plataforma?",
+    "subtitle": "Diseñado para profesionales que buscan maximizar sus decisiones de inversión",
+    "decisionMakers": {
+      "title": "Tomadores de Decisiones de Inversión",
+      "description": "Gerentes de portafolio, directores financieros y ejecutivos que necesitan análisis precisos para decisiones estratégicas"
+    },
+    "financialAdvisors": {
+      "title": "Asesores Financieros",
+      "description": "Profesionales que asesoran clientes sobre inversiones y necesitan datos confiables para sus recomendaciones"
+    },
+    "patternSeekers": {
+      "title": "Buscadores de Patrones",
+      "description": "Analistas que buscan identificar tendencias y patrones en grandes volúmenes de datos financieros"
+    },
+    "competitiveAdvantage": {
+      "title": "Buscadores de Ventaja Competitiva",
+      "description": "Inversores que buscan información privilegiada y análisis avanzado para superar al mercado"
+    }
+  },
+  "researcher": {
+    "title": "Conoce al Investigador",
+    "name": "Jacobo Cohen Amiga",
+    "credentials": {
+      "author": "Autor de 3 Libros Especializados",
+      "speaker": "Conferenciante Profesional",
+      "podcast": "Presentador del Financial Club Podcast",
+      "investor": "Inversor en Bolsa con Experiencia",
+      "followers": "10K+ Seguidores en Redes Sociales",
+      "programmer": "Programador Python Especializado"
+    },
+    "description": "Con más de una década de experiencia en análisis financiero y tecnología, Jacobo combina conocimiento profundo de mercados con habilidades técnicas avanzadas en programación y Big Data.",
+    "expertise": "Especializado en identificar empresas con alto potencial de crecimiento mediante análisis cuantitativo y técnicas de machine learning."
+  },
+  "demoBenefits": {
+    "title": "¿Qué Obtienes en Nuestra Demo?",
+    "subtitle": "Una experiencia completa de la plataforma con acceso a análisis reales",
+    "platformOverview": {
+      "title": "Visión General de la Plataforma",
+      "description": "Conoce todas las funcionalidades y herramientas disponibles"
+    },
+    "marketAccess": {
+      "title": "Acceso a Información de Mercado",
+      "description": "Explora datos en tiempo real y análisis históricos"
+    },
+    "topCompanies": {
+      "title": "81 Empresas que Crecieron 1000%+",
+      "description": "Análisis detallado de las empresas con mejor rendimiento en 4 años"
+    },
+    "diversification": {
+      "title": "Estrategias de Diversificación",
+      "description": "Aprende cómo distribuir inversiones por sectores y regiones"
+    },
+    "growthIdentification": {
+      "title": "Identificación de Empresas en Crecimiento",
+      "description": "Metodología para detectar oportunidades antes que el mercado"
+    }
   },
   "services": {
     "title": "Nuestros Servicios",

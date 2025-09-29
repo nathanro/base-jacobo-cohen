@@ -2,91 +2,91 @@ import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
-import { 
-  Award, 
-  Users, 
-  Globe, 
-  TrendingUp, 
-  Shield, 
+import {
+  Award,
+  Users,
+  Globe,
+  TrendingUp,
+  Shield,
   Zap,
   CheckCircle,
   ArrowRight,
   Building,
   Calendar,
-  Target
-} from 'lucide-react';
+  Target } from
+'lucide-react';
 
 export default function CompanyInfo() {
   const { t } = useTranslation();
-  
+
   const stats = [
-    {
-      value: '15+',
-      label: t('company.stats.experience', 'Years of Experience'),
-      icon: Calendar,
-      description: t('company.stats.experienceDesc', 'Leading market research since 2009')
-    },
-    {
-      value: '500+',
-      label: t('company.stats.reports', 'Research Reports'),
-      icon: Award,
-      description: t('company.stats.reportsDesc', 'Comprehensive industry analysis')
-    },
-    {
-      value: '50+',
-      label: t('company.stats.industries', 'Industries Covered'),
-      icon: Building,
-      description: t('company.stats.industriesDesc', 'Cross-sector expertise')
-    },
-    {
-      value: '10K+',
-      label: t('company.stats.clients', 'Global Clients'),
-      icon: Users,
-      description: t('company.stats.clientsDesc', 'Trusted by Fortune 500 companies')
-    },
-    {
-      value: '195',
-      label: t('company.stats.countries', 'Countries'),
-      icon: Globe,
-      description: t('company.stats.countriesDesc', 'Worldwide market coverage')
-    },
-    {
-      value: '98%',
-      label: t('company.stats.satisfaction', 'Client Satisfaction'),
-      icon: Target,
-      description: t('company.stats.satisfactionDesc', 'Exceptional service quality')
-    }
-  ];
+  {
+    value: '15+',
+    label: t('company.stats.experience', 'Years of Experience'),
+    icon: Calendar,
+    description: t('company.stats.experienceDesc', 'Leading market research since 2009')
+  },
+  {
+    value: '500+',
+    label: t('company.stats.reports', 'Research Reports'),
+    icon: Award,
+    description: t('company.stats.reportsDesc', 'Comprehensive industry analysis')
+  },
+  {
+    value: '50+',
+    label: t('company.stats.industries', 'Industries Covered'),
+    icon: Building,
+    description: t('company.stats.industriesDesc', 'Cross-sector expertise')
+  },
+  {
+    value: '10K+',
+    label: t('company.stats.clients', 'Global Clients'),
+    icon: Users,
+    description: t('company.stats.clientsDesc', 'Trusted by Fortune 500 companies')
+  },
+  {
+    value: '195',
+    label: t('company.stats.countries', 'Countries'),
+    icon: Globe,
+    description: t('company.stats.countriesDesc', 'Worldwide market coverage')
+  },
+  {
+    value: '98%',
+    label: t('company.stats.satisfaction', 'Client Satisfaction'),
+    icon: Target,
+    description: t('company.stats.satisfactionDesc', 'Exceptional service quality')
+  }];
+
 
   const values = [
-    {
-      title: t('company.values.accuracy.title', 'Data Accuracy'),
-      description: t('company.values.accuracy.description', 'Rigorous data verification and validation processes ensure the highest quality insights.'),
-      icon: Shield,
-      color: 'blue'
-    },
-    {
-      title: t('company.values.innovation.title', 'Innovation'),
-      description: t('company.values.innovation.description', 'Cutting-edge research methodologies and analytical tools for comprehensive market intelligence.'),
-      icon: Zap,
-      color: 'purple'
-    },
-    {
-      title: t('company.values.expertise.title', 'Industry Expertise'),
-      description: t('company.values.expertise.description', 'Deep domain knowledge across sectors with specialized research teams.'),
-      icon: TrendingUp,
-      color: 'green'
-    }
-  ];
+  {
+    title: t('company.values.accuracy.title', 'Data Accuracy'),
+    description: t('company.values.accuracy.description', 'Rigorous data verification and validation processes ensure the highest quality insights.'),
+    icon: Shield,
+    color: 'blue'
+  },
+  {
+    title: t('company.values.innovation.title', 'Innovation'),
+    description: t('company.values.innovation.description', 'Cutting-edge research methodologies and analytical tools for comprehensive market intelligence.'),
+    icon: Zap,
+    color: 'purple'
+  },
+  {
+    title: t('company.values.expertise.title', 'Industry Expertise'),
+    description: t('company.values.expertise.description', 'Deep domain knowledge across sectors with specialized research teams.'),
+    icon: TrendingUp,
+    color: 'green'
+  }];
+
 
   const achievements = [
-    t('company.achievements.item1', 'ISO 27001 Certified for Information Security'),
-    t('company.achievements.item2', 'Recognized as Top Market Research Firm by Industry Awards'),
-    t('company.achievements.item3', 'Featured in leading business publications and media'),
-    t('company.achievements.item4', 'Strategic partnerships with global consulting firms'),
-    t('company.achievements.item5', 'Advanced AI and ML capabilities for data analysis'),
-    t('company.achievements.item6', 'Real-time market monitoring and alert systems')
-  ];
+  t('company.achievements.item1', 'ISO 27001 Certified for Information Security'),
+  t('company.achievements.item2', 'Recognized as Top Market Research Firm by Industry Awards'),
+  t('company.achievements.item3', 'Featured in leading business publications and media'),
+  t('company.achievements.item4', 'Strategic partnerships with global consulting firms'),
+  t('company.achievements.item5', 'Advanced AI and ML capabilities for data analysis'),
+  t('company.achievements.item6', 'Real-time market monitoring and alert systems')];
+
 
   const getColorClasses = (color: string) => {
     const colors = {
@@ -146,8 +146,8 @@ export default function CompanyInfo() {
                     {stat.description}
                   </p>
                 </CardContent>
-              </Card>
-            );
+              </Card>);
+
           })}
         </div>
 
@@ -173,8 +173,8 @@ export default function CompanyInfo() {
                       {value.description}
                     </p>
                   </CardContent>
-                </Card>
-              );
+                </Card>);
+
             })}
           </div>
         </div>
@@ -185,12 +185,12 @@ export default function CompanyInfo() {
             {t('company.achievements.title', 'Our Achievements')}
           </h3>
           <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-            {achievements.map((achievement, index) => (
-              <div key={index} className="flex items-center space-x-3 p-4 bg-gray-50 rounded-lg">
+            {achievements.map((achievement, index) =>
+            <div key={index} className="flex items-center space-x-3 p-4 bg-gray-50 rounded-lg">
                 <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
                 <span className="text-gray-700">{achievement}</span>
               </div>
-            ))}
+            )}
           </div>
         </div>
 
@@ -215,6 +215,6 @@ export default function CompanyInfo() {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 }
