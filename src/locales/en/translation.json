@@ -9,51 +9,51 @@
     "language": "Language"
   },
   "hero": {
-    "title": "Professional Financial Data Analytics",
-    "subtitle": "Access comprehensive financial datasets and market intelligence to make informed investment decisions.",
+    "title": "Leading Big Data Market Research",
+    "subtitle": "Unlock the power of data-driven insights with our comprehensive big data analytics and market research solutions. Transform your business decisions with real-time intelligence and predictive analytics.",
     "cta": "Get Started",
     "learnMore": "Learn More"
   },
   "services": {
     "title": "Our Services",
-    "subtitle": "Comprehensive financial data solutions for your business needs",
+    "subtitle": "Comprehensive big data solutions and market research services for enterprise success",
     "realTimeData": {
-      "title": "Real-time Data",
-      "description": "Access live market data and financial information as it happens."
+      "title": "Real-Time Analytics",
+      "description": "Access live market data streams and real-time analytics dashboards for instant business insights and competitive intelligence."
     },
     "historicalAnalysis": {
-      "title": "Historical Analysis",
-      "description": "Comprehensive historical data analysis for informed decision making."
+      "title": "Predictive Analytics",
+      "description": "Leverage machine learning algorithms and historical data patterns to forecast market trends and consumer behavior."
     },
     "customReports": {
-      "title": "Custom Reports",
-      "description": "Tailored reports and analytics based on your specific requirements."
+      "title": "Custom Research Reports",
+      "description": "Tailored market research reports and data visualization solutions designed specifically for your industry and business needs."
     }
   },
   "marketInsights": {
-    "title": "Market Insights",
-    "subtitle": "Stay ahead with our latest market analysis and trends",
+    "title": "Market Intelligence",
+    "subtitle": "Stay ahead of the competition with cutting-edge market insights powered by big data analytics",
     "viewAll": "View All Insights"
   },
   "featuredReports": {
-    "title": "Featured Reports",
-    "subtitle": "In-depth analysis and comprehensive market reports",
+    "title": "Featured Research Reports",
+    "subtitle": "In-depth market analysis and comprehensive industry reports backed by big data research",
     "downloadReport": "Download Report"
   },
   "companyInfo": {
-    "title": "About Our Company",
-    "description": "We are a leading provider of financial data and analytics solutions, serving institutional investors, corporations, and financial professionals worldwide.",
+    "title": "About DataInsights Analytics",
+    "description": "We are a premier big data market research company, providing advanced analytics solutions to Fortune 500 companies, startups, and government organizations worldwide. Our expertise spans across multiple industries including technology, healthcare, finance, and retail.",
     "experience": "Years of Experience",
     "clients": "Global Clients",
-    "datasets": "Datasets Available"
+    "datasets": "Data Points Analyzed"
   },
   "contact": {
-    "title": "Contact Us",
-    "subtitle": "Get in touch with our team for more information",
-    "name": "Name",
-    "email": "Email",
-    "message": "Message",
-    "send": "Send Message",
+    "title": "Contact Our Research Team",
+    "subtitle": "Get in touch with our big data experts for customized market research solutions",
+    "name": "Full Name",
+    "email": "Business Email",
+    "message": "Research Requirements",
+    "send": "Send Inquiry",
     "address": "Address",
     "phone": "Phone",
     "businessHours": "Business Hours"
@@ -78,23 +78,23 @@
   },
   "account": {
     "title": "Account Settings",
-    "subscription": "Subscription",
+    "subscription": "Research Subscription",
     "profile": "Profile Information",
     "billing": "Billing Information"
   },
   "admin": {
     "title": "Admin Dashboard",
-    "uploadData": "Upload Data",
+    "uploadData": "Upload Research Data",
     "manageUsers": "Manage Users",
     "selectFile": "Select File",
     "upload": "Upload",
-    "dragDropFile": "Drag and drop your Excel file here, or click to select",
-    "supportedFormats": "Supported formats: .xlsx, .xls"
+    "dragDropFile": "Drag and drop your research data file here, or click to select",
+    "supportedFormats": "Supported formats: .xlsx, .xls, .csv"
   },
   "datasetView": {
-    "title": "Financial Dataset",
-    "filters": "Filters",
-    "export": "Export",
+    "title": "Big Data Research Portal",
+    "filters": "Data Filters",
+    "export": "Export Data",
     "loading": "Loading...",
     "noData": "No data available",
     "rowsPerPage": "Rows per page",
@@ -103,9 +103,9 @@
     "next": "Next"
   },
   "subscription": {
-    "title": "Subscription Plans",
+    "title": "Research Plans",
     "currentPlan": "Current Plan",
-    "upgrade": "Upgrade",
+    "upgrade": "Upgrade Plan",
     "features": "Features included",
     "price": "Price"
   },

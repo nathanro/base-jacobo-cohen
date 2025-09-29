@@ -4,7 +4,7 @@ import { ArrowRight, BarChart3, TrendingUp } from "lucide-react";
 
 const HeroSection = () => {
   const { t } = useTranslation();
-  
+
   return (
     <section className="relative bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-20 lg:py-32">
       <div className="absolute inset-0 bg-grid-slate-900/[0.04] bg-[size:75px_75px]" />

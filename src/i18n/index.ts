@@ -7,22 +7,22 @@ import esTranslation from '../locales/es/translation.json';
 
 const resources = {
   en: {
-    translation: enTranslation,
+    translation: enTranslation
   },
   es: {
-    translation: esTranslation,
-  },
+    translation: esTranslation
+  }
 };
 
-i18n
-  .use(initReactI18next)
-  .init({
-    resources,
-    lng: localStorage.getItem('language') || 'en', // Default language
-    fallbackLng: 'en',
-    interpolation: {
-      escapeValue: false, // React already does escaping
-    },
-  });
+i18n.
+use(initReactI18next).
+init({
+  resources,
+  lng: localStorage.getItem('language') || 'en', // Default language
+  fallbackLng: 'en',
+  interpolation: {
+    escapeValue: false // React already does escaping
+  }
+});
 
 export default i18n;

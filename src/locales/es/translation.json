@@ -9,51 +9,51 @@
     "language": "Idioma"
   },
   "hero": {
-    "title": "Análisis Profesional de Datos Financieros",
-    "subtitle": "Accede a conjuntos de datos financieros completos e inteligencia de mercado para tomar decisiones de inversión informadas.",
+    "title": "Líder en Investigación de Mercado con Big Data",
+    "subtitle": "Desbloquea el poder de los insights basados en datos con nuestras soluciones integrales de análisis de big data e investigación de mercado. Transforma tus decisiones empresariales con inteligencia en tiempo real y analítica predictiva.",
     "cta": "Comenzar",
     "learnMore": "Saber Más"
   },
   "services": {
     "title": "Nuestros Servicios",
-    "subtitle": "Soluciones integrales de datos financieros para las necesidades de su negocio",
+    "subtitle": "Soluciones integrales de big data y servicios de investigación de mercado para el éxito empresarial",
     "realTimeData": {
-      "title": "Datos en Tiempo Real",
-      "description": "Accede a datos de mercado en vivo e información financiera mientras sucede."
+      "title": "Analytics en Tiempo Real",
+      "description": "Accede a flujos de datos de mercado en vivo y dashboards de analytics en tiempo real para insights empresariales instantáneos e inteligencia competitiva."
     },
     "historicalAnalysis": {
-      "title": "Análisis Histórico",
-      "description": "Análisis completo de datos históricos para la toma de decisiones informadas."
+      "title": "Analytics Predictivo",
+      "description": "Aprovecha algoritmos de machine learning y patrones de datos históricos para pronosticar tendencias de mercado y comportamiento del consumidor."
     },
     "customReports": {
-      "title": "Informes Personalizados",
-      "description": "Informes y análisis personalizados basados en sus requisitos específicos."
+      "title": "Reportes de Investigación Personalizados",
+      "description": "Reportes de investigación de mercado personalizados y soluciones de visualización de datos diseñados específicamente para tu industria y necesidades empresariales."
     }
   },
   "marketInsights": {
-    "title": "Perspectivas del Mercado",
-    "subtitle": "Mantente a la vanguardia con nuestro último análisis de mercado y tendencias",
-    "viewAll": "Ver Todas las Perspectivas"
+    "title": "Inteligencia de Mercado",
+    "subtitle": "Mantente por delante de la competencia con insights de mercado de vanguardia impulsados por analytics de big data",
+    "viewAll": "Ver Todos los Insights"
   },
   "featuredReports": {
-    "title": "Informes Destacados",
-    "subtitle": "Análisis en profundidad e informes completos del mercado",
-    "downloadReport": "Descargar Informe"
+    "title": "Reportes de Investigación Destacados",
+    "subtitle": "Análisis de mercado en profundidad y reportes industriales integrales respaldados por investigación de big data",
+    "downloadReport": "Descargar Reporte"
   },
   "companyInfo": {
-    "title": "Acerca de Nuestra Empresa",
-    "description": "Somos un proveedor líder de soluciones de datos financieros y análisis, sirviendo a inversores institucionales, corporaciones y profesionales financieros en todo el mundo.",
+    "title": "Acerca de DataInsights Analytics",
+    "description": "Somos una empresa premier de investigación de mercado con big data, proporcionando soluciones de analytics avanzado a empresas Fortune 500, startups y organizaciones gubernamentales en todo el mundo. Nuestra experiencia abarca múltiples industrias incluyendo tecnología, salud, finanzas y retail.",
     "experience": "Años de Experiencia",
     "clients": "Clientes Globales",
-    "datasets": "Conjuntos de Datos Disponibles"
+    "datasets": "Puntos de Datos Analizados"
   },
   "contact": {
-    "title": "Contáctanos",
-    "subtitle": "Ponte en contacto con nuestro equipo para más información",
-    "name": "Nombre",
-    "email": "Correo Electrónico",
-    "message": "Mensaje",
-    "send": "Enviar Mensaje",
+    "title": "Contacta Nuestro Equipo de Investigación",
+    "subtitle": "Ponte en contacto con nuestros expertos en big data para soluciones personalizadas de investigación de mercado",
+    "name": "Nombre Completo",
+    "email": "Email Empresarial",
+    "message": "Requerimientos de Investigación",
+    "send": "Enviar Consulta",
     "address": "Dirección",
     "phone": "Teléfono",
     "businessHours": "Horario Comercial"
@@ -78,23 +78,23 @@
   },
   "account": {
     "title": "Configuración de Cuenta",
-    "subscription": "Suscripción",
+    "subscription": "Suscripción de Investigación",
     "profile": "Información del Perfil",
     "billing": "Información de Facturación"
   },
   "admin": {
     "title": "Panel de Administración",
-    "uploadData": "Subir Datos",
+    "uploadData": "Subir Datos de Investigación",
     "manageUsers": "Administrar Usuarios",
     "selectFile": "Seleccionar Archivo",
     "upload": "Subir",
-    "dragDropFile": "Arrastra y suelta tu archivo Excel aquí, o haz clic para seleccionar",
-    "supportedFormats": "Formatos soportados: .xlsx, .xls"
+    "dragDropFile": "Arrastra y suelta tu archivo de datos de investigación aquí, o haz clic para seleccionar",
+    "supportedFormats": "Formatos soportados: .xlsx, .xls, .csv"
   },
   "datasetView": {
-    "title": "Conjunto de Datos Financieros",
-    "filters": "Filtros",
-    "export": "Exportar",
+    "title": "Portal de Investigación Big Data",
+    "filters": "Filtros de Datos",
+    "export": "Exportar Datos",
     "loading": "Cargando...",
     "noData": "No hay datos disponibles",
     "rowsPerPage": "Filas por página",
@@ -103,9 +103,9 @@
     "next": "Siguiente"
   },
   "subscription": {
-    "title": "Planes de Suscripción",
+    "title": "Planes de Investigación",
     "currentPlan": "Plan Actual",
-    "upgrade": "Actualizar",
+    "upgrade": "Actualizar Plan",
     "features": "Características incluidas",
     "price": "Precio"
   },

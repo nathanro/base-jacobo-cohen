@@ -35,9 +35,10 @@ export function Navigation() {
   const isAdmin = user.Roles.includes('Administrator');
 
   const navItems = [
-  { path: '/', label: 'Home', icon: Home },
-  { path: '/account', label: 'Account', icon: User },
-  ...(isAdmin ? [{ path: '/admin', label: 'Admin', icon: Shield }] : [])];
+  { path: '/', label: t('navigation.home'), icon: Home },
+  { path: '/datasets', label: t('navigation.datasets'), icon: Database },
+  { path: '/account', label: t('navigation.account'), icon: User },
+  ...(isAdmin ? [{ path: '/admin', label: t('navigation.admin'), icon: Shield }] : [])];
 
 
   const handleSignOut = async () => {
@@ -59,8 +60,8 @@ export function Navigation() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <Link to="/" className="text-xl font-bold text-gray-900">
-              Financial Data Platform
+            <Link to="/" className="text-xl font-bold text-blue-600">
+              DataInsights Analytics
             </Link>
           </div>
 
@@ -87,7 +88,11 @@ export function Navigation() {
             })}
 
             {/* Language Switcher */}
-            <LanguageSwitcher />
+            <div className="pt-3 border-t border-gray-200">
+              <div className="mb-3">
+                <LanguageSwitcher />
+              </div>
+            </div>
 
             {/* User Menu */}
             <DropdownMenu>
@@ -110,12 +115,12 @@ export function Navigation() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => navigate('/account')}>
                   <Settings className="mr-2 h-4 w-4" />
-                  Account Settings
+                  {t('navigation.account')}
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleSignOut} className="text-red-600">
                   <LogOut className="mr-2 h-4 w-4" />
-                  Sign Out
+                  {t('navigation.logout')}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -183,7 +188,7 @@ export function Navigation() {
                 }}>
 
                   <LogOut className="mr-2 h-4 w-4" />
-                  Sign Out
+                  {t('navigation.logout')}
                 </Button>
               </div>
             </div>

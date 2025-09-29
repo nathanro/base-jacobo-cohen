@@ -37,39 +37,39 @@ const services = [
 
 const ServicesSection = () => {
   const { t } = useTranslation();
-  
+
   const services = [
-    {
-      icon: BarChart,
-      titleKey: "services.marketAnalysis.title",
-      descriptionKey: "services.marketAnalysis.description"
-    },
-    {
-      icon: Database,
-      titleKey: "services.bigDataAnalytics.title",
-      descriptionKey: "services.bigDataAnalytics.description"
-    },
-    {
-      icon: Search,
-      titleKey: "services.industryResearch.title",
-      descriptionKey: "services.industryResearch.description"
-    },
-    {
-      icon: TrendingUp,
-      titleKey: "services.trendAnalysis.title",
-      descriptionKey: "services.trendAnalysis.description"
-    },
-    {
-      icon: Globe,
-      titleKey: "services.globalMarketIntelligence.title",
-      descriptionKey: "services.globalMarketIntelligence.description"
-    },
-    {
-      icon: PieChart,
-      titleKey: "services.customResearch.title",
-      descriptionKey: "services.customResearch.description"
-    }
-  ];
+  {
+    icon: BarChart,
+    titleKey: "services.marketAnalysis.title",
+    descriptionKey: "services.marketAnalysis.description"
+  },
+  {
+    icon: Database,
+    titleKey: "services.bigDataAnalytics.title",
+    descriptionKey: "services.bigDataAnalytics.description"
+  },
+  {
+    icon: Search,
+    titleKey: "services.industryResearch.title",
+    descriptionKey: "services.industryResearch.description"
+  },
+  {
+    icon: TrendingUp,
+    titleKey: "services.trendAnalysis.title",
+    descriptionKey: "services.trendAnalysis.description"
+  },
+  {
+    icon: Globe,
+    titleKey: "services.globalMarketIntelligence.title",
+    descriptionKey: "services.globalMarketIntelligence.description"
+  },
+  {
+    icon: PieChart,
+    titleKey: "services.customResearch.title",
+    descriptionKey: "services.customResearch.description"
+  }];
+
 
   return (
     <section className="py-20 bg-gray-50">

@@ -83,8 +83,8 @@ const ResetPassword = () => {
             <Loader2 className="w-8 h-8 animate-spin" />
           </CardContent>
         </Card>
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -143,14 +143,14 @@ const ResetPassword = () => {
                 className="w-full"
                 disabled={isLoading}>
 
-                {isLoading ? (
-                  <>
+                {isLoading ?
+                <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     {t('common.loading')}
-                  </>
-                ) : (
-                  t('auth.resetPassword')
-                )}
+                  </> :
+
+                t('auth.resetPassword')
+                }
               </Button>
             </CardContent>
           </form>

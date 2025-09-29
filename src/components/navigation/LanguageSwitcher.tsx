@@ -5,8 +5,8 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+  SelectValue } from
+'@/components/ui/select';
 import { Globe } from 'lucide-react';
 
 const LanguageSwitcher: React.FC = () => {
@@ -29,8 +29,8 @@ const LanguageSwitcher: React.FC = () => {
         <SelectItem value="en">English</SelectItem>
         <SelectItem value="es">Español</SelectItem>
       </SelectContent>
-    </Select>
-  );
+    </Select>);
+
 };
 
 export default LanguageSwitcher;

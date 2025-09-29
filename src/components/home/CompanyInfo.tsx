@@ -21,12 +21,12 @@ const achievements = [
 
 const CompanyInfo = () => {
   const { t } = useTranslation();
-  
+
   const stats = [
-    { number: "15+", labelKey: "companyInfo.experience" },
-    { number: "500+", labelKey: "companyInfo.clients" },
-    { number: "10K+", labelKey: "companyInfo.datasets" }
-  ];
+  { number: "15+", labelKey: "companyInfo.experience" },
+  { number: "500+", labelKey: "companyInfo.clients" },
+  { number: "10K+", labelKey: "companyInfo.datasets" }];
+
 
   return (
     <section className="py-20 bg-gray-50">
@@ -40,12 +40,12 @@ const CompanyInfo = () => {
               {t('companyInfo.description')}
             </p>
             <div className="grid grid-cols-3 gap-8">
-              {stats.map((stat, index) => (
-                <div key={index} className="text-center">
+              {stats.map((stat, index) =>
+              <div key={index} className="text-center">
                   <div className="text-3xl font-bold text-blue-600 mb-2">{stat.number}</div>
                   <div className="text-sm text-gray-600">{t(stat.labelKey)}</div>
                 </div>
-              ))}
+              )}
             </div>
           </div>
           
@@ -63,8 +63,8 @@ const CompanyInfo = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 
 };
 
