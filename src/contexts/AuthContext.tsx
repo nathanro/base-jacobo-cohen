@@ -6,6 +6,8 @@ type UserInfo = {
   Email: string;
   CreateTime: string;
   Roles: string;
+  RoleCode?: string;
+  RoleName?: string;
 };
 
 type AuthContextType = {
@@ -13,6 +15,7 @@ type AuthContextType = {
   loading: boolean;
   signOut: () => Promise<void>;
   refetchUser: () => Promise<void>;
+  isAdmin: boolean;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -66,11 +69,14 @@ export function AuthProvider({ children }: {children: ReactNode;}) {
     }
   };
 
+  const isAdmin = user?.Roles?.includes('Administrator') || false;
+
   const value = {
     user,
     loading,
     signOut,
-    refetchUser
+    refetchUser,
+    isAdmin
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

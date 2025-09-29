@@ -16,7 +16,10 @@
     "cta": "Comenzar",
     "cta1": "Explorar Soluciones",
     "cta2": "Ver Demo",
-    "learnMore": "Saber Más"
+    "learnMore": "Saber Más",
+    "stat1": "Reportes de Investigación",
+    "stat2": "Sectores Industriales",
+    "stat3": "Puntos de Datos Analizados"
   },
   "services": {
     "title": "Nuestros Servicios",
@@ -32,6 +35,30 @@
     "customReports": {
       "title": "Reportes de Investigación Personalizados",
       "description": "Reportes de investigación de mercado personalizados y soluciones de visualización de datos diseñados específicamente para tu industria y necesidades empresariales."
+    },
+    "marketAnalysis": {
+      "title": "Análisis de Mercado",
+      "description": "Análisis integral del tamaño del mercado, tendencias de crecimiento y panorama competitivo en diversas industrias y regiones."
+    },
+    "bigDataAnalytics": {
+      "title": "Analytics de Big Data",
+      "description": "Modelos de analytics avanzado y machine learning para extraer insights significativos de grandes conjuntos de datos."
+    },
+    "industryResearch": {
+      "title": "Investigación Industrial",
+      "description": "Estudios industriales en profundidad que cubren dinámicas de mercado, actores clave y oportunidades emergentes."
+    },
+    "trendAnalysis": {
+      "title": "Análisis de Tendencias",
+      "description": "Identificación y análisis de tendencias de mercado, patrones de comportamiento del consumidor y proyecciones futuras."
+    },
+    "globalMarketIntelligence": {
+      "title": "Inteligencia de Mercado Global",
+      "description": "Insights de mercado transfronterizo y estrategias de expansión internacional para empresas globales."
+    },
+    "customResearch": {
+      "title": "Investigación Personalizada",
+      "description": "Soluciones de investigación personalizadas diseñadas para satisfacer necesidades empresariales específicas y objetivos estratégicos."
     }
   },
   "marketInsights": {
@@ -141,5 +168,29 @@
     "title": "Página No Encontrada",
     "message": "La página que está buscando no existe.",
     "goHome": "Ir al Inicio"
+  },
+  "admin": {
+    "title": "Panel de Administración",
+    "loading": "Cargando...",
+    "accessDenied": "Acceso Denegado",
+    "noPermission": "No tienes permiso para acceder a esta página.",
+    "backToHome": "Volver al Inicio",
+    "welcomeTitle": "Bienvenido Administrador",
+    "userName": "Usuario:",
+    "userEmail": "Email:",
+    "userRole": "Rol:",
+    "adminDescription": "Como administrador, puedes gestionar el contenido del sitio web, subir datos financieros y realizar tareas de mantenimiento.",
+    "uploadData": "Subir Datos Financieros",
+    "uploadDescription": "Utiliza esta sección para cargar archivos Excel con datos financieros al sistema.",
+    "documentation": "Documentación de Administración",
+    "docDescription": "Consulta las instrucciones detalladas para el manejo del panel de administración.",
+    "contentManagement": "Gestión de Contenido",
+    "contentDesc": "Aprende a gestionar el contenido del sitio web.",
+    "dataManagement": "Gestión de Datos",
+    "dataDesc": "Instrucciones para cargar y gestionar datos financieros.",
+    "translations": "Traducciones",
+    "translationsDesc": "Cómo actualizar las traducciones del sitio.",
+    "maintenance": "Mantenimiento",
+    "maintenanceDesc": "Tareas básicas de mantenimiento del sitio."
   }
 }

@@ -16,7 +16,10 @@
     "cta": "Get Started",
     "cta1": "Explore Solutions",
     "cta2": "View Demo",
-    "learnMore": "Learn More"
+    "learnMore": "Learn More",
+    "stat1": "Market Research Reports",
+    "stat2": "Industry Sectors",
+    "stat3": "Data Points Analyzed"
   },
   "services": {
     "title": "Our Services",
@@ -26,12 +29,36 @@
       "description": "Access live market data streams and real-time analytics dashboards for instant business insights and competitive intelligence."
     },
     "historicalAnalysis": {
-      "title": "Predictive Analytics",
+      "title": "Predictive Analytics", 
       "description": "Leverage machine learning algorithms and historical data patterns to forecast market trends and consumer behavior."
     },
     "customReports": {
       "title": "Custom Research Reports",
       "description": "Tailored market research reports and data visualization solutions designed specifically for your industry and business needs."
+    },
+    "marketAnalysis": {
+      "title": "Market Analysis",
+      "description": "Comprehensive market size, growth trends, and competitive landscape analysis across various industries and regions."
+    },
+    "bigDataAnalytics": {
+      "title": "Big Data Analytics",
+      "description": "Advanced analytics and machine learning models to extract meaningful insights from large datasets."
+    },
+    "industryResearch": {
+      "title": "Industry Research",
+      "description": "In-depth industry studies covering market dynamics, key players, and emerging opportunities."
+    },
+    "trendAnalysis": {
+      "title": "Trend Analysis",
+      "description": "Identification and analysis of market trends, consumer behavior patterns, and future projections."
+    },
+    "globalMarketIntelligence": {
+      "title": "Global Market Intelligence",
+      "description": "Cross-border market insights and international expansion strategies for global businesses."
+    },
+    "customResearch": {
+      "title": "Custom Research",
+      "description": "Tailored research solutions designed to meet specific business needs and strategic objectives."
     }
   },
   "marketInsights": {
@@ -141,5 +168,29 @@
     "title": "Page Not Found",
     "message": "The page you are looking for does not exist.",
     "goHome": "Go Home"
+  },
+  "admin": {
+    "title": "Administration Panel",
+    "loading": "Loading...",
+    "accessDenied": "Access Denied",
+    "noPermission": "You don't have permission to access this page.",
+    "backToHome": "Back to Home",
+    "welcomeTitle": "Welcome Administrator",
+    "userName": "User:",
+    "userEmail": "Email:",
+    "userRole": "Role:",
+    "adminDescription": "As an administrator, you can manage website content, upload financial data, and perform maintenance tasks.",
+    "uploadData": "Upload Financial Data",
+    "uploadDescription": "Use this section to upload Excel files with financial data to the system.",
+    "documentation": "Administration Documentation",
+    "docDescription": "Check the detailed instructions for managing the administration panel.",
+    "contentManagement": "Content Management",
+    "contentDesc": "Learn how to manage website content.",
+    "dataManagement": "Data Management",
+    "dataDesc": "Instructions for uploading and managing financial data.",
+    "translations": "Translations",
+    "translationsDesc": "How to update site translations.",
+    "maintenance": "Maintenance",
+    "maintenanceDesc": "Basic site maintenance tasks."
   }
 }

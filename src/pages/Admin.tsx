@@ -8,15 +8,10 @@ import { showError, showSuccess } from '@/utils/toast';
 import { MadeWithDyad } from '@/components/powered-by-publiexpert';
 import { useTranslation } from 'react-i18next';
 
-// Actualizado para incluir tu correo electrónico
-const ADMIN_EMAILS = ['nathan@publiexpert.com'];
-
 const Admin = () => {
-  const { user, loading, profile } = useAuth();
+  const { user, loading, isAdmin } = useAuth();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [checkingAdmin, setCheckingAdmin] = useState(true);
   const [updatingSubscription, setUpdatingSubscription] = useState(false);
 
   useEffect(() => {
@@ -24,69 +19,26 @@ const Admin = () => {
       navigate('/login');
       return;
     }
-
-    if (user) {
-      // Check if user is an admin
-      if (ADMIN_EMAILS.includes(user.email || '')) {
-        setIsAdmin(true);
-      } else {
-        setIsAdmin(false);
-      }
-      setCheckingAdmin(false);
-    }
   }, [user, loading, navigate]);
 
-  const makeUserPremium = async () => {
-    if (!user) return;
-
-    setUpdatingSubscription(true);
-    try {
-      const oneYearFromNow = new Date();
-      oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
-
-      const { error } = await supabase.
-      from('profiles').
-      update({
-        subscription_status: 'premium',
-        subscription_end_date: oneYearFromNow.toISOString()
-      }).
-      eq('id', user.id);
-
-      if (error) throw error;
-
-      showSuccess('¡Actualizado a usuario premium con éxito!');
-
-      // Recargar la página para actualizar el contexto de autenticación
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
-    } catch (error: any) {
-      showError(error.message || 'Error al actualizar la suscripción');
-    } finally {
-      setUpdatingSubscription(false);
-    }
-  };
-
-  if (loading || checkingAdmin) {
+  if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p>Cargando...</p>
+        <p>{t('admin.loading', 'Cargando...')}</p>
       </div>);
-
   }
 
   if (!isAdmin) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Acceso Denegado</h1>
-          <p className="mb-4">No tienes permiso para acceder a esta página.</p>
+          <h1 className="text-2xl font-bold mb-4">{t('admin.accessDenied', 'Acceso Denegado')}</h1>
+          <p className="mb-4">{t('admin.noPermission', 'No tienes permiso para acceder a esta página.')}</p>
           <Button onClick={() => navigate('/')}>
-            Volver al Inicio
+            {t('admin.backToHome', 'Volver al Inicio')}
           </Button>
         </div>
       </div>);
-
   }
 
   return (
@@ -94,32 +46,54 @@ const Admin = () => {
       <Navigation />
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-900">Panel de Administración</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t('admin.title', 'Panel de Administración')}</h1>
           
           <Button variant="outline" onClick={() => navigate('/')}>
-            Volver al Inicio
+            {t('admin.backToHome', 'Volver al Inicio')}
           </Button>
         </div>
       </header>
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
         <div className="space-y-8">
-          {profile?.subscription_status !== 'premium' &&
+          {/* Admin Info Section */}
           <div className="bg-white p-6 rounded-lg shadow mb-6">
-              <h2 className="text-xl font-semibold mb-4">Estado de Suscripción</h2>
-              <p className="mb-4">Actualmente eres un usuario gratuito. Como administrador, puedes actualizar tu cuenta a premium.</p>
-              <Button
-              onClick={makeUserPremium}
-              disabled={updatingSubscription}>
+            <h2 className="text-xl font-semibold mb-4">{t('admin.welcomeTitle', 'Bienvenido Administrador')}</h2>
+            <p className="mb-2"><strong>{t('admin.userName', 'Usuario:')})</strong> {user?.Name}</p>
+            <p className="mb-2"><strong>{t('admin.userEmail', 'Email:')})</strong> {user?.Email}</p>
+            <p className="mb-4"><strong>{t('admin.userRole', 'Rol:')})</strong> {user?.RoleName || 'Administrador'}</p>
+            <p className="text-sm text-gray-600">{t('admin.adminDescription', 'Como administrador, puedes gestionar el contenido del sitio web, subir datos financieros y realizar tareas de mantenimiento.')}</p>
+          </div>
 
-                {updatingSubscription ? 'Actualizando...' : 'Convertirme en Usuario Premium'}
-              </Button>
-            </div>
-          }
-          
-          <div>
-            <h2 className="text-xl font-semibold mb-4">Subir Datos Financieros</h2>
+          {/* File Upload Section */}
+          <div className="bg-white p-6 rounded-lg shadow">
+            <h2 className="text-xl font-semibold mb-4">{t('admin.uploadData', 'Subir Datos Financieros')}</h2>
+            <p className="mb-4 text-gray-600">{t('admin.uploadDescription', 'Utiliza esta sección para cargar archivos Excel con datos financieros al sistema.')}</p>
             <ExcelUploader />
+          </div>
+
+          {/* Documentation Section */}
+          <div className="bg-white p-6 rounded-lg shadow">
+            <h2 className="text-xl font-semibold mb-4">{t('admin.documentation', 'Documentación de Administración')}</h2>
+            <p className="mb-4 text-gray-600">{t('admin.docDescription', 'Consulta las instrucciones detalladas para el manejo del panel de administración.')}</p>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="p-4 border rounded-lg">
+                <h3 className="font-medium mb-2">{t('admin.contentManagement', 'Gestión de Contenido')}</h3>
+                <p className="text-sm text-gray-600">{t('admin.contentDesc', 'Aprende a gestionar el contenido del sitio web.')}</p>
+              </div>
+              <div className="p-4 border rounded-lg">
+                <h3 className="font-medium mb-2">{t('admin.dataManagement', 'Gestión de Datos')}</h3>
+                <p className="text-sm text-gray-600">{t('admin.dataDesc', 'Instrucciones para cargar y gestionar datos financieros.')}</p>
+              </div>
+              <div className="p-4 border rounded-lg">
+                <h3 className="font-medium mb-2">{t('admin.translations', 'Traducciones')}</h3>
+                <p className="text-sm text-gray-600">{t('admin.translationsDesc', 'Cómo actualizar las traducciones del sitio.')}</p>
+              </div>
+              <div className="p-4 border rounded-lg">
+                <h3 className="font-medium mb-2">{t('admin.maintenance', 'Mantenimiento')}</h3>
+                <p className="text-sm text-gray-600">{t('admin.maintenanceDesc', 'Tareas básicas de mantenimiento del sitio.')}</p>
+              </div>
+            </div>
           </div>
         </div>
       </main>

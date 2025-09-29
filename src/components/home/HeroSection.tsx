@@ -39,21 +39,21 @@ const HeroSection = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-gray-200">
               <div className="text-3xl font-bold text-blue-600 mb-2">500+</div>
-              <div className="text-gray-600">Market Research Reports</div>
+              <div className="text-gray-600">{t('hero.stat1')}</div>
             </div>
             <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-gray-200">
               <div className="text-3xl font-bold text-indigo-600 mb-2">50+</div>
-              <div className="text-gray-600">Industry Sectors</div>
+              <div className="text-gray-600">{t('hero.stat2')}</div>
             </div>
             <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-gray-200">
               <div className="text-3xl font-bold text-purple-600 mb-2">1M+</div>
-              <div className="text-gray-600">Data Points Analyzed</div>
+              <div className="text-gray-600">{t('hero.stat3')}</div>
             </div>
           </div>
         </div>
       </div>
-    </section>);
-
+    </section>
+  );
 };
 
 export default HeroSection;

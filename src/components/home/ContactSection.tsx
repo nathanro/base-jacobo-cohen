@@ -6,71 +6,70 @@ import { Label } from "@/components/ui/label";
 import { Mail, Phone, MapPin, Clock, Send, MessageCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-const contactInfo = [
-{
-  icon: Mail,
-  title: "Email Us",
-  details: ["info@bigdatamarketresearch.com", "sales@bigdatamarketresearch.com"],
-  color: "bg-blue-100 text-blue-600"
-},
-{
-  icon: Phone,
-  title: "Call Us",
-  details: ["+1 (555) 123-4567", "+1 (555) 987-6543"],
-  color: "bg-green-100 text-green-600"
-},
-{
-  icon: MapPin,
-  title: "Visit Us",
-  details: ["123 Business District", "New York, NY 10001"],
-  color: "bg-purple-100 text-purple-600"
-},
-{
-  icon: Clock,
-  title: "Business Hours",
-  details: ["Mon - Fri: 9:00 AM - 6:00 PM", "Sat: 10:00 AM - 4:00 PM"],
-  color: "bg-orange-100 text-orange-600"
-}];
-
-
 const ContactSection = () => {
   const { t } = useTranslation();
+
+  const contactInfo = [
+    {
+      icon: Mail,
+      titleKey: "contact.email",
+      details: ["research@datainsights.com", "sales@datainsights.com"],
+      color: "bg-blue-100 text-blue-600"
+    },
+    {
+      icon: Phone,
+      titleKey: "contact.phone",
+      details: ["+1 (555) 123-4567", "+1 (555) 987-6543"],
+      color: "bg-green-100 text-green-600"
+    },
+    {
+      icon: MapPin,
+      titleKey: "contact.address",
+      details: ["123 Business District", "New York, NY 10001"],
+      color: "bg-purple-100 text-purple-600"
+    },
+    {
+      icon: Clock,
+      titleKey: "contact.businessHours",
+      details: ["Mon - Fri: 9:00 AM - 6:00 PM", "Sat: 10:00 AM - 4:00 PM"],
+      color: "bg-orange-100 text-orange-600"
+    }
+  ];
 
   return (
     <section className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Get in Touch
+            {t('contact.title')}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Ready to unlock market insights for your business? Contact our team of experts 
-            for personalized research solutions and strategic guidance.
+            {t('contact.subtitle')}
           </p>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Contact Information */}
           <div className="lg:col-span-1 space-y-6">
-            {contactInfo.map((info, index) =>
-            <Card key={index} className="border-0 shadow-lg">
+            {contactInfo.map((info, index) => (
+              <Card key={index} className="border-0 shadow-lg">
                 <CardHeader className="pb-4">
                   <div className="flex items-center space-x-3">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center ${info.color}`}>
                       <info.icon className="h-5 w-5" />
                     </div>
-                    <CardTitle className="text-lg font-semibold">{info.title}</CardTitle>
+                    <CardTitle className="text-lg font-semibold">{t(info.titleKey)}</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  {info.details.map((detail, idx) =>
-                <CardDescription key={idx} className="text-gray-600 mb-1">
+                  {info.details.map((detail, idx) => (
+                    <CardDescription key={idx} className="text-gray-600 mb-1">
                       {detail}
                     </CardDescription>
-                )}
+                  ))}
                 </CardContent>
               </Card>
-            )}
+            ))}
             
             <Card className="border-0 shadow-lg bg-gradient-to-br from-blue-600 to-indigo-600 text-white">
               <CardHeader>
@@ -114,8 +113,8 @@ const ContactSection = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email *</Label>
-                    <Input id="email" type="email" placeholder="Enter your email" />
+                    <Label htmlFor="email">{t('contact.email')} *</Label>
+                    <Input id="email" type="email" placeholder={`Enter your ${t('contact.email').toLowerCase()}`} />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="company">Company</Label>
@@ -129,12 +128,12 @@ const ContactSection = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="message">Message *</Label>
+                  <Label htmlFor="message">{t('contact.message')} *</Label>
                   <Textarea
                     id="message"
                     placeholder="Describe your research needs or questions..."
-                    rows={6} />
-
+                    rows={6}
+                  />
                 </div>
                 
                 <div className="flex items-center space-x-2">
@@ -146,15 +145,15 @@ const ContactSection = () => {
                 
                 <Button size="lg" className="w-full bg-blue-600 hover:bg-blue-700">
                   <Send className="h-5 w-5 mr-2" />
-                  Send Message
+                  {t('contact.send')}
                 </Button>
               </CardContent>
             </Card>
           </div>
         </div>
       </div>
-    </section>);
-
+    </section>
+  );
 };
 
 export default ContactSection;
