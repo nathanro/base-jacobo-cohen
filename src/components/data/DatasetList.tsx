@@ -159,7 +159,7 @@ export function DatasetList() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {uploads.map((upload) =>
-          <Card key={upload.id} className="hover:shadow-md transition-shadow">
+          <Card key={upload.id} className="hover:shadow-md transition-shadow bg-white">
                 <CardHeader>
                   <div className="flex justify-between items-start">
                     <CardTitle className="text-lg flex items-center space-x-2">

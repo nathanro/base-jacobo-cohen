@@ -200,7 +200,7 @@ export function SampleDataLoader({ onDataLoaded }: {onDataLoaded?: () => void;})
 
   if (completed) {
     return (
-      <Card className="max-w-2xl mx-auto">
+      <Card className="max-w-2xl mx-auto bg-white">
         <CardContent className="pt-6">
           <div className="text-center">
             <CheckCircle className="h-12 w-12 text-green-600 mx-auto mb-4" />
@@ -217,7 +217,7 @@ export function SampleDataLoader({ onDataLoaded }: {onDataLoaded?: () => void;})
   }
 
   return (
-    <Card className="max-w-2xl mx-auto">
+    <Card className="max-w-2xl mx-auto bg-white">
       <CardHeader>
         <CardTitle className="flex items-center space-x-2">
           <Database className="h-5 w-5" />

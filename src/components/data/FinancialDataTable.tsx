@@ -42,16 +42,16 @@ import {
 import { showError, showSuccess } from '@/utils/toast';
 import { useTranslation } from 'react-i18next';
 import { SampleDataLoader } from './SampleDataLoader';
-import { 
-  valueToPercentage, 
-  percentageToValue, 
-  formatAsPercentage, 
+import {
+  valueToPercentage,
+  percentageToValue,
+  formatAsPercentage,
   shouldConvertToPercentage,
   getPercentageStep,
   convertPercentageRangeToValues,
   convertValueRangeToPercentages,
-  DATA_RANGE
-} from '@/utils/percentage-conversion';
+  DATA_RANGE } from
+'@/utils/percentage-conversion';
 
 interface ColumnFilter {
   id: string;
@@ -73,14 +73,14 @@ const rangeFilter: FilterFn<any> = (row, columnId, filterValue) => {
 
   // Check if this column uses percentage conversion
   const shouldConvert = shouldConvertToPercentage(columnId, rawValue);
-  
+
   if (shouldConvert) {
     // Convert percentage filter values back to raw values for comparison
     const [rawMin, rawMax] = convertPercentageRangeToValues([
-      filterMin ?? 0, 
-      filterMax ?? 100
-    ]);
-    
+    filterMin ?? 0,
+    filterMax ?? 100]
+    );
+
     if (filterMin !== null && rawValue < rawMin) return false;
     if (filterMax !== null && rawValue > rawMax) return false;
   } else {
@@ -88,7 +88,7 @@ const rangeFilter: FilterFn<any> = (row, columnId, filterValue) => {
     if (filterMin !== null && rawValue < filterMin) return false;
     if (filterMax !== null && rawValue > filterMax) return false;
   }
-  
+
   return true;
 };
 
@@ -188,22 +188,22 @@ function RangeFilterControl({
 }: {column: any;min: number;max: number;t: any;}) {
   // Check if this column should use percentage conversion
   const shouldUsePercentage = shouldConvertToPercentage(column.id, max);
-  
+
   // Set up display range and values
   const displayMin = shouldUsePercentage ? 0 : min;
   const displayMax = shouldUsePercentage ? 100 : max;
-  
+
   // Initialize filter value - convert to percentage if needed
-  const initialFilterValue = column.getFilterValue() as [number, number] || 
-    (shouldUsePercentage ? [0, 100] : [min, max]);
-  
+  const initialFilterValue = column.getFilterValue() as [number, number] || (
+  shouldUsePercentage ? [0, 100] : [min, max]);
+
   const [localValue, setLocalValue] = useState(initialFilterValue);
 
   const formatValue = (value: number) => {
     if (shouldUsePercentage) {
       return `${value.toFixed(2)}%`;
     }
-    
+
     // Format large numbers with appropriate units
     if (Math.abs(value) >= 1e12) {
       return `${(value / 1e12).toFixed(1)}T`;
@@ -220,10 +220,10 @@ function RangeFilterControl({
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       // Reset filter if values are at default range
-      const isDefaultRange = shouldUsePercentage ? 
-        (localValue[0] === 0 && localValue[1] === 100) :
-        (localValue[0] === min && localValue[1] === max);
-        
+      const isDefaultRange = shouldUsePercentage ?
+      localValue[0] === 0 && localValue[1] === 100 :
+      localValue[0] === min && localValue[1] === max;
+
       column.setFilterValue(isDefaultRange ? undefined : localValue);
     }, 300);
     return () => clearTimeout(timeoutId);
@@ -238,11 +238,11 @@ function RangeFilterControl({
         <span>-</span>
         <span>To: {formatValue(localValue[1])}</span>
       </div>
-      {shouldUsePercentage && (
-        <div className="text-xs text-blue-600 bg-blue-50 p-2 rounded">
+      {shouldUsePercentage &&
+      <div className="text-xs text-blue-600 bg-blue-50 p-2 rounded">
           💡 Values converted to percentage scale (0-100%) for easier filtering
         </div>
-      )}
+      }
       <Slider
         value={localValue}
         onValueChange={setLocalValue}
@@ -255,11 +255,11 @@ function RangeFilterControl({
         <span>{formatValue(displayMin)}</span>
         <span>{formatValue(displayMax)}</span>
       </div>
-      {shouldUsePercentage && (
-        <div className="text-xs text-gray-600">
+      {shouldUsePercentage &&
+      <div className="text-xs text-gray-600">
           Raw range: {formatValue(min)} to {formatValue(max)}
         </div>
-      )}
+      }
     </div>);
 
 }
@@ -408,10 +408,10 @@ export function FinancialDataTable() {
         const max = Math.max(...numericValues);
         if (min !== max) {
           // Check if any values in this column should use percentage conversion
-          const usePercentageConversion = numericValues.some(val => 
-            shouldConvertToPercentage(key, val)
+          const usePercentageConversion = numericValues.some((val) =>
+          shouldConvertToPercentage(key, val)
           );
-          
+
           // Set up the filter configuration with appropriate range
           const filterConfig = {
             id: key,
@@ -420,14 +420,14 @@ export function FinancialDataTable() {
             max,
             isPriority: isPriorityColumn
           };
-          
+
           // If using percentage conversion, set initial value to 0-100%
           if (usePercentageConversion) {
             filterConfig.value = [0, 100];
           } else {
             filterConfig.value = [min, max];
           }
-          
+
           configs[key] = filterConfig;
         }
       } else if (uniqueValues.length <= Math.min(20, values.length / 2)) {
@@ -549,10 +549,10 @@ export function FinancialDataTable() {
                 return (
                   <div className="text-right font-mono" title={`Raw value: ${value.toLocaleString()}`}>
                     {percentage}
-                  </div>
-                );
+                  </div>);
+
               }
-              
+
               // Format large numbers with appropriate units for better readability
               let formattedValue = value.toLocaleString();
               if (Math.abs(value) >= 1e12) {
@@ -564,7 +564,7 @@ export function FinancialDataTable() {
               } else if (Math.abs(value) >= 1e3) {
                 formattedValue = `${(value / 1e3).toFixed(1)}K`;
               }
-              
+
               return <div className="text-right font-mono" title={`Exact value: ${value.toLocaleString()}`}>{formattedValue}</div>;
             }
             return <div>{value}</div>;
@@ -631,10 +631,10 @@ export function FinancialDataTable() {
                   return (
                     <div className={`text-right font-mono ${baseClassName}`} title={`Raw value: ${value.toLocaleString()}`}>
                       {percentage}
-                    </div>
-                  );
+                    </div>);
+
                 }
-                
+
                 // Format large numbers with appropriate units
                 let formattedValue = value.toLocaleString();
                 if (Math.abs(value) >= 1e12) {
@@ -646,7 +646,7 @@ export function FinancialDataTable() {
                 } else if (Math.abs(value) >= 1e3) {
                   formattedValue = `${(value / 1e3).toFixed(1)}K`;
                 }
-                
+
                 return <div className={`text-right font-mono ${baseClassName}`} title={`Exact value: ${value.toLocaleString()}`}>{formattedValue}</div>;
               }
               return <div className={baseClassName}>{value}</div>;
@@ -747,10 +747,10 @@ export function FinancialDataTable() {
                   return (
                     <div className="text-right font-mono" title={`Raw value: ${value.toLocaleString()}`}>
                       {percentage}
-                    </div>
-                  );
+                    </div>);
+
                 }
-                
+
                 // Format large numbers with appropriate units
                 let formattedValue = value.toLocaleString();
                 if (Math.abs(value) >= 1e12) {
@@ -762,7 +762,7 @@ export function FinancialDataTable() {
                 } else if (Math.abs(value) >= 1e3) {
                   formattedValue = `${(value / 1e3).toFixed(1)}K`;
                 }
-                
+
                 return <div className="text-right font-mono" title={`Exact value: ${value.toLocaleString()}`}>{formattedValue}</div>;
               }
               return <div>{value}</div>;
@@ -828,10 +828,10 @@ export function FinancialDataTable() {
                     return (
                       <div className={`text-right font-mono ${baseClassName}`} title={`Raw value: ${value.toLocaleString()}`}>
                         {percentage}
-                      </div>
-                    );
+                      </div>);
+
                   }
-                  
+
                   // Format large numbers with appropriate units
                   let formattedValue = value.toLocaleString();
                   if (Math.abs(value) >= 1e12) {
@@ -843,7 +843,7 @@ export function FinancialDataTable() {
                   } else if (Math.abs(value) >= 1e3) {
                     formattedValue = `${(value / 1e3).toFixed(1)}K`;
                   }
-                  
+
                   return <div className={`text-right font-mono ${baseClassName}`} title={`Exact value: ${value.toLocaleString()}`}>{formattedValue}</div>;
                 }
                 return <div className={baseClassName}>{value}</div>;
@@ -902,7 +902,7 @@ export function FinancialDataTable() {
 
   if (loading) {
     return (
-      <Card>
+      <Card className="bg-white">
         <CardHeader>
           <CardTitle>Loading Financial Data...</CardTitle>
         </CardHeader>
@@ -923,7 +923,7 @@ export function FinancialDataTable() {
           <AlertTitle>Error Loading Financial Data</AlertTitle>
           <AlertDescription>{error}</AlertDescription>
         </Alert>
-        <Card>
+        <Card className="bg-white">
           <CardHeader>
             <CardTitle>Financial Data Dashboard</CardTitle>
             <CardDescription>
@@ -941,7 +941,7 @@ export function FinancialDataTable() {
   if (showSampleLoader || data.length === 0) {
     return (
       <div className="space-y-6">
-        <Card>
+        <Card className="bg-white">
           <CardHeader>
             <CardTitle>Financial Data Dashboard</CardTitle>
             <CardDescription>
@@ -962,7 +962,7 @@ export function FinancialDataTable() {
   }
 
   return (
-    <Card className="w-full">
+    <Card className="w-full bg-white">
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
           <span>Financial Data Dashboard</span>
@@ -1087,8 +1087,8 @@ export function FinancialDataTable() {
             </CollapsibleContent>
           </Collapsible>
 
-          <div className="rounded-md border w-full overflow-auto">
-            <Table className="w-full">
+          <div className="rounded-md border w-full overflow-auto bg-white">
+            <Table className="w-full bg-white">
               <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) =>
                 <TableRow key={headerGroup.id}>

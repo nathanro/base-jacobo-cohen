@@ -152,7 +152,7 @@ export function ExcelFileUploader({ onUploadSuccess }: ExcelFileUploaderProps) {
   };
 
   return (
-    <Card className="w-full">
+    <Card className="w-full bg-white">
       <CardHeader>
         <CardTitle className="flex items-center space-x-2">
           <Upload className="h-5 w-5" />
