@@ -132,10 +132,10 @@ export function RoleManagement() {
     }
   };
 
-  const filteredRoles = roles.filter(role =>
-    role.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    role.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (role.remark && role.remark.toLowerCase().includes(searchTerm.toLowerCase()))
+  const filteredRoles = roles.filter((role) =>
+  role.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  role.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  role.remark && role.remark.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const getRoleBadgeVariant = (roleCode: string) => {
@@ -169,8 +169,8 @@ export function RoleManagement() {
               placeholder="Search roles..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
-            />
+              className="pl-10" />
+
           </div>
           
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
@@ -192,9 +192,9 @@ export function RoleManagement() {
                   {editingRole ? 'Edit Role' : 'Add New Role'}
                 </DialogTitle>
                 <DialogDescription>
-                  {editingRole 
-                    ? 'Update role information and description' 
-                    : 'Create a new user role'
+                  {editingRole ?
+                  'Update role information and description' :
+                  'Create a new user role'
                   }
                 </DialogDescription>
               </DialogHeader>
@@ -204,34 +204,34 @@ export function RoleManagement() {
                   <FormField
                     control={form.control}
                     name="name"
-                    render={({ field }) => (
-                      <FormItem>
+                    render={({ field }) =>
+                    <FormItem>
                         <FormLabel>Role Name *</FormLabel>
                         <FormControl>
                           <Input {...field} placeholder="Enter role name" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )}
-                  />
+                    } />
+
                   
                   <FormField
                     control={form.control}
                     name="remark"
-                    render={({ field }) => (
-                      <FormItem>
+                    render={({ field }) =>
+                    <FormItem>
                         <FormLabel>Description</FormLabel>
                         <FormControl>
-                          <Textarea 
-                            {...field} 
-                            placeholder="Enter role description (optional)"
-                            rows={3}
-                          />
+                          <Textarea
+                          {...field}
+                          placeholder="Enter role description (optional)"
+                          rows={3} />
+
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )}
-                  />
+                    } />
+
                   
                   <div className="flex gap-2">
                     <Button type="submit" className="flex-1">
@@ -240,8 +240,8 @@ export function RoleManagement() {
                     <Button
                       type="button"
                       variant="outline"
-                      onClick={() => setDialogOpen(false)}
-                    >
+                      onClick={() => setDialogOpen(false)}>
+
                       Cancel
                     </Button>
                   </div>
@@ -252,13 +252,13 @@ export function RoleManagement() {
         </div>
 
         {/* Roles Table */}
-        {loading ? (
-          <div className="flex items-center justify-center p-8">
+        {loading ?
+        <div className="flex items-center justify-center p-8">
             <div className="h-6 w-6 animate-spin rounded-full border-2 border-current border-t-transparent" />
             <span className="ml-2">Loading roles...</span>
-          </div>
-        ) : (
-          <div className="rounded-md border">
+          </div> :
+
+        <div className="rounded-md border">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -270,15 +270,15 @@ export function RoleManagement() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredRoles.length === 0 ? (
-                  <TableRow>
+                {filteredRoles.length === 0 ?
+              <TableRow>
                     <TableCell colSpan={5} className="text-center py-8 text-muted-foreground">
                       No roles found
                     </TableCell>
-                  </TableRow>
-                ) : (
-                  filteredRoles.map((role) => (
-                    <TableRow key={role.id}>
+                  </TableRow> :
+
+              filteredRoles.map((role) =>
+              <TableRow key={role.id}>
                       <TableCell>
                         <div className="flex items-center gap-2">
                           <Badge variant={getRoleBadgeVariant(role.code)}>
@@ -302,35 +302,35 @@ export function RoleManagement() {
                       <TableCell className="text-right">
                         <div className="flex items-center justify-end gap-2">
                           <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handleEdit(role)}
-                          >
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleEdit(role)}>
+
                             <Edit className="h-4 w-4" />
                           </Button>
                           <Button
-                            variant="destructive"
-                            size="sm"
-                            onClick={() => handleDelete(role)}
-                            disabled={role.code === 'Administrator' || role.code === 'GeneralUser'}
-                            title={
-                              role.code === 'Administrator' || role.code === 'GeneralUser' 
-                                ? 'System roles cannot be deleted' 
-                                : 'Delete role'
-                            }
-                          >
+                      variant="destructive"
+                      size="sm"
+                      onClick={() => handleDelete(role)}
+                      disabled={role.code === 'Administrator' || role.code === 'GeneralUser'}
+                      title={
+                      role.code === 'Administrator' || role.code === 'GeneralUser' ?
+                      'System roles cannot be deleted' :
+                      'Delete role'
+                      }>
+
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         </div>
                       </TableCell>
                     </TableRow>
-                  ))
-                )}
+              )
+              }
               </TableBody>
             </Table>
           </div>
-        )}
+        }
       </CardContent>
-    </Card>
-  );
+    </Card>);
+
 }

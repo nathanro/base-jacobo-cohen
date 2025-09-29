@@ -7,14 +7,14 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { showError, showSuccess, showLoading, dismissToast } from '@/utils/toast';
 import { useTranslation } from 'react-i18next';
-import { 
-  Settings, 
-  Database, 
-  Shield, 
-  Download, 
-  Trash2, 
-  Eye, 
-  RefreshCw, 
+import {
+  Settings,
+  Database,
+  Shield,
+  Download,
+  Trash2,
+  Eye,
+  RefreshCw,
   CheckCircle,
   AlertTriangle,
   Server,
@@ -23,8 +23,8 @@ import {
   Clock,
   Users,
   FileText,
-  AlertCircle
-} from 'lucide-react';
+  AlertCircle } from
+'lucide-react';
 
 export function SystemSettings() {
   const [maintenanceMode, setMaintenanceMode] = useState(false);
@@ -37,7 +37,7 @@ export function SystemSettings() {
     const toastId = showLoading('Updating maintenance mode...');
     try {
       // Simulate API call - in real implementation, this would update a system setting
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       setMaintenanceMode(enabled);
       dismissToast(toastId);
       showSuccess(`Maintenance mode ${enabled ? 'enabled' : 'disabled'}`);
@@ -51,7 +51,7 @@ export function SystemSettings() {
     const toastId = showLoading('Updating debug mode...');
     try {
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       setDebugMode(enabled);
       dismissToast(toastId);
       showSuccess(`Debug mode ${enabled ? 'enabled' : 'disabled'}`);
@@ -65,7 +65,7 @@ export function SystemSettings() {
     const toastId = showLoading('Creating database backup...');
     try {
       // Simulate backup process
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      await new Promise((resolve) => setTimeout(resolve, 3000));
       dismissToast(toastId);
       showSuccess('Database backup created successfully');
     } catch (error) {
@@ -82,11 +82,11 @@ export function SystemSettings() {
         PageNo: 1,
         PageSize: 1
       });
-      
+
       if (response.error) {
         throw response.error;
       }
-      
+
       setDbStatus('connected');
       showSuccess('Database connection successful');
     } catch (error: any) {
@@ -98,12 +98,12 @@ export function SystemSettings() {
   const downloadSystemLogs = () => {
     // Generate sample log content
     const logContent = [
-      `[${new Date().toISOString()}] INFO - System startup completed`,
-      `[${new Date().toISOString()}] INFO - Database connection established`,
-      `[${new Date().toISOString()}] INFO - User authentication system active`,
-      `[${new Date().toISOString()}] DEBUG - Excel upload functionality initialized`,
-      `[${new Date().toISOString()}] INFO - Admin panel loaded successfully`,
-    ].join('\n');
+    `[${new Date().toISOString()}] INFO - System startup completed`,
+    `[${new Date().toISOString()}] INFO - Database connection established`,
+    `[${new Date().toISOString()}] INFO - User authentication system active`,
+    `[${new Date().toISOString()}] DEBUG - Excel upload functionality initialized`,
+    `[${new Date().toISOString()}] INFO - Admin panel loaded successfully`].
+    join('\n');
 
     // Create and download log file
     const blob = new Blob([logContent], { type: 'text/plain' });
@@ -115,7 +115,7 @@ export function SystemSettings() {
     a.click();
     window.URL.revokeObjectURL(url);
     document.body.removeChild(a);
-    
+
     showSuccess('System logs downloaded');
   };
 
@@ -127,7 +127,7 @@ export function SystemSettings() {
     const toastId = showLoading('Clearing system logs...');
     try {
       // Simulate log clearing
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, 1500));
       dismissToast(toastId);
       showSuccess('System logs cleared successfully');
     } catch (error) {
@@ -164,8 +164,8 @@ export function SystemSettings() {
             </div>
             <Switch
               checked={maintenanceMode}
-              onCheckedChange={handleMaintenanceToggle}
-            />
+              onCheckedChange={handleMaintenanceToggle} />
+
           </div>
           
           <Separator />
@@ -179,8 +179,8 @@ export function SystemSettings() {
             </div>
             <Switch
               checked={debugMode}
-              onCheckedChange={handleDebugToggle}
-            />
+              onCheckedChange={handleDebugToggle} />
+
           </div>
         </CardContent>
       </Card>
@@ -201,37 +201,37 @@ export function SystemSettings() {
             <div className="space-y-0.5">
               <Label className="text-base font-medium">Database Status</Label>
               <div className="flex items-center gap-2">
-                {dbStatus === 'connected' && (
-                  <>
+                {dbStatus === 'connected' &&
+                <>
                     <CheckCircle className="h-4 w-4 text-green-500" />
                     <Badge variant="default" className="bg-green-100 text-green-800">
                       Connected
                     </Badge>
                   </>
-                )}
-                {dbStatus === 'error' && (
-                  <>
+                }
+                {dbStatus === 'error' &&
+                <>
                     <AlertTriangle className="h-4 w-4 text-red-500" />
                     <Badge variant="destructive">
                       Connection Error
                     </Badge>
                   </>
-                )}
-                {dbStatus === 'testing' && (
-                  <>
+                }
+                {dbStatus === 'testing' &&
+                <>
                     <RefreshCw className="h-4 w-4 animate-spin" />
                     <Badge variant="secondary">
                       Testing...
                     </Badge>
                   </>
-                )}
+                }
               </div>
             </div>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               onClick={testDatabaseConnection}
-              disabled={dbStatus === 'testing'}
-            >
+              disabled={dbStatus === 'testing'}>
+
               <RefreshCw className="h-4 w-4 mr-2" />
               Test Connection
             </Button>
@@ -385,6 +385,6 @@ export function SystemSettings() {
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>);
+
 }

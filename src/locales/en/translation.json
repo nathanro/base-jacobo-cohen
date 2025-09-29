@@ -291,7 +291,30 @@
     "rowsPerPage": "Rows per page",
     "of": "of",
     "previous": "Previous",
-    "next": "Next"
+    "next": "Next",
+    "filterControls": {
+      "showFilters": "Show Filters",
+      "hideFilters": "Hide Filters",
+      "resetAll": "Reset All",
+      "applyFilters": "Apply Filters",
+      "searchPlaceholder": "Search in ",
+      "rangeFrom": "From",
+      "rangeTo": "To",
+      "selectAll": "Select All",
+      "selectNone": "Select None",
+      "filterBy": "Filter by",
+      "textFilter": "Text Filter",
+      "rangeFilter": "Range Filter",
+      "selectFilter": "Selection Filter"
+    },
+    "columns": {
+      "salesGrowth": "Sales Growth Per Year",
+      "margin": "Margin",
+      "debt": "Debt",
+      "revenue": "Revenue",
+      "profit": "Profit",
+      "assets": "Assets"
+    }
   },
   "subscription": {
     "title": "Research Plans",

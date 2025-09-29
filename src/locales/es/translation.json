@@ -240,7 +240,30 @@
     "rowsPerPage": "Filas por página",
     "of": "de",
     "previous": "Anterior",
-    "next": "Siguiente"
+    "next": "Siguiente",
+    "filterControls": {
+      "showFilters": "Mostrar Filtros",
+      "hideFilters": "Ocultar Filtros",
+      "resetAll": "Limpiar Todos",
+      "applyFilters": "Aplicar Filtros",
+      "searchPlaceholder": "Buscar en ",
+      "rangeFrom": "Desde",
+      "rangeTo": "Hasta",
+      "selectAll": "Seleccionar Todo",
+      "selectNone": "Deseleccionar Todo",
+      "filterBy": "Filtrar por",
+      "textFilter": "Búsqueda de Texto",
+      "rangeFilter": "Filtro de Rango",
+      "selectFilter": "Filtro de Selección"
+    },
+    "columns": {
+      "salesGrowth": "Crecimiento de Ventas por Año",
+      "margin": "Margen",
+      "debt": "Deuda",
+      "revenue": "Ingresos",
+      "profit": "Beneficio",
+      "assets": "Activos"
+    }
   },
   "subscription": {
     "title": "Planes de Investigación",

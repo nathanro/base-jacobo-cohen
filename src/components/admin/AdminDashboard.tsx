@@ -4,10 +4,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/contexts/AuthContext';
-import { 
-  Users, 
-  UserCheck, 
-  Shield, 
+import {
+  Users,
+  UserCheck,
+  Shield,
   UserCog,
   Database,
   FileSpreadsheet,
@@ -16,8 +16,8 @@ import {
   Calendar,
   Server,
   AlertCircle,
-  CheckCircle
-} from 'lucide-react';
+  CheckCircle } from
+'lucide-react';
 
 interface DashboardStats {
   totalUsers: number;
@@ -47,8 +47,8 @@ function StatCard({ title, value, description, icon: Icon, color }: StatCardProp
         <div className="text-2xl font-bold">{value.toLocaleString()}</div>
         <p className="text-xs text-muted-foreground">{description}</p>
       </CardContent>
-    </Card>
-  );
+    </Card>);
+
 }
 
 export function AdminDashboard() {
@@ -125,8 +125,8 @@ export function AdminDashboard() {
       <div className="flex items-center justify-center p-8">
         <div className="h-8 w-8 animate-spin rounded-full border-2 border-current border-t-transparent" />
         <span className="ml-3">Loading dashboard...</span>
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -148,29 +148,29 @@ export function AdminDashboard() {
           value={stats.totalUsers}
           description="Registered users in system"
           icon={Users}
-          color="text-blue-600"
-        />
+          color="text-blue-600" />
+
         <StatCard
           title="Active Users"
           value={stats.activeUsers}
           description="Currently active users"
           icon={UserCheck}
-          color="text-green-600"
-        />
+          color="text-green-600" />
+
         <StatCard
           title="User Roles"
           value={stats.totalRoles}
           description="Available user roles"
           icon={Shield}
-          color="text-purple-600"
-        />
+          color="text-purple-600" />
+
         <StatCard
           title="Administrators"
           value={stats.adminUsers}
           description="Users with admin access"
           icon={UserCog}
-          color="text-red-600"
-        />
+          color="text-red-600" />
+
       </div>
 
       {/* Data Management Stats */}
@@ -180,15 +180,15 @@ export function AdminDashboard() {
           value={stats.totalUploads}
           description="Total uploaded datasets"
           icon={FileSpreadsheet}
-          color="text-orange-600"
-        />
+          color="text-orange-600" />
+
         <StatCard
           title="Premium Content"
           value={stats.premiumContent}
           description="Premium datasets available"
           icon={TrendingUp}
-          color="text-indigo-600"
-        />
+          color="text-indigo-600" />
+
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
@@ -298,6 +298,6 @@ export function AdminDashboard() {
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>);
+
 }

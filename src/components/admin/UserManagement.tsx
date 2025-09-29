@@ -190,10 +190,10 @@ export function UserManagement() {
     }
   };
 
-  const filteredUsers = users.filter(user =>
-    user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.role_name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredUsers = users.filter((user) =>
+  user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  user.role_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const getRoleBadgeVariant = (roleCode: string) => {
@@ -227,8 +227,8 @@ export function UserManagement() {
               placeholder="Search users..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
-            />
+              className="pl-10" />
+
           </div>
           
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
@@ -254,9 +254,9 @@ export function UserManagement() {
                   {editingUser ? 'Edit User' : 'Add New User'}
                 </DialogTitle>
                 <DialogDescription>
-                  {editingUser 
-                    ? 'Update user information and permissions' 
-                    : 'Create a new user account'
+                  {editingUser ?
+                  'Update user information and permissions' :
+                  'Create a new user account'
                   }
                 </DialogDescription>
               </DialogHeader>
@@ -266,112 +266,112 @@ export function UserManagement() {
                   <FormField
                     control={form.control}
                     name="name"
-                    render={({ field }) => (
-                      <FormItem>
+                    render={({ field }) =>
+                    <FormItem>
                         <FormLabel>Name *</FormLabel>
                         <FormControl>
                           <Input {...field} placeholder="Enter full name" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )}
-                  />
+                    } />
+
                   
                   <FormField
                     control={form.control}
                     name="email"
-                    render={({ field }) => (
-                      <FormItem>
+                    render={({ field }) =>
+                    <FormItem>
                         <FormLabel>Email *</FormLabel>
                         <FormControl>
                           <Input {...field} type="email" placeholder="user@example.com" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )}
-                  />
+                    } />
+
                   
                   <FormField
                     control={form.control}
                     name="phone_number"
-                    render={({ field }) => (
-                      <FormItem>
+                    render={({ field }) =>
+                    <FormItem>
                         <FormLabel>Phone Number</FormLabel>
                         <FormControl>
                           <Input {...field} placeholder="+1234567890" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )}
-                  />
+                    } />
+
                   
                   <FormField
                     control={form.control}
                     name="password"
-                    render={({ field }) => (
-                      <FormItem>
+                    render={({ field }) =>
+                    <FormItem>
                         <FormLabel>
                           Password {editingUser ? '(leave blank to keep current)' : '*'}
                         </FormLabel>
                         <FormControl>
-                          <Input 
-                            {...field} 
-                            type="password" 
-                            placeholder="Enter password"
-                          />
+                          <Input
+                          {...field}
+                          type="password"
+                          placeholder="Enter password" />
+
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )}
-                  />
+                    } />
+
                   
                   <FormField
                     control={form.control}
                     name="role_id"
-                    render={({ field }) => (
-                      <FormItem>
+                    render={({ field }) =>
+                    <FormItem>
                         <FormLabel>Role *</FormLabel>
                         <Select
-                          value={field.value.toString()}
-                          onValueChange={(value) => field.onChange(parseInt(value))}
-                        >
+                        value={field.value.toString()}
+                        onValueChange={(value) => field.onChange(parseInt(value))}>
+
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="Select a role" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {roles.map((role) => (
-                              <SelectItem key={role.id} value={role.id.toString()}>
+                            {roles.map((role) =>
+                          <SelectItem key={role.id} value={role.id.toString()}>
                                 {role.name}
                               </SelectItem>
-                            ))}
+                          )}
                           </SelectContent>
                         </Select>
                         <FormMessage />
                       </FormItem>
-                    )}
-                  />
+                    } />
+
                   
                   <FormField
                     control={form.control}
                     name="is_activated"
-                    render={({ field }) => (
-                      <FormItem className="flex items-center space-x-2">
+                    render={({ field }) =>
+                    <FormItem className="flex items-center space-x-2">
                         <FormControl>
                           <input
-                            type="checkbox"
-                            checked={field.value}
-                            onChange={field.onChange}
-                            className="h-4 w-4"
-                          />
+                          type="checkbox"
+                          checked={field.value}
+                          onChange={field.onChange}
+                          className="h-4 w-4" />
+
                         </FormControl>
                         <FormLabel className="text-sm font-normal">
                           Account is active
                         </FormLabel>
                       </FormItem>
-                    )}
-                  />
+                    } />
+
                   
                   <div className="flex gap-2">
                     <Button type="submit" className="flex-1">
@@ -380,8 +380,8 @@ export function UserManagement() {
                     <Button
                       type="button"
                       variant="outline"
-                      onClick={() => setDialogOpen(false)}
-                    >
+                      onClick={() => setDialogOpen(false)}>
+
                       Cancel
                     </Button>
                   </div>
@@ -392,13 +392,13 @@ export function UserManagement() {
         </div>
 
         {/* Users Table */}
-        {loading ? (
-          <div className="flex items-center justify-center p-8">
+        {loading ?
+        <div className="flex items-center justify-center p-8">
             <div className="h-6 w-6 animate-spin rounded-full border-2 border-current border-t-transparent" />
             <span className="ml-2">Loading users...</span>
-          </div>
-        ) : (
-          <div className="rounded-md border">
+          </div> :
+
+        <div className="rounded-md border">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -412,15 +412,15 @@ export function UserManagement() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredUsers.length === 0 ? (
-                  <TableRow>
+                {filteredUsers.length === 0 ?
+              <TableRow>
                     <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
                       No users found
                     </TableCell>
-                  </TableRow>
-                ) : (
-                  filteredUsers.map((user) => (
-                    <TableRow key={user.id}>
+                  </TableRow> :
+
+              filteredUsers.map((user) =>
+              <TableRow key={user.id}>
                       <TableCell className="font-medium">{user.name}</TableCell>
                       <TableCell>{user.email}</TableCell>
                       <TableCell>{user.phone_number || '-'}</TableCell>
@@ -440,29 +440,29 @@ export function UserManagement() {
                       <TableCell className="text-right">
                         <div className="flex items-center justify-end gap-2">
                           <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handleEdit(user)}
-                          >
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleEdit(user)}>
+
                             <Edit className="h-4 w-4" />
                           </Button>
                           <Button
-                            variant="destructive"
-                            size="sm"
-                            onClick={() => handleDelete(user.id)}
-                          >
+                      variant="destructive"
+                      size="sm"
+                      onClick={() => handleDelete(user.id)}>
+
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         </div>
                       </TableCell>
                     </TableRow>
-                  ))
-                )}
+              )
+              }
               </TableBody>
             </Table>
           </div>
-        )}
+        }
       </CardContent>
-    </Card>
-  );
+    </Card>);
+
 }
