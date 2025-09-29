@@ -6,31 +6,31 @@ const TargetAudienceSection = () => {
   const { t } = useTranslation();
 
   const audiences = [
-    {
-      icon: <Target className="h-10 w-10 text-blue-600" />,
-      title: t('targetAudience.decisionMakers.title'),
-      description: t('targetAudience.decisionMakers.description'),
-      gradient: "from-blue-500 to-cyan-500"
-    },
-    {
-      icon: <Users className="h-10 w-10 text-green-600" />,
-      title: t('targetAudience.financialAdvisors.title'),
-      description: t('targetAudience.financialAdvisors.description'),
-      gradient: "from-green-500 to-emerald-500"
-    },
-    {
-      icon: <TrendingUp className="h-10 w-10 text-purple-600" />,
-      title: t('targetAudience.patternSeekers.title'),
-      description: t('targetAudience.patternSeekers.description'),
-      gradient: "from-purple-500 to-violet-500"
-    },
-    {
-      icon: <Award className="h-10 w-10 text-orange-600" />,
-      title: t('targetAudience.competitiveAdvantage.title'),
-      description: t('targetAudience.competitiveAdvantage.description'),
-      gradient: "from-orange-500 to-red-500"
-    }
-  ];
+  {
+    icon: <Target className="h-10 w-10 text-blue-600" />,
+    title: t('targetAudience.decisionMakers.title'),
+    description: t('targetAudience.decisionMakers.description'),
+    gradient: "from-blue-500 to-cyan-500"
+  },
+  {
+    icon: <Users className="h-10 w-10 text-green-600" />,
+    title: t('targetAudience.financialAdvisors.title'),
+    description: t('targetAudience.financialAdvisors.description'),
+    gradient: "from-green-500 to-emerald-500"
+  },
+  {
+    icon: <TrendingUp className="h-10 w-10 text-purple-600" />,
+    title: t('targetAudience.patternSeekers.title'),
+    description: t('targetAudience.patternSeekers.description'),
+    gradient: "from-purple-500 to-violet-500"
+  },
+  {
+    icon: <Award className="h-10 w-10 text-orange-600" />,
+    title: t('targetAudience.competitiveAdvantage.title'),
+    description: t('targetAudience.competitiveAdvantage.description'),
+    gradient: "from-orange-500 to-red-500"
+  }];
+
 
   return (
     <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
@@ -47,8 +47,8 @@ const TargetAudienceSection = () => {
 
         {/* Audience Grid */}
         <div className="grid md:grid-cols-2 gap-8">
-          {audiences.map((audience, index) => (
-            <Card key={index} className="bg-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden group">
+          {audiences.map((audience, index) =>
+          <Card key={index} className="bg-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden group">
               <CardContent className="p-0">
                 {/* Header with gradient */}
                 <div className={`bg-gradient-to-r ${audience.gradient} p-6 text-white`}>
@@ -70,7 +70,7 @@ const TargetAudienceSection = () => {
                 </div>
               </CardContent>
             </Card>
-          ))}
+          )}
         </div>
 
         {/* Bottom Section */}
@@ -104,8 +104,8 @@ const TargetAudienceSection = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 export default TargetAudienceSection;

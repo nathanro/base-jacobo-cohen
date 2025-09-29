@@ -57,8 +57,8 @@ const BigDataHeroSection = () => {
               <Button
                 onClick={handleDemo}
                 size="lg"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
-              >
+                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+
                 <Target className="mr-2 h-5 w-5" />
                 {t('hero.cta1')}
               </Button>
@@ -66,8 +66,8 @@ const BigDataHeroSection = () => {
                 onClick={handleAnalysis}
                 variant="outline"
                 size="lg"
-                className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300"
-              >
+                className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300">
+
                 <BarChart3 className="mr-2 h-5 w-5" />
                 {t('hero.cta2')}
               </Button>
@@ -114,8 +114,8 @@ const BigDataHeroSection = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 export default BigDataHeroSection;

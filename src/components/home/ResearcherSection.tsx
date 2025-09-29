@@ -7,37 +7,37 @@ const ResearcherSection = () => {
   const { t } = useTranslation();
 
   const credentials = [
-    {
-      icon: <BookOpen className="h-5 w-5" />,
-      text: t('researcher.credentials.author'),
-      color: "bg-blue-100 text-blue-800"
-    },
-    {
-      icon: <Mic className="h-5 w-5" />,
-      text: t('researcher.credentials.speaker'),
-      color: "bg-green-100 text-green-800"
-    },
-    {
-      icon: <Award className="h-5 w-5" />,
-      text: t('researcher.credentials.podcast'),
-      color: "bg-purple-100 text-purple-800"
-    },
-    {
-      icon: <TrendingUp className="h-5 w-5" />,
-      text: t('researcher.credentials.investor'),
-      color: "bg-orange-100 text-orange-800"
-    },
-    {
-      icon: <Users className="h-5 w-5" />,
-      text: t('researcher.credentials.followers'),
-      color: "bg-pink-100 text-pink-800"
-    },
-    {
-      icon: <Code className="h-5 w-5" />,
-      text: t('researcher.credentials.programmer'),
-      color: "bg-indigo-100 text-indigo-800"
-    }
-  ];
+  {
+    icon: <BookOpen className="h-5 w-5" />,
+    text: t('researcher.credentials.author'),
+    color: "bg-blue-100 text-blue-800"
+  },
+  {
+    icon: <Mic className="h-5 w-5" />,
+    text: t('researcher.credentials.speaker'),
+    color: "bg-green-100 text-green-800"
+  },
+  {
+    icon: <Award className="h-5 w-5" />,
+    text: t('researcher.credentials.podcast'),
+    color: "bg-purple-100 text-purple-800"
+  },
+  {
+    icon: <TrendingUp className="h-5 w-5" />,
+    text: t('researcher.credentials.investor'),
+    color: "bg-orange-100 text-orange-800"
+  },
+  {
+    icon: <Users className="h-5 w-5" />,
+    text: t('researcher.credentials.followers'),
+    color: "bg-pink-100 text-pink-800"
+  },
+  {
+    icon: <Code className="h-5 w-5" />,
+    text: t('researcher.credentials.programmer'),
+    color: "bg-indigo-100 text-indigo-800"
+  }];
+
 
   return (
     <section className="py-20 bg-white">
@@ -75,16 +75,16 @@ const ResearcherSection = () => {
 
             {/* Credentials Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-              {credentials.map((credential, index) => (
-                <Badge
-                  key={index}
-                  variant="secondary"
-                  className={`${credential.color} px-4 py-3 text-sm font-medium rounded-lg border-0 flex items-center space-x-2 justify-start`}
-                >
+              {credentials.map((credential, index) =>
+              <Badge
+                key={index}
+                variant="secondary"
+                className={`${credential.color} px-4 py-3 text-sm font-medium rounded-lg border-0 flex items-center space-x-2 justify-start`}>
+
                   {credential.icon}
                   <span>{credential.text}</span>
                 </Badge>
-              ))}
+              )}
             </div>
 
             <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-0">
@@ -121,8 +121,8 @@ const ResearcherSection = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 export default ResearcherSection;

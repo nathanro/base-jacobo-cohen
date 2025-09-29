@@ -7,37 +7,37 @@ const DemoBenefitsSection = () => {
   const { t } = useTranslation();
 
   const benefits = [
-    {
-      icon: <Monitor className="h-8 w-8 text-blue-600" />,
-      title: t('demoBenefits.platformOverview.title'),
-      description: t('demoBenefits.platformOverview.description'),
-      color: "border-blue-200 bg-blue-50"
-    },
-    {
-      icon: <Database className="h-8 w-8 text-green-600" />,
-      title: t('demoBenefits.marketAccess.title'),
-      description: t('demoBenefits.marketAccess.description'),
-      color: "border-green-200 bg-green-50"
-    },
-    {
-      icon: <TrendingUp className="h-8 w-8 text-purple-600" />,
-      title: t('demoBenefits.topCompanies.title'),
-      description: t('demoBenefits.topCompanies.description'),
-      color: "border-purple-200 bg-purple-50"
-    },
-    {
-      icon: <Target className="h-8 w-8 text-orange-600" />,
-      title: t('demoBenefits.diversification.title'),
-      description: t('demoBenefits.diversification.description'),
-      color: "border-orange-200 bg-orange-50"
-    },
-    {
-      icon: <Search className="h-8 w-8 text-red-600" />,
-      title: t('demoBenefits.growthIdentification.title'),
-      description: t('demoBenefits.growthIdentification.description'),
-      color: "border-red-200 bg-red-50"
-    }
-  ];
+  {
+    icon: <Monitor className="h-8 w-8 text-blue-600" />,
+    title: t('demoBenefits.platformOverview.title'),
+    description: t('demoBenefits.platformOverview.description'),
+    color: "border-blue-200 bg-blue-50"
+  },
+  {
+    icon: <Database className="h-8 w-8 text-green-600" />,
+    title: t('demoBenefits.marketAccess.title'),
+    description: t('demoBenefits.marketAccess.description'),
+    color: "border-green-200 bg-green-50"
+  },
+  {
+    icon: <TrendingUp className="h-8 w-8 text-purple-600" />,
+    title: t('demoBenefits.topCompanies.title'),
+    description: t('demoBenefits.topCompanies.description'),
+    color: "border-purple-200 bg-purple-50"
+  },
+  {
+    icon: <Target className="h-8 w-8 text-orange-600" />,
+    title: t('demoBenefits.diversification.title'),
+    description: t('demoBenefits.diversification.description'),
+    color: "border-orange-200 bg-orange-50"
+  },
+  {
+    icon: <Search className="h-8 w-8 text-red-600" />,
+    title: t('demoBenefits.growthIdentification.title'),
+    description: t('demoBenefits.growthIdentification.description'),
+    color: "border-red-200 bg-red-50"
+  }];
+
 
   const handleRequestDemo = () => {
     // Scroll to contact section
@@ -62,8 +62,8 @@ const DemoBenefitsSection = () => {
 
         {/* Benefits Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {benefits.map((benefit, index) => (
-            <Card key={index} className={`${benefit.color} border-2 hover:shadow-lg transition-all duration-300 hover:scale-105`}>
+          {benefits.map((benefit, index) =>
+          <Card key={index} className={`${benefit.color} border-2 hover:shadow-lg transition-all duration-300 hover:scale-105`}>
               <CardHeader>
                 <div className="flex items-center space-x-3 mb-3">
                   <div className="p-2 bg-white rounded-lg shadow-sm">
@@ -80,7 +80,7 @@ const DemoBenefitsSection = () => {
                 </p>
               </CardContent>
             </Card>
-          ))}
+          )}
         </div>
 
         {/* Featured Benefit - 81 Companies */}
@@ -137,8 +137,8 @@ const DemoBenefitsSection = () => {
               <Button
                 onClick={handleRequestDemo}
                 size="lg"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
-              >
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+
                 Solicitar Demo Gratuita
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
@@ -149,8 +149,8 @@ const DemoBenefitsSection = () => {
           </Card>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 export default DemoBenefitsSection;

@@ -6,43 +6,43 @@ const KeyMetricsSection = () => {
   const { t } = useTranslation();
 
   const metrics = [
-    {
-      icon: <TrendingUp className="h-8 w-8 text-blue-600" />,
-      title: t('keyMetrics.salesGrowth.title'),
-      description: t('keyMetrics.salesGrowth.description'),
-      color: "bg-blue-50 border-blue-200"
-    },
-    {
-      icon: <DollarSign className="h-8 w-8 text-red-600" />,
-      title: t('keyMetrics.debtLevels.title'),
-      description: t('keyMetrics.debtLevels.description'),
-      color: "bg-red-50 border-red-200"
-    },
-    {
-      icon: <PieChart className="h-8 w-8 text-green-600" />,
-      title: t('keyMetrics.grossMargin.title'),
-      description: t('keyMetrics.grossMargin.description'),
-      color: "bg-green-50 border-green-200"
-    },
-    {
-      icon: <Building className="h-8 w-8 text-purple-600" />,
-      title: t('keyMetrics.economicSector.title'),
-      description: t('keyMetrics.economicSector.description'),
-      color: "bg-purple-50 border-purple-200"
-    },
-    {
-      icon: <Clock className="h-8 w-8 text-orange-600" />,
-      title: t('keyMetrics.historicalData.title'),
-      description: t('keyMetrics.historicalData.description'),
-      color: "bg-orange-50 border-orange-200"
-    },
-    {
-      icon: <Users className="h-8 w-8 text-indigo-600" />,
-      title: t('keyMetrics.companiesAnalyzed.title'),
-      description: t('keyMetrics.companiesAnalyzed.description'),
-      color: "bg-indigo-50 border-indigo-200"
-    }
-  ];
+  {
+    icon: <TrendingUp className="h-8 w-8 text-blue-600" />,
+    title: t('keyMetrics.salesGrowth.title'),
+    description: t('keyMetrics.salesGrowth.description'),
+    color: "bg-blue-50 border-blue-200"
+  },
+  {
+    icon: <DollarSign className="h-8 w-8 text-red-600" />,
+    title: t('keyMetrics.debtLevels.title'),
+    description: t('keyMetrics.debtLevels.description'),
+    color: "bg-red-50 border-red-200"
+  },
+  {
+    icon: <PieChart className="h-8 w-8 text-green-600" />,
+    title: t('keyMetrics.grossMargin.title'),
+    description: t('keyMetrics.grossMargin.description'),
+    color: "bg-green-50 border-green-200"
+  },
+  {
+    icon: <Building className="h-8 w-8 text-purple-600" />,
+    title: t('keyMetrics.economicSector.title'),
+    description: t('keyMetrics.economicSector.description'),
+    color: "bg-purple-50 border-purple-200"
+  },
+  {
+    icon: <Clock className="h-8 w-8 text-orange-600" />,
+    title: t('keyMetrics.historicalData.title'),
+    description: t('keyMetrics.historicalData.description'),
+    color: "bg-orange-50 border-orange-200"
+  },
+  {
+    icon: <Users className="h-8 w-8 text-indigo-600" />,
+    title: t('keyMetrics.companiesAnalyzed.title'),
+    description: t('keyMetrics.companiesAnalyzed.description'),
+    color: "bg-indigo-50 border-indigo-200"
+  }];
+
 
   return (
     <section id="key-metrics" className="py-20 bg-white">
@@ -59,8 +59,8 @@ const KeyMetricsSection = () => {
 
         {/* Metrics Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {metrics.map((metric, index) => (
-            <Card key={index} className={`${metric.color} border-2 hover:shadow-lg transition-all duration-300 hover:scale-105`}>
+          {metrics.map((metric, index) =>
+          <Card key={index} className={`${metric.color} border-2 hover:shadow-lg transition-all duration-300 hover:scale-105`}>
               <CardContent className="p-8">
                 <div className="flex items-center mb-4">
                   <div className="p-3 bg-white rounded-lg shadow-sm">
@@ -75,7 +75,7 @@ const KeyMetricsSection = () => {
                 </p>
               </CardContent>
             </Card>
-          ))}
+          )}
         </div>
 
         {/* Bottom CTA */}
@@ -91,8 +91,8 @@ const KeyMetricsSection = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 export default KeyMetricsSection;
