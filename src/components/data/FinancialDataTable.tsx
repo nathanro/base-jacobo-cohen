@@ -472,11 +472,11 @@ export function FinancialDataTable() {
         const styledColumns = generatedColumns.map((col) => {
           const columnName = col.accessorKey as string;
           const lowerColumnName = columnName.toLowerCase();
-          
+
           // Define colors for specific financial metrics
           let headerClassName = 'font-semibold';
           let cellClassName = '';
-          
+
           if (lowerColumnName.includes('revenue') || lowerColumnName.includes('sales') || lowerColumnName.includes('income')) {
             headerClassName += ' text-green-700 bg-green-50 border-green-200';
             cellClassName = 'text-green-800 bg-green-50/30';
@@ -503,13 +503,13 @@ export function FinancialDataTable() {
                     {columnName.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
                   </span>
                   {column.getIsSorted() === 'asc' ?
-                    <ChevronUp className="ml-2 h-4 w-4" /> :
-                    column.getIsSorted() === 'desc' ?
-                    <ChevronDown className="ml-2 h-4 w-4" /> :
-                    <ChevronsUpDown className="ml-2 h-4 w-4" />
+                  <ChevronUp className="ml-2 h-4 w-4" /> :
+                  column.getIsSorted() === 'desc' ?
+                  <ChevronDown className="ml-2 h-4 w-4" /> :
+                  <ChevronsUpDown className="ml-2 h-4 w-4" />
                   }
-                </Button>
-              );
+                </Button>);
+
             },
             cell: ({ row }) => {
               const value = row.getValue(columnName);
@@ -625,11 +625,11 @@ export function FinancialDataTable() {
           const styledColumns = generatedColumns.map((col) => {
             const columnName = col.accessorKey as string;
             const lowerColumnName = columnName.toLowerCase();
-            
+
             // Define colors for specific financial metrics
             let headerClassName = 'font-semibold';
             let cellClassName = '';
-            
+
             if (lowerColumnName.includes('revenue') || lowerColumnName.includes('sales') || lowerColumnName.includes('income')) {
               headerClassName += ' text-green-700 bg-green-50 border-green-200';
               cellClassName = 'text-green-800 bg-green-50/30';
@@ -656,13 +656,13 @@ export function FinancialDataTable() {
                       {columnName.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
                     </span>
                     {column.getIsSorted() === 'asc' ?
-                      <ChevronUp className="ml-2 h-4 w-4" /> :
-                      column.getIsSorted() === 'desc' ?
-                      <ChevronDown className="ml-2 h-4 w-4" /> :
-                      <ChevronsUpDown className="ml-2 h-4 w-4" />
+                    <ChevronUp className="ml-2 h-4 w-4" /> :
+                    column.getIsSorted() === 'desc' ?
+                    <ChevronDown className="ml-2 h-4 w-4" /> :
+                    <ChevronsUpDown className="ml-2 h-4 w-4" />
                     }
-                  </Button>
-                );
+                  </Button>);
+
               },
               cell: ({ row }) => {
                 const value = row.getValue(columnName);
@@ -903,8 +903,8 @@ export function FinancialDataTable() {
             </CollapsibleContent>
           </Collapsible>
 
-          <div className="rounded-md border">
-            <Table>
+          <div className="rounded-md border w-full overflow-auto">
+            <Table className="w-full">
               <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) =>
                 <TableRow key={headerGroup.id}>
