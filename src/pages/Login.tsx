@@ -7,19 +7,19 @@ import { MadeWithDyad } from '@/components/powered-by-publiexpert';
 const Login = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     if (user && !loading) {
       navigate('/');
     }
   }, [user, loading, navigate]);
-  
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p>Loading...</p>
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -40,8 +40,8 @@ const Login = () => {
           <MadeWithDyad />
         </div>
       </footer>
-    </div>
-  );
+    </div>);
+
 };
 
 export default Login;

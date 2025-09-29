@@ -17,7 +17,7 @@ export function AuthForm() {
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    
+
     try {
       const { error } = await supabase.auth.signUp({
         email,
@@ -25,11 +25,11 @@ export function AuthForm() {
         options: {
           data: {
             first_name: firstName,
-            last_name: lastName,
-          },
-        },
+            last_name: lastName
+          }
+        }
       });
-      
+
       if (error) throw error;
       showSuccess('Check your email for the confirmation link!');
     } catch (error: any) {
@@ -42,13 +42,13 @@ export function AuthForm() {
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    
+
     try {
       const { error } = await supabase.auth.signInWithPassword({
         email,
-        password,
+        password
       });
-      
+
       if (error) throw error;
       showSuccess('Signed in successfully!');
     } catch (error: any) {
@@ -77,24 +77,24 @@ export function AuthForm() {
             <CardContent className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="signin-email">Email</Label>
-                <Input 
-                  id="signin-email" 
-                  type="email" 
-                  placeholder="your@email.com" 
+                <Input
+                  id="signin-email"
+                  type="email"
+                  placeholder="your@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
+                  required />
+
               </div>
               <div className="space-y-2">
                 <Label htmlFor="signin-password">Password</Label>
-                <Input 
-                  id="signin-password" 
-                  type="password" 
+                <Input
+                  id="signin-password"
+                  type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
+                  required />
+
               </div>
             </CardContent>
             <CardFooter>
@@ -119,43 +119,43 @@ export function AuthForm() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="first-name">First Name</Label>
-                  <Input 
-                    id="first-name" 
+                  <Input
+                    id="first-name"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    required
-                  />
+                    required />
+
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="last-name">Last Name</Label>
-                  <Input 
-                    id="last-name" 
+                  <Input
+                    id="last-name"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
-                    required
-                  />
+                    required />
+
                 </div>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="signup-email">Email</Label>
-                <Input 
-                  id="signup-email" 
-                  type="email" 
-                  placeholder="your@email.com" 
+                <Input
+                  id="signup-email"
+                  type="email"
+                  placeholder="your@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
+                  required />
+
               </div>
               <div className="space-y-2">
                 <Label htmlFor="signup-password">Password</Label>
-                <Input 
-                  id="signup-password" 
-                  type="password" 
+                <Input
+                  id="signup-password"
+                  type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
+                  required />
+
               </div>
             </CardContent>
             <CardFooter>
@@ -166,6 +166,6 @@ export function AuthForm() {
           </form>
         </Card>
       </TabsContent>
-    </Tabs>
-  );
+    </Tabs>);
+
 }

@@ -22,18 +22,18 @@ export function DatasetList() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { profile } = useAuth();
-  
+
   const isPremiumUser = profile?.subscription_status === 'premium';
 
   useEffect(() => {
     const fetchDatasets = async () => {
       setLoading(true);
       try {
-        const { data, error } = await supabase
-          .from('financial_datasets')
-          .select('*')
-          .order('created_at', { ascending: false });
-        
+        const { data, error } = await supabase.
+        from('financial_datasets').
+        select('*').
+        order('created_at', { ascending: false });
+
         if (error) throw error;
         setDatasets(data || []);
       } catch (error: any) {
@@ -42,7 +42,7 @@ export function DatasetList() {
         setLoading(false);
       }
     };
-    
+
     fetchDatasets();
   }, []);
 
@@ -51,7 +51,7 @@ export function DatasetList() {
       showError('This dataset requires a premium subscription');
       return;
     }
-    
+
     navigate(`/datasets/${id}`);
   };
 
@@ -62,31 +62,31 @@ export function DatasetList() {
         <div className="h-40 flex items-center justify-center">
           Loading datasets...
         </div>
-      </div>
-    );
+      </div>);
+
   }
 
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold">Available Datasets</h2>
       
-      {datasets.length === 0 ? (
-        <div className="text-center p-8 border rounded-lg">
+      {datasets.length === 0 ?
+      <div className="text-center p-8 border rounded-lg">
           <p className="text-muted-foreground">No datasets available yet.</p>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {datasets.map(dataset => (
-            <Card key={dataset.id}>
+        </div> :
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {datasets.map((dataset) =>
+        <Card key={dataset.id}>
               <CardHeader>
                 <div className="flex justify-between items-start">
                   <CardTitle className="text-xl">{dataset.name}</CardTitle>
-                  {dataset.is_premium && (
-                    <Badge variant="secondary" className="ml-2">
+                  {dataset.is_premium &&
+              <Badge variant="secondary" className="ml-2">
                       <Lock className="h-3 w-3 mr-1" />
                       Premium
                     </Badge>
-                  )}
+              }
                 </div>
                 <CardDescription>
                   {new Date(dataset.created_at).toLocaleDateString()}
@@ -98,25 +98,25 @@ export function DatasetList() {
                 </p>
               </CardContent>
               <CardFooter>
-                <Button 
-                  onClick={() => handleViewDataset(dataset.id, dataset.is_premium)}
-                  variant={dataset.is_premium && !isPremiumUser ? "outline" : "default"}
-                  className="w-full"
-                >
-                  {dataset.is_premium && !isPremiumUser ? (
-                    <>
+                <Button
+              onClick={() => handleViewDataset(dataset.id, dataset.is_premium)}
+              variant={dataset.is_premium && !isPremiumUser ? "outline" : "default"}
+              className="w-full">
+
+                  {dataset.is_premium && !isPremiumUser ?
+              <>
                       <Lock className="h-4 w-4 mr-2" />
                       Requires Premium
-                    </>
-                  ) : (
-                    'View Data'
-                  )}
+                    </> :
+
+              'View Data'
+              }
                 </Button>
               </CardFooter>
             </Card>
-          ))}
+        )}
         </div>
-      )}
-    </div>
-  );
+      }
+    </div>);
+
 }

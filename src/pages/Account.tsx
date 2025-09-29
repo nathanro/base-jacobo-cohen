@@ -9,19 +9,19 @@ import { MadeWithDyad } from '@/components/powered-by-publiexpert';
 const Account = () => {
   const { user, profile, loading } = useAuth();
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     if (!loading && !user) {
       navigate('/login');
     }
   }, [user, loading, navigate]);
-  
+
   if (loading || !user || !profile) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p>Loading...</p>
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -61,12 +61,12 @@ const Account = () => {
                 <p className="capitalize">{profile.subscription_status}</p>
               </div>
               
-              {profile.subscription_end_date && (
-                <div className="space-y-1">
+              {profile.subscription_end_date &&
+              <div className="space-y-1">
                   <p className="text-sm font-medium text-gray-500">Subscription Ends</p>
                   <p>{new Date(profile.subscription_end_date).toLocaleDateString()}</p>
                 </div>
-              )}
+              }
             </CardContent>
           </Card>
           
@@ -79,8 +79,8 @@ const Account = () => {
           <MadeWithDyad />
         </div>
       </footer>
-    </div>
-  );
+    </div>);
+
 };
 
 export default Account;

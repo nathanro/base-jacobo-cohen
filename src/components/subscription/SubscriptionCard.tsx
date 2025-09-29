@@ -12,7 +12,7 @@ import { useAuth } from '@/contexts/AuthContext';
 export function SubscriptionCard() {
   const { user, profile } = useAuth();
   const [loading, setLoading] = useState(false);
-  
+
   const isPremium = profile?.subscription_status === 'premium';
 
   const handleSubscribe = async () => {
@@ -20,28 +20,28 @@ export function SubscriptionCard() {
       showError('You must be logged in to subscribe');
       return;
     }
-    
+
     setLoading(true);
-    
+
     try {
       // In a real app, this would redirect to a payment page
       // For this demo, we'll just update the user's subscription status
-      
+
       const oneYearFromNow = new Date();
       oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
-      
-      const { error } = await supabase
-        .from('profiles')
-        .update({
-          subscription_status: 'premium',
-          subscription_end_date: oneYearFromNow.toISOString()
-        })
-        .eq('id', user.id);
-      
+
+      const { error } = await supabase.
+      from('profiles').
+      update({
+        subscription_status: 'premium',
+        subscription_end_date: oneYearFromNow.toISOString()
+      }).
+      eq('id', user.id);
+
       if (error) throw error;
-      
+
       showSuccess('Successfully subscribed to premium plan!');
-      
+
       // Refresh the page to update the auth context
       window.location.reload();
     } catch (error: any) {
@@ -53,22 +53,22 @@ export function SubscriptionCard() {
 
   const handleCancelSubscription = async () => {
     if (!user) return;
-    
+
     setLoading(true);
-    
+
     try {
-      const { error } = await supabase
-        .from('profiles')
-        .update({
-          subscription_status: 'free',
-          subscription_end_date: null
-        })
-        .eq('id', user.id);
-      
+      const { error } = await supabase.
+      from('profiles').
+      update({
+        subscription_status: 'free',
+        subscription_end_date: null
+      }).
+      eq('id', user.id);
+
       if (error) throw error;
-      
+
       showSuccess('Your subscription has been canceled');
-      
+
       // Refresh the page to update the auth context
       window.location.reload();
     } catch (error: any) {
@@ -112,25 +112,25 @@ export function SubscriptionCard() {
         </ul>
       </CardContent>
       <CardFooter>
-        {isPremium ? (
-          <Button 
-            variant="outline" 
-            className="w-full" 
-            onClick={handleCancelSubscription}
-            disabled={loading}
-          >
+        {isPremium ?
+        <Button
+          variant="outline"
+          className="w-full"
+          onClick={handleCancelSubscription}
+          disabled={loading}>
+
             {loading ? 'Processing...' : 'Cancel Subscription'}
-          </Button>
-        ) : (
-          <Button 
-            className="w-full" 
-            onClick={handleSubscribe}
-            disabled={loading}
-          >
+          </Button> :
+
+        <Button
+          className="w-full"
+          onClick={handleSubscribe}
+          disabled={loading}>
+
             {loading ? 'Processing...' : 'Subscribe Now'}
           </Button>
-        )}
+        }
       </CardFooter>
-    </Card>
-  );
+    </Card>);
+
 }

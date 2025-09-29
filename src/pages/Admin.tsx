@@ -8,7 +8,7 @@ import { showError, showSuccess } from '@/utils/toast';
 import { MadeWithDyad } from '@/components/powered-by-publiexpert';
 
 // Actualizado para incluir tu correo electrónico
-const ADMIN_EMAILS = ['nathan@publiexpert.com']; 
+const ADMIN_EMAILS = ['nathan@publiexpert.com'];
 
 const Admin = () => {
   const { user, loading, profile } = useAuth();
@@ -16,13 +16,13 @@ const Admin = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [checkingAdmin, setCheckingAdmin] = useState(true);
   const [updatingSubscription, setUpdatingSubscription] = useState(false);
-  
+
   useEffect(() => {
     if (!loading && !user) {
       navigate('/login');
       return;
     }
-    
+
     if (user) {
       // Check if user is an admin
       if (ADMIN_EMAILS.includes(user.email || '')) {
@@ -36,24 +36,24 @@ const Admin = () => {
 
   const makeUserPremium = async () => {
     if (!user) return;
-    
+
     setUpdatingSubscription(true);
     try {
       const oneYearFromNow = new Date();
       oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
-      
-      const { error } = await supabase
-        .from('profiles')
-        .update({
-          subscription_status: 'premium',
-          subscription_end_date: oneYearFromNow.toISOString()
-        })
-        .eq('id', user.id);
-      
+
+      const { error } = await supabase.
+      from('profiles').
+      update({
+        subscription_status: 'premium',
+        subscription_end_date: oneYearFromNow.toISOString()
+      }).
+      eq('id', user.id);
+
       if (error) throw error;
-      
+
       showSuccess('¡Actualizado a usuario premium con éxito!');
-      
+
       // Recargar la página para actualizar el contexto de autenticación
       setTimeout(() => {
         window.location.reload();
@@ -64,15 +64,15 @@ const Admin = () => {
       setUpdatingSubscription(false);
     }
   };
-  
+
   if (loading || checkingAdmin) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p>Cargando...</p>
-      </div>
-    );
+      </div>);
+
   }
-  
+
   if (!isAdmin) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -83,8 +83,8 @@ const Admin = () => {
             Volver al Inicio
           </Button>
         </div>
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -101,18 +101,18 @@ const Admin = () => {
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
         <div className="space-y-8">
-          {profile?.subscription_status !== 'premium' && (
-            <div className="bg-white p-6 rounded-lg shadow mb-6">
+          {profile?.subscription_status !== 'premium' &&
+          <div className="bg-white p-6 rounded-lg shadow mb-6">
               <h2 className="text-xl font-semibold mb-4">Estado de Suscripción</h2>
               <p className="mb-4">Actualmente eres un usuario gratuito. Como administrador, puedes actualizar tu cuenta a premium.</p>
-              <Button 
-                onClick={makeUserPremium} 
-                disabled={updatingSubscription}
-              >
+              <Button
+              onClick={makeUserPremium}
+              disabled={updatingSubscription}>
+
                 {updatingSubscription ? 'Actualizando...' : 'Convertirme en Usuario Premium'}
               </Button>
             </div>
-          )}
+          }
           
           <div>
             <h2 className="text-xl font-semibold mb-4">Subir Datos Financieros</h2>
@@ -126,8 +126,8 @@ const Admin = () => {
           <MadeWithDyad />
         </div>
       </footer>
-    </div>
-  );
+    </div>);
+
 };
 
 export default Admin;

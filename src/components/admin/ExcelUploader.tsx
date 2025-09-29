@@ -23,56 +23,56 @@ export function ExcelUploader() {
 
   const handleUpload = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!file || !datasetName) {
       showError('Please select a file and provide a dataset name');
       return;
     }
-    
+
     setLoading(true);
-    
+
     try {
       // Read the Excel file
       const data = await file.arrayBuffer();
       const workbook = XLSX.read(data);
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
       const jsonData = XLSX.utils.sheet_to_json(worksheet);
-      
+
       if (jsonData.length === 0) {
         throw new Error('The Excel file is empty');
       }
-      
+
       // Create a new dataset
-      const { data: dataset, error: datasetError } = await supabase
-        .from('financial_datasets')
-        .insert({
-          name: datasetName,
-          description,
-          is_premium: isPremium
-        })
-        .select()
-        .single();
-      
+      const { data: dataset, error: datasetError } = await supabase.
+      from('financial_datasets').
+      insert({
+        name: datasetName,
+        description,
+        is_premium: isPremium
+      }).
+      select().
+      single();
+
       if (datasetError) throw datasetError;
-      
+
       // Insert the data
-      const { error: dataError } = await supabase
-        .from('financial_data')
-        .insert({
-          dataset_id: dataset.id,
-          data: jsonData
-        });
-      
+      const { error: dataError } = await supabase.
+      from('financial_data').
+      insert({
+        dataset_id: dataset.id,
+        data: jsonData
+      });
+
       if (dataError) throw dataError;
-      
+
       showSuccess('Financial data uploaded successfully!');
-      
+
       // Reset form
       setFile(null);
       setDatasetName('');
       setDescription('');
       setIsPremium(false);
-      
+
       // Reset file input
       const fileInput = document.getElementById('excel-file') as HTMLInputElement;
       if (fileInput) {
@@ -97,40 +97,40 @@ export function ExcelUploader() {
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="dataset-name">Dataset Name</Label>
-            <Input 
-              id="dataset-name" 
+            <Input
+              id="dataset-name"
               value={datasetName}
               onChange={(e) => setDatasetName(e.target.value)}
-              required
-            />
+              required />
+
           </div>
           
           <div className="space-y-2">
             <Label htmlFor="description">Description</Label>
-            <Input 
-              id="description" 
+            <Input
+              id="description"
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
+              onChange={(e) => setDescription(e.target.value)} />
+
           </div>
           
           <div className="space-y-2">
             <Label htmlFor="excel-file">Excel File</Label>
-            <Input 
-              id="excel-file" 
-              type="file" 
+            <Input
+              id="excel-file"
+              type="file"
               accept=".xlsx,.xls"
               onChange={handleFileChange}
-              required
-            />
+              required />
+
           </div>
           
           <div className="flex items-center space-x-2">
-            <Checkbox 
-              id="premium" 
+            <Checkbox
+              id="premium"
               checked={isPremium}
-              onCheckedChange={(checked) => setIsPremium(checked === true)}
-            />
+              onCheckedChange={(checked) => setIsPremium(checked === true)} />
+
             <Label htmlFor="premium">Premium Content (subscribers only)</Label>
           </div>
         </CardContent>
@@ -140,6 +140,6 @@ export function ExcelUploader() {
           </Button>
         </CardFooter>
       </form>
-    </Card>
-  );
+    </Card>);
+
 }

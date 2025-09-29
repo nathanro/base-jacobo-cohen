@@ -6,30 +6,30 @@ import { useAuth } from '@/contexts/AuthContext';
 import { MadeWithDyad } from '@/components/powered-by-publiexpert';
 
 const DatasetView = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{id: string;}>();
   const { user, loading } = useAuth();
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     if (!loading && !user) {
       navigate('/login');
     }
   }, [user, loading, navigate]);
-  
+
   if (loading || !user) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p>Loading...</p>
-      </div>
-    );
+      </div>);
+
   }
 
   if (!id) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p>Dataset not found</p>
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -53,8 +53,8 @@ const DatasetView = () => {
           <MadeWithDyad />
         </div>
       </footer>
-    </div>
-  );
+    </div>);
+
 };
 
 export default DatasetView;
