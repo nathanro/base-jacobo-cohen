@@ -16,15 +16,15 @@ const DatasetView = () => {
 
   const handleUploadSuccess = () => {
     // Trigger a refresh of the data table
-    setRefreshKey(prev => prev + 1);
+    setRefreshKey((prev) => prev + 1);
   };
 
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-      </div>
-    );
+      </div>);
+
   }
 
   const canUpload = user && (user.Roles?.includes('Administrator') || user.Roles?.includes('GeneralUser'));
@@ -48,23 +48,23 @@ const DatasetView = () => {
               <BarChart3 className="h-4 w-4" />
               <span>Data Analysis</span>
             </TabsTrigger>
-            {canUpload && (
-              <TabsTrigger value="upload" className="flex items-center space-x-2">
+            {canUpload &&
+            <TabsTrigger value="upload" className="flex items-center space-x-2">
                 <Upload className="h-4 w-4" />
                 <span>Upload Data</span>
               </TabsTrigger>
-            )}
+            }
           </TabsList>
           
           <TabsContent value="analysis" className="mt-6">
             <FinancialDataTable key={refreshKey} />
           </TabsContent>
           
-          {canUpload && (
-            <TabsContent value="upload" className="mt-6">
+          {canUpload &&
+          <TabsContent value="upload" className="mt-6">
               <ExcelFileUploader onUploadSuccess={handleUploadSuccess} />
             </TabsContent>
-          )}
+          }
         </Tabs>
       </main>
       
@@ -73,8 +73,8 @@ const DatasetView = () => {
           <MadeWithDyad />
         </div>
       </footer>
-    </div>
-  );
+    </div>);
+
 };
 
 export default DatasetView;

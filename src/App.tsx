@@ -7,6 +7,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Account from "./pages/Account";
+import Datasets from "./pages/Datasets";
 import DatasetView from "./pages/DatasetView";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
@@ -26,6 +27,7 @@ const App = () =>
             <Route path="/" element={<Index />} />
             <Route path="/login" element={<Login />} />
             <Route path="/account" element={<Account />} />
+            <Route path="/datasets" element={<Datasets />} />
             <Route path="/datasets/:id" element={<DatasetView />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/onauthsuccess" element={<OnAuthSuccess />} />

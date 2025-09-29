@@ -305,6 +305,15 @@
     "seconds": "segundos",
     "redirecting": "Redirigiendo a la página de inicio de sesión..."
   },
+  "datasets": {
+    "title": "Conjuntos de Datos Financieros",
+    "subtitle": "Explora y analiza conjuntos de datos financieros comprensivos",
+    "loading": "Cargando conjuntos de datos...",
+    "noDatasets": "No hay conjuntos de datos disponibles",
+    "viewDataset": "Ver Conjunto de Datos",
+    "analyzeData": "Analizar Datos",
+    "uploadData": "Subir Datos"
+  },
   "notFound": {
     "title": "Página No Encontrada",
     "message": "La página que buscas no existe.",

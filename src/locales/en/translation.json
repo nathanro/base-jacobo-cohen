@@ -356,6 +356,15 @@
     "seconds": "seconds",
     "redirecting": "Redirecting to login page..."
   },
+  "datasets": {
+    "title": "Financial Datasets",
+    "subtitle": "Explore and analyze comprehensive financial datasets",
+    "loading": "Loading datasets...",
+    "noDatasets": "No datasets available",
+    "viewDataset": "View Dataset",
+    "analyzeData": "Analyze Data",
+    "uploadData": "Upload Data"
+  },
   "notFound": {
     "title": "Page Not Found",
     "message": "The page you are looking for does not exist.",

@@ -37,7 +37,7 @@ export function DatasetList() {
     } else {
       setLoading(true);
     }
-    
+
     try {
       const response = await window.ezsite.apis.tablePage(41729, {
         PageNo: 1,
@@ -52,7 +52,7 @@ export function DatasetList() {
 
       const uploadList = response.data?.List || [];
       setUploads(uploadList);
-      
+
       if (showRefreshing) {
         showSuccess(`Refreshed dataset list - found ${uploadList.length} datasets`);
       }
@@ -73,7 +73,7 @@ export function DatasetList() {
   }, []);
 
   const handleViewDataset = () => {
-    navigate('/datasets/view');
+    navigate('/datasets/1');
   };
 
   const handleRefresh = () => {
@@ -106,8 +106,8 @@ export function DatasetList() {
         <div className="h-40 flex items-center justify-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
         </div>
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -115,13 +115,13 @@ export function DatasetList() {
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">Available Financial Datasets</h2>
         <div className="flex items-center space-x-2">
-          <Button 
-            onClick={handleRefresh} 
-            variant="outline" 
+          <Button
+            onClick={handleRefresh}
+            variant="outline"
             size="sm"
             disabled={refreshing}
-            className="flex items-center space-x-2"
-          >
+            className="flex items-center space-x-2">
+
             <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
             <span>Refresh</span>
           </Button>
@@ -132,8 +132,8 @@ export function DatasetList() {
         </div>
       </div>
 
-      {uploads.length === 0 && (
-        <div className="space-y-6">
+      {uploads.length === 0 &&
+      <div className="space-y-6">
           <SampleDataUploader />
           <div className="text-center p-8 border rounded-lg">
             <FileSpreadsheet className="h-12 w-12 mx-auto mb-4 text-gray-400" />
@@ -143,23 +143,23 @@ export function DatasetList() {
             </p>
           </div>
         </div>
-      )}
+      }
 
-      {uploads.length > 0 && (
-        <div className="space-y-4">
+      {uploads.length > 0 &&
+      <div className="space-y-4">
           <div className="flex items-center justify-between bg-blue-50 p-4 rounded-lg border border-blue-200">
             <div className="text-sm text-blue-800">
               <strong>Found {uploads.length} dataset{uploads.length !== 1 ? 's' : ''}</strong> with{' '}
               <strong>{totalRecords.toLocaleString()} total records</strong>
             </div>
             <Badge variant="secondary" className="bg-blue-100 text-blue-800">
-              {uploads.filter(u => u.status === 'processed').length} processed
+              {uploads.filter((u) => u.status === 'processed').length} processed
             </Badge>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {uploads.map((upload) => (
-              <Card key={upload.id} className="hover:shadow-md transition-shadow">
+            {uploads.map((upload) =>
+          <Card key={upload.id} className="hover:shadow-md transition-shadow">
                 <CardHeader>
                   <div className="flex justify-between items-start">
                     <CardTitle className="text-lg flex items-center space-x-2">
@@ -167,15 +167,15 @@ export function DatasetList() {
                       <span className="truncate">{upload.dataset_name || upload.filename}</span>
                     </CardTitle>
                     <div className="flex flex-col space-y-1">
-                      {upload.is_premium && (
-                        <Badge variant="secondary" className="text-xs">
+                      {upload.is_premium &&
+                  <Badge variant="secondary" className="text-xs">
                           Premium
                         </Badge>
-                      )}
-                      <Badge 
-                        variant={upload.status === 'processed' ? 'default' : 'secondary'} 
-                        className="text-xs"
-                      >
+                  }
+                      <Badge
+                    variant={upload.status === 'processed' ? 'default' : 'secondary'}
+                    className="text-xs">
+
                         {upload.status}
                       </Badge>
                     </div>
@@ -195,19 +195,19 @@ export function DatasetList() {
                       {upload.description || 'No description available'}
                     </p>
                     
-                    {(upload.company_name || upload.report_period || upload.fiscal_year) && (
-                      <div className="bg-gray-50 p-2 rounded-md text-xs space-y-1">
-                        {upload.company_name && (
-                          <div><strong>Company:</strong> {upload.company_name}</div>
-                        )}
-                        {upload.report_period && (
-                          <div><strong>Period:</strong> {upload.report_period}</div>
-                        )}
-                        {upload.fiscal_year && (
-                          <div><strong>Year:</strong> {upload.fiscal_year}</div>
-                        )}
+                    {(upload.company_name || upload.report_period || upload.fiscal_year) &&
+                <div className="bg-gray-50 p-2 rounded-md text-xs space-y-1">
+                        {upload.company_name &&
+                  <div><strong>Company:</strong> {upload.company_name}</div>
+                  }
+                        {upload.report_period &&
+                  <div><strong>Period:</strong> {upload.report_period}</div>
+                  }
+                        {upload.fiscal_year &&
+                  <div><strong>Year:</strong> {upload.fiscal_year}</div>
+                  }
                       </div>
-                    )}
+                }
                     
                     <div className="flex items-center justify-between text-xs text-gray-500">
                       <span className="flex items-center space-x-1">
@@ -221,18 +221,18 @@ export function DatasetList() {
                 
                 <CardFooter>
                   <Button
-                    onClick={handleViewDataset}
-                    variant="default"
-                    className="w-full"
-                  >
+                onClick={handleViewDataset}
+                variant="default"
+                className="w-full">
+
                     Analyze Data
                   </Button>
                 </CardFooter>
               </Card>
-            ))}
+          )}
           </div>
         </div>
-      )}
-    </div>
-  );
+      }
+    </div>);
+
 }
