@@ -24,8 +24,8 @@ const Index = () => {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -34,8 +34,8 @@ const Index = () => {
       {user && <Navigation />}
       
       {/* Public Header for non-logged in users */}
-      {!user && (
-        <header className="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50">
+      {!user &&
+      <header className="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center py-4">
               <div className="flex items-center">
@@ -63,16 +63,16 @@ const Index = () => {
                 
                 {/* Mobile menu button */}
                 <button
-                  className="md:hidden p-2 rounded-md text-gray-700 hover:text-blue-600"
-                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+                className="md:hidden p-2 rounded-md text-gray-700 hover:text-blue-600"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
                   {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                 </button>
               </div>
             </div>
             
             {/* Mobile Navigation */}
-            {mobileMenuOpen && (
-              <div className="md:hidden border-t border-gray-200 py-4">
+            {mobileMenuOpen &&
+          <div className="md:hidden border-t border-gray-200 py-4">
                 <nav className="flex flex-col space-y-4">
                   <a href="#home" className="text-gray-700 hover:text-blue-600 font-medium" onClick={() => setMobileMenuOpen(false)}>{t('navigation.home')}</a>
                   <a href="#services" className="text-gray-700 hover:text-blue-600 font-medium" onClick={() => setMobileMenuOpen(false)}>{t('services.title')}</a>
@@ -85,10 +85,10 @@ const Index = () => {
                   </div>
                 </nav>
               </div>
-            )}
+          }
           </div>
         </header>
-      )}
+      }
       
       {/* Main Content */}
       <main>
@@ -165,8 +165,8 @@ const Index = () => {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>);
+
 };
 
 export default Index;

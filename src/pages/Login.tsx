@@ -21,8 +21,8 @@ const Login = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p>{t('common.loading')}</p>
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -55,8 +55,8 @@ const Login = () => {
           <MadeWithDyad />
         </div>
       </footer>
-    </div>
-  );
+    </div>);
+
 };
 
 export default Login;

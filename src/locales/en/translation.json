@@ -9,9 +9,13 @@
     "language": "Language"
   },
   "hero": {
+    "title1": "Leading Big Data",
+    "title2": "Market Research",
     "title": "Leading Big Data Market Research",
     "subtitle": "Unlock the power of data-driven insights with our comprehensive big data analytics and market research solutions. Transform your business decisions with real-time intelligence and predictive analytics.",
     "cta": "Get Started",
+    "cta1": "Explore Solutions",
+    "cta2": "View Demo",
     "learnMore": "Learn More"
   },
   "services": {
@@ -45,7 +49,7 @@
     "description": "We are a premier big data market research company, providing advanced analytics solutions to Fortune 500 companies, startups, and government organizations worldwide. Our expertise spans across multiple industries including technology, healthcare, finance, and retail.",
     "experience": "Years of Experience",
     "clients": "Global Clients",
-    "datasets": "Data Points Analyzed"
+    "datasets": "Research Reports Published"
   },
   "contact": {
     "title": "Contact Our Research Team",

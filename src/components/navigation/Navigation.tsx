@@ -88,11 +88,7 @@ export function Navigation() {
             })}
 
             {/* Language Switcher */}
-            <div className="pt-3 border-t border-gray-200">
-              <div className="mb-3">
-                <LanguageSwitcher />
-              </div>
-            </div>
+            <LanguageSwitcher />
 
             {/* User Menu */}
             <DropdownMenu>
@@ -168,6 +164,10 @@ export function Navigation() {
             })}
               
               <div className="border-t border-gray-200 pt-3">
+                <div className="flex items-center justify-between pt-3 border-t border-gray-200">
+                  <div className="text-sm text-gray-600">{t('navigation.language')}</div>
+                  <LanguageSwitcher />
+                </div>
                 <div className="flex items-center px-3 py-2">
                   <Avatar className="w-8 h-8">
                     <AvatarFallback className="bg-blue-600 text-white text-sm">

@@ -9,9 +9,13 @@
     "language": "Idioma"
   },
   "hero": {
+    "title1": "Líder en Big Data",
+    "title2": "Investigación de Mercado",
     "title": "Líder en Investigación de Mercado con Big Data",
     "subtitle": "Desbloquea el poder de los insights basados en datos con nuestras soluciones integrales de análisis de big data e investigación de mercado. Transforma tus decisiones empresariales con inteligencia en tiempo real y analítica predictiva.",
     "cta": "Comenzar",
+    "cta1": "Explorar Soluciones",
+    "cta2": "Ver Demo",
     "learnMore": "Saber Más"
   },
   "services": {
@@ -45,7 +49,7 @@
     "description": "Somos una empresa premier de investigación de mercado con big data, proporcionando soluciones de analytics avanzado a empresas Fortune 500, startups y organizaciones gubernamentales en todo el mundo. Nuestra experiencia abarca múltiples industrias incluyendo tecnología, salud, finanzas y retail.",
     "experience": "Años de Experiencia",
     "clients": "Clientes Globales",
-    "datasets": "Puntos de Datos Analizados"
+    "datasets": "Reportes de Investigación Publicados"
   },
   "contact": {
     "title": "Contacta Nuestro Equipo de Investigación",
