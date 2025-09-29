@@ -544,13 +544,24 @@ export function FinancialDataTable() {
             // Format numeric values for better display
             if (typeof value === 'number') {
               // Check if this value should be displayed as percentage
-              if (shouldConvertToPercentage(key, value)) {
+              // Skip percentage conversion for 'revenue' and 'cost of revenue' columns
+              const columnLower = key.toLowerCase();
+              const isRevenueOrCostOfRevenue = columnLower.includes('revenue') ||
+              columnLower.includes('cost') && columnLower.includes('revenue');
+
+              if (!isRevenueOrCostOfRevenue && shouldConvertToPercentage(key, value)) {
                 const percentage = formatAsPercentage(value, 2);
                 return (
                   <div className="text-right font-mono" title={`Raw value: ${value.toLocaleString()}`}>
                     {percentage}
                   </div>);
 
+              }
+
+              // For revenue and cost of revenue columns, show as complete integers
+              if (isRevenueOrCostOfRevenue) {
+                const formattedValue = Math.round(value).toLocaleString();
+                return <div className="text-right font-mono" title={`Exact value: ${value.toLocaleString()}`}>{formattedValue}</div>;
               }
 
               // Format large numbers with appropriate units for better readability
@@ -628,9 +639,9 @@ export function FinancialDataTable() {
                 // Check if this value should be displayed as percentage
                 // Skip percentage conversion for 'revenue' and 'cost of revenue' columns
                 const columnLower = columnName.toLowerCase();
-                const isRevenueOrCostOfRevenue = columnLower.includes('revenue') || 
-                  (columnLower.includes('cost') && columnLower.includes('revenue'));
-                
+                const isRevenueOrCostOfRevenue = columnLower.includes('revenue') ||
+                columnLower.includes('cost') && columnLower.includes('revenue');
+
                 if (!isRevenueOrCostOfRevenue && shouldConvertToPercentage(columnName, value)) {
                   const percentage = formatAsPercentage(value, 2);
                   return (
@@ -640,7 +651,13 @@ export function FinancialDataTable() {
 
                 }
 
-                // Format large numbers with appropriate units
+                // For revenue and cost of revenue columns, show as complete integers
+                if (isRevenueOrCostOfRevenue) {
+                  const formattedValue = Math.round(value).toLocaleString();
+                  return <div className={`text-right font-mono ${baseClassName}`} title={`Exact value: ${value.toLocaleString()}`}>{formattedValue}</div>;
+                }
+
+                // Format large numbers with appropriate units for other columns
                 let formattedValue = value.toLocaleString();
                 if (Math.abs(value) >= 1e12) {
                   formattedValue = `${(value / 1e12).toFixed(1)}T`;
@@ -747,13 +764,24 @@ export function FinancialDataTable() {
               const value = row.getValue(key);
               if (typeof value === 'number') {
                 // Check if this value should be displayed as percentage
-                if (shouldConvertToPercentage(key, value)) {
+                // Skip percentage conversion for 'revenue' and 'cost of revenue' columns
+                const columnLower = key.toLowerCase();
+                const isRevenueOrCostOfRevenue = columnLower.includes('revenue') ||
+                columnLower.includes('cost') && columnLower.includes('revenue');
+
+                if (!isRevenueOrCostOfRevenue && shouldConvertToPercentage(key, value)) {
                   const percentage = formatAsPercentage(value, 2);
                   return (
                     <div className="text-right font-mono" title={`Raw value: ${value.toLocaleString()}`}>
                       {percentage}
                     </div>);
 
+                }
+
+                // For revenue and cost of revenue columns, show as complete integers
+                if (isRevenueOrCostOfRevenue) {
+                  const formattedValue = Math.round(value).toLocaleString();
+                  return <div className="text-right font-mono" title={`Exact value: ${value.toLocaleString()}`}>{formattedValue}</div>;
                 }
 
                 // Format large numbers with appropriate units
@@ -828,7 +856,12 @@ export function FinancialDataTable() {
                 // Format numeric values for better display
                 if (typeof value === 'number') {
                   // Check if this value should be displayed as percentage
-                  if (shouldConvertToPercentage(columnName, value)) {
+                  // Skip percentage conversion for 'revenue' and 'cost of revenue' columns
+                  const columnLower = columnName.toLowerCase();
+                  const isRevenueOrCostOfRevenue = columnLower.includes('revenue') ||
+                  columnLower.includes('cost') && columnLower.includes('revenue');
+
+                  if (!isRevenueOrCostOfRevenue && shouldConvertToPercentage(columnName, value)) {
                     const percentage = formatAsPercentage(value, 2);
                     return (
                       <div className={`text-right font-mono ${baseClassName}`} title={`Raw value: ${value.toLocaleString()}`}>
@@ -837,7 +870,13 @@ export function FinancialDataTable() {
 
                   }
 
-                  // Format large numbers with appropriate units
+                  // For revenue and cost of revenue columns, show as complete integers
+                  if (isRevenueOrCostOfRevenue) {
+                    const formattedValue = Math.round(value).toLocaleString();
+                    return <div className={`text-right font-mono ${baseClassName}`} title={`Exact value: ${value.toLocaleString()}`}>{formattedValue}</div>;
+                  }
+
+                  // Format large numbers with appropriate units for other columns
                   let formattedValue = value.toLocaleString();
                   if (Math.abs(value) >= 1e12) {
                     formattedValue = `${(value / 1e12).toFixed(1)}T`;
