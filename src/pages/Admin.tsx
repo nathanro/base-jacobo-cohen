@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { ExcelUploader } from '@/components/admin/ExcelUploader';
 import { useAuth } from '@/contexts/AuthContext';
-import { supabase } from '@/integrations/supabase/client';
+import { Navigation } from '@/components/navigation/Navigation';
 import { showError, showSuccess } from '@/utils/toast';
 import { MadeWithDyad } from '@/components/powered-by-publiexpert';
 
@@ -89,6 +89,7 @@ const Admin = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
+      <Navigation />
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold text-gray-900">Panel de Administración</h1>

@@ -1,90 +1,76 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { Session, User } from '@supabase/supabase-js';
-import { supabase } from '@/integrations/supabase/client';
 
-type Profile = {
-  id: string;
-  first_name: string | null;
-  last_name: string | null;
-  subscription_status: string;
-  subscription_end_date: string | null;
+type UserInfo = {
+  ID: number;
+  Name: string;
+  Email: string;
+  CreateTime: string;
+  Roles: string;
 };
 
 type AuthContextType = {
-  session: Session | null;
-  user: User | null;
-  profile: Profile | null;
+  user: UserInfo | null;
   loading: boolean;
   signOut: () => Promise<void>;
+  refetchUser: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function AuthProvider({ children }: {children: ReactNode;}) {
-  const [session, setSession] = useState<Session | null>(null);
-  const [user, setUser] = useState<User | null>(null);
-  const [profile, setProfile] = useState<Profile | null>(null);
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<UserInfo | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      if (session?.user) {
-        fetchProfile(session.user.id);
-      } else {
-        setLoading(false);
-      }
-    });
-
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
-
-        if (session?.user) {
-          fetchProfile(session.user.id);
-        } else {
-          setProfile(null);
-          setLoading(false);
-        }
-      }
-    );
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, []);
-
-  const fetchProfile = async (userId: string) => {
+  const fetchUser = async () => {
     try {
-      const { data, error } = await supabase.
-      from('profiles').
-      select('*').
-      eq('id', userId).
-      single();
+      const response = await window.ezsite.apis.getUserInfo();
+      
+      if (response.error) {
+        setUser(null);
+        return;
+      }
 
-      if (error) throw error;
-      setProfile(data);
+      setUser(response.data);
     } catch (error) {
-      console.error('Error fetching profile:', error);
+      console.error('Error fetching user:', error);
+      setUser(null);
     } finally {
       setLoading(false);
     }
   };
 
+  const refetchUser = async () => {
+    setLoading(true);
+    await fetchUser();
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
   const signOut = async () => {
-    await supabase.auth.signOut();
+    try {
+      setLoading(true);
+      const response = await window.ezsite.apis.logout();
+      
+      if (response.error) {
+        throw new Error(response.error);
+      }
+      
+      setUser(null);
+      window.location.href = '/login';
+    } catch (error) {
+      console.error('Error signing out:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const value = {
-    session,
     user,
-    profile,
     loading,
-    signOut
+    signOut,
+    refetchUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

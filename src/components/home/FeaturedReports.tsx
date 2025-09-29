@@ -4,34 +4,34 @@ import { Badge } from "@/components/ui/badge";
 import { FileText, Download, Eye } from "lucide-react";
 
 const reports = [
-  {
-    title: "Global Cloud Computing Market Analysis 2024-2030",
-    description: "Comprehensive analysis of cloud infrastructure, SaaS, PaaS, and IaaS markets with detailed competitive landscape and growth projections.",
-    category: "Technology",
-    pages: 285,
-    price: "$4,999",
-    publishDate: "December 2024",
-    highlights: ["Market Size: $856.45 Billion", "CAGR: 16.3%", "Key Players: AWS, Microsoft, Google"]
-  },
-  {
-    title: "Electric Vehicle Market Trends & Forecast",
-    description: "In-depth study of EV adoption rates, charging infrastructure development, and regulatory impact across major markets.",
-    category: "Automotive",
-    pages: 340,
-    price: "$5,499",
-    publishDate: "November 2024",
-    highlights: ["Market Size: $388.1 Billion", "CAGR: 22.1%", "Regional Focus: Global"]
-  },
-  {
-    title: "Digital Healthcare Transformation Report",
-    description: "Analysis of telemedicine, AI-powered diagnostics, and digital therapeutics reshaping the healthcare industry.",
-    category: "Healthcare",
-    pages: 420,
-    price: "$6,299",
-    publishDate: "November 2024",
-    highlights: ["Market Size: $659.8 Billion", "CAGR: 29.1%", "Focus: Digital Health Tech"]
-  }
-];
+{
+  title: "Global Cloud Computing Market Analysis 2024-2030",
+  description: "Comprehensive analysis of cloud infrastructure, SaaS, PaaS, and IaaS markets with detailed competitive landscape and growth projections.",
+  category: "Technology",
+  pages: 285,
+  price: "$4,999",
+  publishDate: "December 2024",
+  highlights: ["Market Size: $856.45 Billion", "CAGR: 16.3%", "Key Players: AWS, Microsoft, Google"]
+},
+{
+  title: "Electric Vehicle Market Trends & Forecast",
+  description: "In-depth study of EV adoption rates, charging infrastructure development, and regulatory impact across major markets.",
+  category: "Automotive",
+  pages: 340,
+  price: "$5,499",
+  publishDate: "November 2024",
+  highlights: ["Market Size: $388.1 Billion", "CAGR: 22.1%", "Regional Focus: Global"]
+},
+{
+  title: "Digital Healthcare Transformation Report",
+  description: "Analysis of telemedicine, AI-powered diagnostics, and digital therapeutics reshaping the healthcare industry.",
+  category: "Healthcare",
+  pages: 420,
+  price: "$6,299",
+  publishDate: "November 2024",
+  highlights: ["Market Size: $659.8 Billion", "CAGR: 29.1%", "Focus: Digital Health Tech"]
+}];
+
 
 const FeaturedReports = () => {
   return (
@@ -48,8 +48,8 @@ const FeaturedReports = () => {
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {reports.map((report, index) => (
-            <Card key={index} className="group hover:shadow-2xl transition-all duration-300 bg-white border-0 shadow-lg overflow-hidden">
+          {reports.map((report, index) =>
+          <Card key={index} className="group hover:shadow-2xl transition-all duration-300 bg-white border-0 shadow-lg overflow-hidden">
               <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white relative">
                 <div className="absolute top-4 right-4">
                   <FileText className="h-6 w-6 opacity-80" />
@@ -72,12 +72,12 @@ const FeaturedReports = () => {
                 
                 <div className="space-y-2 mb-6">
                   <h4 className="font-semibold text-sm text-gray-900">Key Highlights:</h4>
-                  {report.highlights.map((highlight, idx) => (
-                    <div key={idx} className="text-sm text-gray-600 flex items-center">
+                  {report.highlights.map((highlight, idx) =>
+                <div key={idx} className="text-sm text-gray-600 flex items-center">
                       <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></div>
                       {highlight}
                     </div>
-                  ))}
+                )}
                 </div>
                 
                 <div className="flex items-center justify-between pt-4 border-t border-gray-100">
@@ -97,7 +97,7 @@ const FeaturedReports = () => {
                 </div>
               </CardContent>
             </Card>
-          ))}
+          )}
         </div>
         
         <div className="text-center mt-12">
@@ -106,8 +106,8 @@ const FeaturedReports = () => {
           </Button>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 export default FeaturedReports;

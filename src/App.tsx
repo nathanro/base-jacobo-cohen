@@ -10,6 +10,8 @@ import Account from "./pages/Account";
 import DatasetView from "./pages/DatasetView";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
+import OnAuthSuccess from "./pages/OnAuthSuccess";
+import ResetPassword from "./pages/ResetPassword";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +28,8 @@ const App = () =>
             <Route path="/account" element={<Account />} />
             <Route path="/datasets/:id" element={<DatasetView />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/onauthsuccess" element={<OnAuthSuccess />} />
+            <Route path="/resetpassword" element={<ResetPassword />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

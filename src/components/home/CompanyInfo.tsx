@@ -3,20 +3,20 @@ import { Badge } from "@/components/ui/badge";
 import { Users, Award, Globe2, Target, CheckCircle, Building2 } from "lucide-react";
 
 const stats = [
-  { icon: Users, label: "Expert Analysts", value: "200+" },
-  { icon: Globe2, label: "Countries Covered", value: "195" },
-  { icon: Award, label: "Years Experience", value: "15+" },
-  { icon: Target, label: "Client Satisfaction", value: "98%" }
-];
+{ icon: Users, label: "Expert Analysts", value: "200+" },
+{ icon: Globe2, label: "Countries Covered", value: "195" },
+{ icon: Award, label: "Years Experience", value: "15+" },
+{ icon: Target, label: "Client Satisfaction", value: "98%" }];
+
 
 const achievements = [
-  "ISO 9001:2015 Certified Research Process",
-  "Trusted by Fortune 500 Companies",
-  "Award-winning Research Methodology",
-  "24/7 Global Customer Support",
-  "Real-time Market Intelligence Platform",
-  "Custom Research Solutions Available"
-];
+"ISO 9001:2015 Certified Research Process",
+"Trusted by Fortune 500 Companies",
+"Award-winning Research Methodology",
+"24/7 Global Customer Support",
+"Real-time Market Intelligence Platform",
+"Custom Research Solutions Available"];
+
 
 const CompanyInfo = () => {
   return (
@@ -61,20 +61,20 @@ const CompanyInfo = () => {
             </div>
             
             <div className="grid grid-cols-2 gap-4 mt-8">
-              {achievements.map((achievement, index) => (
-                <div key={index} className="flex items-start space-x-3">
+              {achievements.map((achievement, index) =>
+              <div key={index} className="flex items-start space-x-3">
                   <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
                   <span className="text-sm text-gray-600">{achievement}</span>
                 </div>
-              ))}
+              )}
             </div>
           </div>
           
           {/* Right Column - Stats */}
           <div className="space-y-6">
             <div className="grid grid-cols-2 gap-6">
-              {stats.map((stat, index) => (
-                <Card key={index} className="text-center p-6 border-0 shadow-lg bg-gradient-to-br from-gray-50 to-blue-50">
+              {stats.map((stat, index) =>
+              <Card key={index} className="text-center p-6 border-0 shadow-lg bg-gradient-to-br from-gray-50 to-blue-50">
                   <CardContent className="p-0">
                     <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
                       <stat.icon className="h-6 w-6 text-blue-600" />
@@ -87,7 +87,7 @@ const CompanyInfo = () => {
                     </div>
                   </CardContent>
                 </Card>
-              ))}
+              )}
             </div>
             
             <Card className="p-8 bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-0 shadow-xl">
@@ -103,8 +103,8 @@ const CompanyInfo = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 export default CompanyInfo;

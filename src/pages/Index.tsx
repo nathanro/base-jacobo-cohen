@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { useAuth } from '@/contexts/AuthContext';
 import { MadeWithDyad } from '@/components/powered-by-publiexpert';
+import { Navigation } from '@/components/navigation/Navigation';
 import HeroSection from '@/components/home/HeroSection';
 import ServicesSection from '@/components/home/ServicesSection';
 import MarketInsights from '@/components/home/MarketInsights';
@@ -20,8 +21,8 @@ const Index = () => {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -48,8 +49,8 @@ const Index = () => {
             
             {/* User Actions */}
             <div className="flex items-center space-x-4">
-              {user ? (
-                <div className="hidden md:flex items-center space-x-4">
+              {user ?
+              <div className="hidden md:flex items-center space-x-4">
                   <div className="text-sm text-right">
                     <p className="font-medium text-gray-900">
                       {profile?.first_name} {profile?.last_name}
@@ -64,26 +65,26 @@ const Index = () => {
                   <Button variant="ghost" size="sm" onClick={signOut}>
                     Sign Out
                   </Button>
-                </div>
-              ) : (
-                <Button onClick={() => navigate('/login')} className="bg-blue-600 hover:bg-blue-700">
+                </div> :
+
+              <Button onClick={() => navigate('/login')} className="bg-blue-600 hover:bg-blue-700">
                   Sign In
                 </Button>
-              )}
+              }
               
               {/* Mobile menu button */}
               <button
                 className="md:hidden p-2 rounded-md text-gray-700 hover:text-blue-600"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              >
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+
                 {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
             </div>
           </div>
           
           {/* Mobile Navigation */}
-          {mobileMenuOpen && (
-            <div className="md:hidden border-t border-gray-200 py-4">
+          {mobileMenuOpen &&
+          <div className="md:hidden border-t border-gray-200 py-4">
               <nav className="flex flex-col space-y-4">
                 <a href="#home" className="text-gray-700 hover:text-blue-600 font-medium">Home</a>
                 <a href="#services" className="text-gray-700 hover:text-blue-600 font-medium">Services</a>
@@ -91,8 +92,8 @@ const Index = () => {
                 <a href="#reports" className="text-gray-700 hover:text-blue-600 font-medium">Reports</a>
                 <a href="#about" className="text-gray-700 hover:text-blue-600 font-medium">About</a>
                 <a href="#contact" className="text-gray-700 hover:text-blue-600 font-medium">Contact</a>
-                {user && (
-                  <div className="pt-4 border-t border-gray-200">
+                {user &&
+              <div className="pt-4 border-t border-gray-200">
                     <p className="font-medium text-gray-900 mb-2">
                       {profile?.first_name} {profile?.last_name}
                     </p>
@@ -105,15 +106,16 @@ const Index = () => {
                       </Button>
                     </div>
                   </div>
-                )}
+              }
               </nav>
             </div>
-          )}
+          }
         </div>
       </header>
       
       {/* Main Content */}
       <main>
+        <Navigation />
         <section id="home">
           <HeroSection />
         </section>
@@ -188,8 +190,8 @@ const Index = () => {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>);
+
 };
 
 export default Index;
