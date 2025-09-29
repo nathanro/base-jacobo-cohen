@@ -33,7 +33,7 @@ export function DatasetList() {
         PageNo: 1,
         PageSize: 100,
         OrderByField: 'upload_date',
-        IsAsc: false,
+        IsAsc: false
       });
 
       if (response.error) {
@@ -81,8 +81,8 @@ export function DatasetList() {
         <div className="h-40 flex items-center justify-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
         </div>
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -95,39 +95,39 @@ export function DatasetList() {
         </Button>
       </div>
 
-      {uploads.length === 0 && (
-        <SampleDataUploader />
-      )}
+      {uploads.length === 0 &&
+      <SampleDataUploader />
+      }
 
-      {uploads.length === 0 ? (
-        <div className="text-center p-8 border rounded-lg">
+      {uploads.length === 0 ?
+      <div className="text-center p-8 border rounded-lg">
           <FileSpreadsheet className="h-12 w-12 mx-auto mb-4 text-gray-400" />
           <p className="text-muted-foreground mb-4">No financial datasets available yet.</p>
           <p className="text-sm text-gray-500">
             Use the sample data uploader above or upload Excel files through the admin panel.
           </p>
-        </div>
-      ) : (
-        <div className="space-y-4">
+        </div> :
+
+      <div className="space-y-4">
           <div className="text-sm text-gray-600 mb-4">
             Found {uploads.length} dataset{uploads.length !== 1 ? 's' : ''} with{' '}
             {uploads.reduce((total, upload) => total + getRecordCount(upload.file_data), 0)} total records
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {uploads.map((upload) => (
-              <Card key={upload.id} className="hover:shadow-md transition-shadow">
+            {uploads.map((upload) =>
+          <Card key={upload.id} className="hover:shadow-md transition-shadow">
                 <CardHeader>
                   <div className="flex justify-between items-start">
                     <CardTitle className="text-lg flex items-center space-x-2">
                       <FileSpreadsheet className="h-5 w-5 text-green-600" />
                       <span>{upload.dataset_name || upload.filename}</span>
                     </CardTitle>
-                    {upload.is_premium && (
-                      <Badge variant="secondary" className="ml-2">
+                    {upload.is_premium &&
+                <Badge variant="secondary" className="ml-2">
                         Premium
                       </Badge>
-                    )}
+                }
                   </div>
                   <CardDescription className="flex items-center space-x-4 text-xs">
                     <span className="flex items-center space-x-1">
@@ -155,18 +155,18 @@ export function DatasetList() {
                 
                 <CardFooter>
                   <Button
-                    onClick={handleViewDataset}
-                    variant="default"
-                    className="w-full"
-                  >
+                onClick={handleViewDataset}
+                variant="default"
+                className="w-full">
+
                     View Data
                   </Button>
                 </CardFooter>
               </Card>
-            ))}
+          )}
           </div>
         </div>
-      )}
-    </div>
-  );
+      }
+    </div>);
+
 }

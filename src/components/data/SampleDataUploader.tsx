@@ -8,127 +8,127 @@ export function SampleDataUploader() {
   const [loading, setLoading] = useState(false);
 
   const sampleFinancialData = [
-    {
-      company_name: "TechCorp Inc",
-      revenue: 125000000,
-      sales_grow_per_year: 15.2,
-      margin: 22.5,
-      debt: 45000000,
-      assets: 180000000,
-      employees: 1250,
-      sector: "Technology",
-      year: 2023,
-      country: "USA"
-    },
-    {
-      company_name: "GreenEnergy Ltd",
-      revenue: 89000000,
-      sales_grow_per_year: 28.7,
-      margin: 18.3,
-      debt: 32000000,
-      assets: 145000000,
-      employees: 890,
-      sector: "Energy",
-      year: 2023,
-      country: "Canada"
-    },
-    {
-      company_name: "HealthPlus Corp",
-      revenue: 67000000,
-      sales_grow_per_year: 12.4,
-      margin: 35.8,
-      debt: 18000000,
-      assets: 95000000,
-      employees: 650,
-      sector: "Healthcare",
-      year: 2023,
-      country: "USA"
-    },
-    {
-      company_name: "AutoMotive Solutions",
-      revenue: 156000000,
-      sales_grow_per_year: 8.9,
-      margin: 14.2,
-      debt: 78000000,
-      assets: 220000000,
-      employees: 1850,
-      sector: "Automotive",
-      year: 2023,
-      country: "Germany"
-    },
-    {
-      company_name: "FoodChain Global",
-      revenue: 234000000,
-      sales_grow_per_year: 6.5,
-      margin: 8.7,
-      debt: 123000000,
-      assets: 345000000,
-      employees: 3200,
-      sector: "Food & Beverage",
-      year: 2023,
-      country: "UK"
-    },
-    {
-      company_name: "FinTech Innovations",
-      revenue: 78000000,
-      sales_grow_per_year: 45.3,
-      margin: 28.9,
-      debt: 25000000,
-      assets: 110000000,
-      employees: 520,
-      sector: "Financial Services",
-      year: 2023,
-      country: "USA"
-    },
-    {
-      company_name: "Manufacturing Pro",
-      revenue: 198000000,
-      sales_grow_per_year: 4.2,
-      margin: 11.5,
-      debt: 89000000,
-      assets: 275000000,
-      employees: 2100,
-      sector: "Manufacturing",
-      year: 2023,
-      country: "China"
-    },
-    {
-      company_name: "RetailMax Chain",
-      revenue: 445000000,
-      sales_grow_per_year: 7.8,
-      margin: 5.3,
-      debt: 156000000,
-      assets: 520000000,
-      employees: 8900,
-      sector: "Retail",
-      year: 2023,
-      country: "USA"
-    },
-    {
-      company_name: "CloudSoft Systems",
-      revenue: 92000000,
-      sales_grow_per_year: 32.1,
-      margin: 25.4,
-      debt: 28000000,
-      assets: 125000000,
-      employees: 780,
-      sector: "Technology",
-      year: 2023,
-      country: "USA"
-    },
-    {
-      company_name: "BioPharm Research",
-      revenue: 134000000,
-      sales_grow_per_year: 18.6,
-      margin: 42.3,
-      debt: 45000000,
-      assets: 185000000,
-      employees: 1100,
-      sector: "Healthcare",
-      year: 2023,
-      country: "Switzerland"
-    }
-  ];
+  {
+    company_name: "TechCorp Inc",
+    revenue: 125000000,
+    sales_grow_per_year: 15.2,
+    margin: 22.5,
+    debt: 45000000,
+    assets: 180000000,
+    employees: 1250,
+    sector: "Technology",
+    year: 2023,
+    country: "USA"
+  },
+  {
+    company_name: "GreenEnergy Ltd",
+    revenue: 89000000,
+    sales_grow_per_year: 28.7,
+    margin: 18.3,
+    debt: 32000000,
+    assets: 145000000,
+    employees: 890,
+    sector: "Energy",
+    year: 2023,
+    country: "Canada"
+  },
+  {
+    company_name: "HealthPlus Corp",
+    revenue: 67000000,
+    sales_grow_per_year: 12.4,
+    margin: 35.8,
+    debt: 18000000,
+    assets: 95000000,
+    employees: 650,
+    sector: "Healthcare",
+    year: 2023,
+    country: "USA"
+  },
+  {
+    company_name: "AutoMotive Solutions",
+    revenue: 156000000,
+    sales_grow_per_year: 8.9,
+    margin: 14.2,
+    debt: 78000000,
+    assets: 220000000,
+    employees: 1850,
+    sector: "Automotive",
+    year: 2023,
+    country: "Germany"
+  },
+  {
+    company_name: "FoodChain Global",
+    revenue: 234000000,
+    sales_grow_per_year: 6.5,
+    margin: 8.7,
+    debt: 123000000,
+    assets: 345000000,
+    employees: 3200,
+    sector: "Food & Beverage",
+    year: 2023,
+    country: "UK"
+  },
+  {
+    company_name: "FinTech Innovations",
+    revenue: 78000000,
+    sales_grow_per_year: 45.3,
+    margin: 28.9,
+    debt: 25000000,
+    assets: 110000000,
+    employees: 520,
+    sector: "Financial Services",
+    year: 2023,
+    country: "USA"
+  },
+  {
+    company_name: "Manufacturing Pro",
+    revenue: 198000000,
+    sales_grow_per_year: 4.2,
+    margin: 11.5,
+    debt: 89000000,
+    assets: 275000000,
+    employees: 2100,
+    sector: "Manufacturing",
+    year: 2023,
+    country: "China"
+  },
+  {
+    company_name: "RetailMax Chain",
+    revenue: 445000000,
+    sales_grow_per_year: 7.8,
+    margin: 5.3,
+    debt: 156000000,
+    assets: 520000000,
+    employees: 8900,
+    sector: "Retail",
+    year: 2023,
+    country: "USA"
+  },
+  {
+    company_name: "CloudSoft Systems",
+    revenue: 92000000,
+    sales_grow_per_year: 32.1,
+    margin: 25.4,
+    debt: 28000000,
+    assets: 125000000,
+    employees: 780,
+    sector: "Technology",
+    year: 2023,
+    country: "USA"
+  },
+  {
+    company_name: "BioPharm Research",
+    revenue: 134000000,
+    sales_grow_per_year: 18.6,
+    margin: 42.3,
+    debt: 45000000,
+    assets: 185000000,
+    employees: 1100,
+    sector: "Healthcare",
+    year: 2023,
+    country: "Switzerland"
+  }];
+
 
   const uploadSampleData = async () => {
     setLoading(true);
@@ -179,13 +179,13 @@ export function SampleDataUploader() {
           <Button
             onClick={uploadSampleData}
             disabled={loading}
-            className="flex items-center space-x-2"
-          >
+            className="flex items-center space-x-2">
+
             <Upload className="h-4 w-4" />
             <span>{loading ? 'Uploading...' : 'Upload Sample Data'}</span>
           </Button>
         </div>
       </CardContent>
-    </Card>
-  );
+    </Card>);
+
 }
