@@ -42,6 +42,16 @@ import {
 import { showError, showSuccess } from '@/utils/toast';
 import { useTranslation } from 'react-i18next';
 import { SampleDataLoader } from './SampleDataLoader';
+import { 
+  valueToPercentage, 
+  percentageToValue, 
+  formatAsPercentage, 
+  shouldConvertToPercentage,
+  getPercentageStep,
+  convertPercentageRangeToValues,
+  convertValueRangeToPercentages,
+  DATA_RANGE
+} from '@/utils/percentage-conversion';
 
 interface ColumnFilter {
   id: string;
@@ -55,12 +65,30 @@ interface ColumnFilter {
 
 // Custom filter functions
 const rangeFilter: FilterFn<any> = (row, columnId, filterValue) => {
-  const value = parseFloat(row.getValue(columnId));
-  if (isNaN(value)) return true;
+  const rawValue = parseFloat(row.getValue(columnId));
+  if (isNaN(rawValue)) return true;
 
-  const [min, max] = filterValue || [null, null];
-  if (min !== null && value < min) return false;
-  if (max !== null && value > max) return false;
+  const [filterMin, filterMax] = filterValue || [null, null];
+  if (filterMin === null && filterMax === null) return true;
+
+  // Check if this column uses percentage conversion
+  const shouldConvert = shouldConvertToPercentage(columnId, rawValue);
+  
+  if (shouldConvert) {
+    // Convert percentage filter values back to raw values for comparison
+    const [rawMin, rawMax] = convertPercentageRangeToValues([
+      filterMin ?? 0, 
+      filterMax ?? 100
+    ]);
+    
+    if (filterMin !== null && rawValue < rawMin) return false;
+    if (filterMax !== null && rawValue > rawMax) return false;
+  } else {
+    // Use direct value comparison for non-percentage fields
+    if (filterMin !== null && rawValue < filterMin) return false;
+    if (filterMax !== null && rawValue > filterMax) return false;
+  }
+  
   return true;
 };
 
@@ -158,40 +186,50 @@ function RangeFilterControl({
 
 
 }: {column: any;min: number;max: number;t: any;}) {
-  const filterValue = column.getFilterValue() as [number, number] || [min, max];
-  const [localValue, setLocalValue] = useState(filterValue);
-
-  // Check if this column should display as percentage
-  const columnId = column.id.toLowerCase();
-  const isPercentageField = columnId.includes('margin') ||
-  columnId.includes('growth') ||
-  columnId.includes('grow') ||
-  columnId.includes('rate') ||
-  columnId.includes('ratio') ||
-  columnId.includes('percent') ||
-  columnId.includes('%') ||
-  // Additional financial percentage patterns
-  columnId.includes('return') ||
-  columnId.includes('yield') ||
-  columnId.includes('interest') ||
-  // Detect if values are likely percentages (0-1 range or small decimals)
-  max <= 1 && min >= 0 ||
-  max <= 2 && min >= -1 && max - min <= 2;
+  // Check if this column should use percentage conversion
+  const shouldUsePercentage = shouldConvertToPercentage(column.id, max);
+  
+  // Set up display range and values
+  const displayMin = shouldUsePercentage ? 0 : min;
+  const displayMax = shouldUsePercentage ? 100 : max;
+  
+  // Initialize filter value - convert to percentage if needed
+  const initialFilterValue = column.getFilterValue() as [number, number] || 
+    (shouldUsePercentage ? [0, 100] : [min, max]);
+  
+  const [localValue, setLocalValue] = useState(initialFilterValue);
 
   const formatValue = (value: number) => {
-    if (isPercentageField) {
-      // Convert decimal to percentage for display
-      return `${(value * 100).toFixed(1)}%`;
+    if (shouldUsePercentage) {
+      return `${value.toFixed(2)}%`;
+    }
+    
+    // Format large numbers with appropriate units
+    if (Math.abs(value) >= 1e12) {
+      return `${(value / 1e12).toFixed(1)}T`;
+    } else if (Math.abs(value) >= 1e9) {
+      return `${(value / 1e9).toFixed(1)}B`;
+    } else if (Math.abs(value) >= 1e6) {
+      return `${(value / 1e6).toFixed(1)}M`;
+    } else if (Math.abs(value) >= 1e3) {
+      return `${(value / 1e3).toFixed(1)}K`;
     }
     return value.toFixed(2);
   };
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      column.setFilterValue(localValue[0] === min && localValue[1] === max ? undefined : localValue);
+      // Reset filter if values are at default range
+      const isDefaultRange = shouldUsePercentage ? 
+        (localValue[0] === 0 && localValue[1] === 100) :
+        (localValue[0] === min && localValue[1] === max);
+        
+      column.setFilterValue(isDefaultRange ? undefined : localValue);
     }, 300);
     return () => clearTimeout(timeoutId);
-  }, [localValue, column, min, max]);
+  }, [localValue, column, min, max, shouldUsePercentage]);
+
+  const step = shouldUsePercentage ? getPercentageStep(2) : (max - min) / 100;
 
   return (
     <div className="space-y-2">
@@ -200,18 +238,28 @@ function RangeFilterControl({
         <span>-</span>
         <span>To: {formatValue(localValue[1])}</span>
       </div>
+      {shouldUsePercentage && (
+        <div className="text-xs text-blue-600 bg-blue-50 p-2 rounded">
+          💡 Values converted to percentage scale (0-100%) for easier filtering
+        </div>
+      )}
       <Slider
         value={localValue}
         onValueChange={setLocalValue}
-        min={min}
-        max={max}
-        step={(max - min) / 100}
+        min={displayMin}
+        max={displayMax}
+        step={step}
         className="w-full" />
 
       <div className="flex justify-between text-xs text-gray-500">
-        <span>{formatValue(min)}</span>
-        <span>{formatValue(max)}</span>
+        <span>{formatValue(displayMin)}</span>
+        <span>{formatValue(displayMax)}</span>
       </div>
+      {shouldUsePercentage && (
+        <div className="text-xs text-gray-600">
+          Raw range: {formatValue(min)} to {formatValue(max)}
+        </div>
+      )}
     </div>);
 
 }
@@ -359,14 +407,28 @@ export function FinancialDataTable() {
         const min = Math.min(...numericValues);
         const max = Math.max(...numericValues);
         if (min !== max) {
-          configs[key] = {
+          // Check if any values in this column should use percentage conversion
+          const usePercentageConversion = numericValues.some(val => 
+            shouldConvertToPercentage(key, val)
+          );
+          
+          // Set up the filter configuration with appropriate range
+          const filterConfig = {
             id: key,
-            type: 'range',
-            value: [min, max],
+            type: 'range' as const,
             min,
             max,
             isPriority: isPriorityColumn
           };
+          
+          // If using percentage conversion, set initial value to 0-100%
+          if (usePercentageConversion) {
+            filterConfig.value = [0, 100];
+          } else {
+            filterConfig.value = [min, max];
+          }
+          
+          configs[key] = filterConfig;
         }
       } else if (uniqueValues.length <= Math.min(20, values.length / 2)) {
         // Select filter for categorical data
@@ -481,7 +543,29 @@ export function FinancialDataTable() {
             const value = row.getValue(key);
             // Format numeric values for better display
             if (typeof value === 'number') {
-              return <div className="text-right font-mono">{value.toLocaleString()}</div>;
+              // Check if this value should be displayed as percentage
+              if (shouldConvertToPercentage(key, value)) {
+                const percentage = formatAsPercentage(value, 2);
+                return (
+                  <div className="text-right font-mono" title={`Raw value: ${value.toLocaleString()}`}>
+                    {percentage}
+                  </div>
+                );
+              }
+              
+              // Format large numbers with appropriate units for better readability
+              let formattedValue = value.toLocaleString();
+              if (Math.abs(value) >= 1e12) {
+                formattedValue = `${(value / 1e12).toFixed(1)}T`;
+              } else if (Math.abs(value) >= 1e9) {
+                formattedValue = `${(value / 1e9).toFixed(1)}B`;
+              } else if (Math.abs(value) >= 1e6) {
+                formattedValue = `${(value / 1e6).toFixed(1)}M`;
+              } else if (Math.abs(value) >= 1e3) {
+                formattedValue = `${(value / 1e3).toFixed(1)}K`;
+              }
+              
+              return <div className="text-right font-mono" title={`Exact value: ${value.toLocaleString()}`}>{formattedValue}</div>;
             }
             return <div>{value}</div>;
           },
@@ -541,7 +625,29 @@ export function FinancialDataTable() {
               const baseClassName = cellClassName;
               // Format numeric values for better display
               if (typeof value === 'number') {
-                return <div className={`text-right font-mono ${baseClassName}`}>{value.toLocaleString()}</div>;
+                // Check if this value should be displayed as percentage
+                if (shouldConvertToPercentage(columnName, value)) {
+                  const percentage = formatAsPercentage(value, 2);
+                  return (
+                    <div className={`text-right font-mono ${baseClassName}`} title={`Raw value: ${value.toLocaleString()}`}>
+                      {percentage}
+                    </div>
+                  );
+                }
+                
+                // Format large numbers with appropriate units
+                let formattedValue = value.toLocaleString();
+                if (Math.abs(value) >= 1e12) {
+                  formattedValue = `${(value / 1e12).toFixed(1)}T`;
+                } else if (Math.abs(value) >= 1e9) {
+                  formattedValue = `${(value / 1e9).toFixed(1)}B`;
+                } else if (Math.abs(value) >= 1e6) {
+                  formattedValue = `${(value / 1e6).toFixed(1)}M`;
+                } else if (Math.abs(value) >= 1e3) {
+                  formattedValue = `${(value / 1e3).toFixed(1)}K`;
+                }
+                
+                return <div className={`text-right font-mono ${baseClassName}`} title={`Exact value: ${value.toLocaleString()}`}>{formattedValue}</div>;
               }
               return <div className={baseClassName}>{value}</div>;
             }
@@ -635,7 +741,29 @@ export function FinancialDataTable() {
             cell: ({ row }) => {
               const value = row.getValue(key);
               if (typeof value === 'number') {
-                return <div className="text-right font-mono">{value.toLocaleString()}</div>;
+                // Check if this value should be displayed as percentage
+                if (shouldConvertToPercentage(key, value)) {
+                  const percentage = formatAsPercentage(value, 2);
+                  return (
+                    <div className="text-right font-mono" title={`Raw value: ${value.toLocaleString()}`}>
+                      {percentage}
+                    </div>
+                  );
+                }
+                
+                // Format large numbers with appropriate units
+                let formattedValue = value.toLocaleString();
+                if (Math.abs(value) >= 1e12) {
+                  formattedValue = `${(value / 1e12).toFixed(1)}T`;
+                } else if (Math.abs(value) >= 1e9) {
+                  formattedValue = `${(value / 1e9).toFixed(1)}B`;
+                } else if (Math.abs(value) >= 1e6) {
+                  formattedValue = `${(value / 1e6).toFixed(1)}M`;
+                } else if (Math.abs(value) >= 1e3) {
+                  formattedValue = `${(value / 1e3).toFixed(1)}K`;
+                }
+                
+                return <div className="text-right font-mono" title={`Exact value: ${value.toLocaleString()}`}>{formattedValue}</div>;
               }
               return <div>{value}</div>;
             },
@@ -694,7 +822,29 @@ export function FinancialDataTable() {
                 const baseClassName = cellClassName;
                 // Format numeric values for better display
                 if (typeof value === 'number') {
-                  return <div className={`text-right font-mono ${baseClassName}`}>{value.toLocaleString()}</div>;
+                  // Check if this value should be displayed as percentage
+                  if (shouldConvertToPercentage(columnName, value)) {
+                    const percentage = formatAsPercentage(value, 2);
+                    return (
+                      <div className={`text-right font-mono ${baseClassName}`} title={`Raw value: ${value.toLocaleString()}`}>
+                        {percentage}
+                      </div>
+                    );
+                  }
+                  
+                  // Format large numbers with appropriate units
+                  let formattedValue = value.toLocaleString();
+                  if (Math.abs(value) >= 1e12) {
+                    formattedValue = `${(value / 1e12).toFixed(1)}T`;
+                  } else if (Math.abs(value) >= 1e9) {
+                    formattedValue = `${(value / 1e9).toFixed(1)}B`;
+                  } else if (Math.abs(value) >= 1e6) {
+                    formattedValue = `${(value / 1e6).toFixed(1)}M`;
+                  } else if (Math.abs(value) >= 1e3) {
+                    formattedValue = `${(value / 1e3).toFixed(1)}K`;
+                  }
+                  
+                  return <div className={`text-right font-mono ${baseClassName}`} title={`Exact value: ${value.toLocaleString()}`}>{formattedValue}</div>;
                 }
                 return <div className={baseClassName}>{value}</div>;
               }
@@ -851,6 +1001,15 @@ export function FinancialDataTable() {
               {" "}Key metrics detected: {Object.keys(findMatchingColumns).filter((k) => findMatchingColumns[k]).map((k) => k.replace(/_/g, ' ')).join(', ')}
             </span>
           }
+          <div className="mt-2 p-3 bg-blue-50 border-l-4 border-blue-400 rounded-r">
+            <div className="flex items-start">
+              <div className="text-blue-700 text-sm">
+                <strong>📊 Percentage Scale:</strong> Large financial values (range: {DATA_RANGE.MIN_VALUE.toLocaleString()} to {DATA_RANGE.MAX_VALUE.toLocaleString()}) 
+                are automatically converted to a 0-100% scale for easier comparison and filtering. 
+                Hover over percentage values to see raw amounts.
+              </div>
+            </div>
+          </div>
         </CardDescription>
       </CardHeader>
 
