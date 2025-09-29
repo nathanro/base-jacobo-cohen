@@ -163,20 +163,20 @@ function RangeFilterControl({
 
   // Check if this column should display as percentage
   const columnId = column.id.toLowerCase();
-  const isPercentageField = columnId.includes('margin') || 
-                          columnId.includes('growth') || 
-                          columnId.includes('grow') || 
-                          columnId.includes('rate') ||
-                          columnId.includes('ratio') ||
-                          columnId.includes('percent') ||
-                          columnId.includes('%') ||
-                          // Additional financial percentage patterns
-                          columnId.includes('return') ||
-                          columnId.includes('yield') ||
-                          columnId.includes('interest') ||
-                          // Detect if values are likely percentages (0-1 range or small decimals)
-                          (max <= 1 && min >= 0) ||
-                          (max <= 2 && min >= -1 && max - min <= 2);
+  const isPercentageField = columnId.includes('margin') ||
+  columnId.includes('growth') ||
+  columnId.includes('grow') ||
+  columnId.includes('rate') ||
+  columnId.includes('ratio') ||
+  columnId.includes('percent') ||
+  columnId.includes('%') ||
+  // Additional financial percentage patterns
+  columnId.includes('return') ||
+  columnId.includes('yield') ||
+  columnId.includes('interest') ||
+  // Detect if values are likely percentages (0-1 range or small decimals)
+  max <= 1 && min >= 0 ||
+  max <= 2 && min >= -1 && max - min <= 2;
 
   const formatValue = (value: number) => {
     if (isPercentageField) {
