@@ -8,9 +8,9 @@ import { MadeWithDyad } from '@/components/powered-by-publiexpert';
 import { useTranslation } from 'react-i18next';
 
 // Import the new admin components
-import AdminDashboard from  '@/components/admin/AdminDashboard';
-import UserManagement from  '@/components/admin/UserManagement';
-import RoleManagement from  '@/components/admin/RoleManagement';
+import AdminDashboard from '@/components/admin/AdminDashboard';
+import UserManagement from '@/components/admin/UserManagement';
+import RoleManagement from '@/components/admin/RoleManagement';
 import { ExcelUploader } from '@/components/admin/ExcelUploader';
 import { SystemSettings } from '@/components/admin/SystemSettings';
 
@@ -31,8 +31,8 @@ const Admin = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p>{t('admin.loading')}</p>
-      </div>
-    );
+      </div>);
+
   }
 
   if (!isAdmin) {
@@ -45,8 +45,8 @@ const Admin = () => {
             {t('admin.backToHome')}
           </Button>
         </div>
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -112,8 +112,8 @@ const Admin = () => {
           <MadeWithDyad />
         </div>
       </footer>
-    </div>
-  );
+    </div>);
+
 };
 
 export default Admin;

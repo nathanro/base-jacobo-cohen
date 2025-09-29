@@ -75,30 +75,30 @@ const AdminDashboard: React.FC = () => {
     }
   };
 
-  const StatCard = ({ title, value, description, icon: Icon, color }: {
-    title: string;
-    value: number;
-    description: string;
-    icon: React.ElementType;
-    color: string;
-  }) => (
-    <Card>
+  const StatCard = ({ title, value, description, icon: Icon, color
+
+
+
+
+
+  }: {title: string;value: number;description: string;icon: React.ElementType;color: string;}) =>
+  <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium">{title}</CardTitle>
         <Icon className={`h-4 w-4 ${color}`} />
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold">
-          {loading ? (
-            <div className="h-8 w-16 bg-muted animate-pulse rounded"></div>
-          ) : (
-            value
-          )}
+          {loading ?
+        <div className="h-8 w-16 bg-muted animate-pulse rounded"></div> :
+
+        value
+        }
         </div>
         <p className="text-xs text-muted-foreground">{description}</p>
       </CardContent>
-    </Card>
-  );
+    </Card>;
+
 
   return (
     <div className="space-y-6">
@@ -120,29 +120,29 @@ const AdminDashboard: React.FC = () => {
           value={stats.totalUsers}
           description="All registered users"
           icon={Users}
-          color="text-blue-600"
-        />
+          color="text-blue-600" />
+
         <StatCard
           title="Active Users"
           value={stats.activeUsers}
           description="Currently active users"
           icon={Activity}
-          color="text-green-600"
-        />
+          color="text-green-600" />
+
         <StatCard
           title="Total Roles"
           value={stats.totalRoles}
           description="Configured user roles"
           icon={Shield}
-          color="text-purple-600"
-        />
+          color="text-purple-600" />
+
         <StatCard
           title="Administrators"
           value={stats.adminUsers}
           description="Users with admin access"
           icon={Database}
-          color="text-red-600"
-        />
+          color="text-red-600" />
+
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
@@ -188,8 +188,8 @@ const AdminDashboard: React.FC = () => {
           </CardContent>
         </Card>
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 export default AdminDashboard;

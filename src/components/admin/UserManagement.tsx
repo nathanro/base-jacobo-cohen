@@ -81,7 +81,7 @@ const UserManagement: React.FC = () => {
         IsAsc: false,
         Filters: []
       });
-      
+
       if (error) throw error;
       setUsers(data?.List || []);
     } catch (error) {
@@ -101,7 +101,7 @@ const UserManagement: React.FC = () => {
         IsAsc: true,
         Filters: []
       });
-      
+
       if (error) throw error;
       setRoles(data?.List || []);
     } catch (error) {
@@ -121,14 +121,14 @@ const UserManagement: React.FC = () => {
           role_id: data.role_id,
           is_activated: data.is_activated
         };
-        
+
         if (data.password) {
           updateData.password = data.password;
         }
 
         const { error } = await (window as any).ezsite.apis.tableUpdate(41233, updateData);
         if (error) throw error;
-        
+
         showSuccess(t('admin.userManagement.userUpdated'));
       } else {
         // Create user
@@ -140,12 +140,12 @@ const UserManagement: React.FC = () => {
           role_id: data.role_id,
           is_activated: data.is_activated
         });
-        
+
         if (error) throw error;
-        
+
         showSuccess(t('admin.userManagement.userAdded'));
       }
-      
+
       setIsDialogOpen(false);
       reset();
       setEditingUser(null);
@@ -169,13 +169,13 @@ const UserManagement: React.FC = () => {
 
   const handleDelete = async (user: User) => {
     if (!confirm(t('admin.userManagement.confirmDelete'))) return;
-    
+
     try {
       const { error } = await (window as any).ezsite.apis.tableDelete(41233, { ID: user.id });
       if (error) throw error;
-      
+
       showSuccess(t('admin.userManagement.userDeleted'));
-      
+
       loadUsers();
     } catch (error) {
       console.error('Error deleting user:', error);
@@ -189,10 +189,10 @@ const UserManagement: React.FC = () => {
     setIsDialogOpen(true);
   };
 
-  const filteredUsers = users.filter(user => 
-    user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.role_name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredUsers = users.filter((user) =>
+  user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  user.role_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   if (loading) {
@@ -209,8 +209,8 @@ const UserManagement: React.FC = () => {
             </div>
           </div>
         </CardContent>
-      </Card>
-    );
+      </Card>);
+
   }
 
   return (
@@ -229,8 +229,8 @@ const UserManagement: React.FC = () => {
               placeholder={t('admin.userManagement.searchUsers')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
-            />
+              className="pl-10" />
+
           </div>
           
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -246,9 +246,9 @@ const UserManagement: React.FC = () => {
                   {editingUser ? t('admin.userManagement.editUser') : t('admin.userManagement.addUser')}
                 </DialogTitle>
                 <DialogDescription>
-                  {editingUser 
-                    ? 'Update user information and role assignment.' 
-                    : 'Create a new user account and assign appropriate role.'
+                  {editingUser ?
+                  'Update user information and role assignment.' :
+                  'Create a new user account and assign appropriate role.'
                   }
                 </DialogDescription>
               </DialogHeader>
@@ -258,8 +258,8 @@ const UserManagement: React.FC = () => {
                   <Input
                     id="name"
                     {...register('name')}
-                    error={errors.name?.message}
-                  />
+                    error={errors.name?.message} />
+
                 </div>
                 
                 <div className="space-y-2">
@@ -268,8 +268,8 @@ const UserManagement: React.FC = () => {
                     id="email"
                     type="email"
                     {...register('email')}
-                    error={errors.email?.message}
-                  />
+                    error={errors.email?.message} />
+
                 </div>
                 
                 <div className="space-y-2">
@@ -277,8 +277,8 @@ const UserManagement: React.FC = () => {
                   <Input
                     id="phone_number"
                     {...register('phone_number')}
-                    error={errors.phone_number?.message}
-                  />
+                    error={errors.phone_number?.message} />
+
                 </div>
                 
                 <div className="space-y-2">
@@ -289,30 +289,30 @@ const UserManagement: React.FC = () => {
                     id="password"
                     type="password"
                     {...register('password')}
-                    error={errors.password?.message}
-                  />
+                    error={errors.password?.message} />
+
                 </div>
                 
                 <div className="space-y-2">
                   <Label htmlFor="role_id">{t('admin.userManagement.userRole')}</Label>
-                  <Select 
-                    value={selectedRoleId ? selectedRoleId.toString() : ''} 
-                    onValueChange={(value) => setValue('role_id', parseInt(value))}
-                  >
+                  <Select
+                    value={selectedRoleId ? selectedRoleId.toString() : ''}
+                    onValueChange={(value) => setValue('role_id', parseInt(value))}>
+
                     <SelectTrigger>
                       <SelectValue placeholder="Select a role" />
                     </SelectTrigger>
                     <SelectContent>
-                      {roles.map((role) => (
-                        <SelectItem key={role.id} value={role.id.toString()}>
+                      {roles.map((role) =>
+                      <SelectItem key={role.id} value={role.id.toString()}>
                           {role.name}
                         </SelectItem>
-                      ))}
+                      )}
                     </SelectContent>
                   </Select>
-                  {errors.role_id && (
-                    <p className="text-sm text-destructive">{errors.role_id.message}</p>
-                  )}
+                  {errors.role_id &&
+                  <p className="text-sm text-destructive">{errors.role_id.message}</p>
+                  }
                 </div>
                 
                 <div className="flex items-center space-x-2">
@@ -320,8 +320,8 @@ const UserManagement: React.FC = () => {
                     type="checkbox"
                     id="is_activated"
                     {...register('is_activated')}
-                    className="rounded border-gray-300"
-                  />
+                    className="rounded border-gray-300" />
+
                   <Label htmlFor="is_activated">{t('admin.userManagement.active')}</Label>
                 </div>
                 
@@ -338,12 +338,12 @@ const UserManagement: React.FC = () => {
           </Dialog>
         </div>
 
-        {filteredUsers.length === 0 ? (
-          <div className="text-center py-8">
+        {filteredUsers.length === 0 ?
+        <div className="text-center py-8">
             <p className="text-muted-foreground">{t('admin.userManagement.noUsers')}</p>
-          </div>
-        ) : (
-          <div className="rounded-md border">
+          </div> :
+
+        <div className="rounded-md border">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -357,8 +357,8 @@ const UserManagement: React.FC = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredUsers.map((user) => (
-                  <TableRow key={user.id}>
+                {filteredUsers.map((user) =>
+              <TableRow key={user.id}>
                     <TableCell className="font-medium">{user.name}</TableCell>
                     <TableCell>{user.email}</TableCell>
                     <TableCell>{user.phone_number}</TableCell>
@@ -374,32 +374,32 @@ const UserManagement: React.FC = () => {
                     <TableCell>
                       <div className="flex items-center space-x-2">
                         <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleEdit(user)}
-                          className="h-8 w-8 p-0"
-                        >
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleEdit(user)}
+                      className="h-8 w-8 p-0">
+
                           <Edit className="h-4 w-4" />
                         </Button>
                         <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleDelete(user)}
-                          className="h-8 w-8 p-0 text-destructive hover:text-destructive"
-                        >
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleDelete(user)}
+                      className="h-8 w-8 p-0 text-destructive hover:text-destructive">
+
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
                     </TableCell>
                   </TableRow>
-                ))}
+              )}
               </TableBody>
             </Table>
           </div>
-        )}
+        }
       </CardContent>
-    </Card>
-  );
+    </Card>);
+
 };
 
 export default UserManagement;

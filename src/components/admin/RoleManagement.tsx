@@ -59,7 +59,7 @@ const RoleManagement: React.FC = () => {
         IsAsc: false,
         Filters: []
       });
-      
+
       if (error) throw error;
       setRoles(data?.List || []);
     } catch (error) {
@@ -79,9 +79,9 @@ const RoleManagement: React.FC = () => {
           name: data.name,
           remark: data.remark || ''
         });
-        
+
         if (error) throw error;
-        
+
         showSuccess(t('admin.roleManagement.roleUpdated'));
       } else {
         // Create role
@@ -89,12 +89,12 @@ const RoleManagement: React.FC = () => {
           name: data.name,
           remark: data.remark || ''
         });
-        
+
         if (error) throw error;
-        
+
         showSuccess(t('admin.roleManagement.roleAdded'));
       }
-      
+
       setIsDialogOpen(false);
       reset();
       setEditingRole(null);
@@ -122,13 +122,13 @@ const RoleManagement: React.FC = () => {
     }
 
     if (!confirm(t('admin.roleManagement.confirmDelete'))) return;
-    
+
     try {
       const { error } = await (window as any).ezsite.apis.tableDelete(41234, { ID: role.id });
       if (error) throw error;
-      
+
       showSuccess(t('admin.roleManagement.roleDeleted'));
-      
+
       loadRoles();
     } catch (error) {
       console.error('Error deleting role:', error);
@@ -142,10 +142,10 @@ const RoleManagement: React.FC = () => {
     setIsDialogOpen(true);
   };
 
-  const filteredRoles = roles.filter(role => 
-    role.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    role.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (role.remark && role.remark.toLowerCase().includes(searchTerm.toLowerCase()))
+  const filteredRoles = roles.filter((role) =>
+  role.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  role.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  role.remark && role.remark.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const getRoleBadgeVariant = (roleCode: string) => {
@@ -173,8 +173,8 @@ const RoleManagement: React.FC = () => {
             </div>
           </div>
         </CardContent>
-      </Card>
-    );
+      </Card>);
+
   }
 
   return (
@@ -196,8 +196,8 @@ const RoleManagement: React.FC = () => {
               placeholder={t('admin.roleManagement.searchRoles')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
-            />
+              className="pl-10" />
+
           </div>
           
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -213,9 +213,9 @@ const RoleManagement: React.FC = () => {
                   {editingRole ? t('admin.roleManagement.editRole') : t('admin.roleManagement.addRole')}
                 </DialogTitle>
                 <DialogDescription>
-                  {editingRole 
-                    ? 'Update role information and description.' 
-                    : 'Create a new role to assign to users for access control.'
+                  {editingRole ?
+                  'Update role information and description.' :
+                  'Create a new role to assign to users for access control.'
                   }
                 </DialogDescription>
               </DialogHeader>
@@ -225,8 +225,8 @@ const RoleManagement: React.FC = () => {
                   <Input
                     id="name"
                     {...register('name')}
-                    error={errors.name?.message}
-                  />
+                    error={errors.name?.message} />
+
                 </div>
                 
                 <div className="space-y-2">
@@ -235,11 +235,11 @@ const RoleManagement: React.FC = () => {
                     id="remark"
                     {...register('remark')}
                     placeholder="Optional description for this role..."
-                    rows={3}
-                  />
-                  {errors.remark && (
-                    <p className="text-sm text-destructive">{errors.remark.message}</p>
-                  )}
+                    rows={3} />
+
+                  {errors.remark &&
+                  <p className="text-sm text-destructive">{errors.remark.message}</p>
+                  }
                 </div>
                 
                 <div className="flex justify-end space-x-2 pt-4">
@@ -255,12 +255,12 @@ const RoleManagement: React.FC = () => {
           </Dialog>
         </div>
 
-        {filteredRoles.length === 0 ? (
-          <div className="text-center py-8">
+        {filteredRoles.length === 0 ?
+        <div className="text-center py-8">
             <p className="text-muted-foreground">{t('admin.roleManagement.noRoles')}</p>
-          </div>
-        ) : (
-          <div className="rounded-md border">
+          </div> :
+
+        <div className="rounded-md border">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -272,8 +272,8 @@ const RoleManagement: React.FC = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredRoles.map((role) => (
-                  <TableRow key={role.id}>
+                {filteredRoles.map((role) =>
+              <TableRow key={role.id}>
                     <TableCell className="font-medium">
                       <div className="flex items-center gap-2">
                         {role.name}
@@ -292,33 +292,33 @@ const RoleManagement: React.FC = () => {
                     <TableCell>
                       <div className="flex items-center space-x-2">
                         <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleEdit(role)}
-                          className="h-8 w-8 p-0"
-                        >
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleEdit(role)}
+                      className="h-8 w-8 p-0">
+
                           <Edit className="h-4 w-4" />
                         </Button>
                         <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleDelete(role)}
-                          className="h-8 w-8 p-0 text-destructive hover:text-destructive"
-                          disabled={role.code === 'Administrator' || role.code === 'GeneralUser'}
-                        >
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleDelete(role)}
+                      className="h-8 w-8 p-0 text-destructive hover:text-destructive"
+                      disabled={role.code === 'Administrator' || role.code === 'GeneralUser'}>
+
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
                     </TableCell>
                   </TableRow>
-                ))}
+              )}
               </TableBody>
             </Table>
           </div>
-        )}
+        }
       </CardContent>
-    </Card>
-  );
+    </Card>);
+
 };
 
 export default RoleManagement;
