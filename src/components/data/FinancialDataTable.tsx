@@ -161,6 +161,31 @@ function RangeFilterControl({
   const filterValue = column.getFilterValue() as [number, number] || [min, max];
   const [localValue, setLocalValue] = useState(filterValue);
 
+  // Check if this column should display as percentage
+  const columnId = column.id.toLowerCase();
+  const isPercentageField = columnId.includes('margin') || 
+                          columnId.includes('growth') || 
+                          columnId.includes('grow') || 
+                          columnId.includes('rate') ||
+                          columnId.includes('ratio') ||
+                          columnId.includes('percent') ||
+                          columnId.includes('%') ||
+                          // Additional financial percentage patterns
+                          columnId.includes('return') ||
+                          columnId.includes('yield') ||
+                          columnId.includes('interest') ||
+                          // Detect if values are likely percentages (0-1 range or small decimals)
+                          (max <= 1 && min >= 0) ||
+                          (max <= 2 && min >= -1 && max - min <= 2);
+
+  const formatValue = (value: number) => {
+    if (isPercentageField) {
+      // Convert decimal to percentage for display
+      return `${(value * 100).toFixed(1)}%`;
+    }
+    return value.toFixed(2);
+  };
+
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       column.setFilterValue(localValue[0] === min && localValue[1] === max ? undefined : localValue);
@@ -171,9 +196,9 @@ function RangeFilterControl({
   return (
     <div className="space-y-2">
       <div className="flex items-center space-x-2 text-sm">
-        <span>From: {localValue[0].toFixed(2)}</span>
+        <span>From: {formatValue(localValue[0])}</span>
         <span>-</span>
-        <span>To: {localValue[1].toFixed(2)}</span>
+        <span>To: {formatValue(localValue[1])}</span>
       </div>
       <Slider
         value={localValue}
@@ -184,8 +209,8 @@ function RangeFilterControl({
         className="w-full" />
 
       <div className="flex justify-between text-xs text-gray-500">
-        <span>{min.toFixed(2)}</span>
-        <span>{max.toFixed(2)}</span>
+        <span>{formatValue(min)}</span>
+        <span>{formatValue(max)}</span>
       </div>
     </div>);
 
