@@ -17,14 +17,14 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function AuthProvider({ children }: { children: ReactNode }) {
+export function AuthProvider({ children }: {children: ReactNode;}) {
   const [user, setUser] = useState<UserInfo | null>(null);
   const [loading, setLoading] = useState(true);
 
   const fetchUser = async () => {
     try {
       const response = await window.ezsite.apis.getUserInfo();
-      
+
       if (response.error) {
         setUser(null);
         return;
@@ -52,11 +52,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       setLoading(true);
       const response = await window.ezsite.apis.logout();
-      
+
       if (response.error) {
         throw new Error(response.error);
       }
-      
+
       setUser(null);
       window.location.href = '/login';
     } catch (error) {
@@ -70,7 +70,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     user,
     loading,
     signOut,
-    refetchUser,
+    refetchUser
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

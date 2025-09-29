@@ -1,0 +1,141 @@
+{
+  "navigation": {
+    "home": "Inicio",
+    "datasets": "Conjuntos de Datos",
+    "account": "Cuenta",
+    "admin": "Administrador",
+    "login": "Iniciar Sesión",
+    "logout": "Cerrar Sesión",
+    "language": "Idioma"
+  },
+  "hero": {
+    "title": "Análisis Profesional de Datos Financieros",
+    "subtitle": "Accede a conjuntos de datos financieros completos e inteligencia de mercado para tomar decisiones de inversión informadas.",
+    "cta": "Comenzar",
+    "learnMore": "Saber Más"
+  },
+  "services": {
+    "title": "Nuestros Servicios",
+    "subtitle": "Soluciones integrales de datos financieros para las necesidades de su negocio",
+    "realTimeData": {
+      "title": "Datos en Tiempo Real",
+      "description": "Accede a datos de mercado en vivo e información financiera mientras sucede."
+    },
+    "historicalAnalysis": {
+      "title": "Análisis Histórico",
+      "description": "Análisis completo de datos históricos para la toma de decisiones informadas."
+    },
+    "customReports": {
+      "title": "Informes Personalizados",
+      "description": "Informes y análisis personalizados basados en sus requisitos específicos."
+    }
+  },
+  "marketInsights": {
+    "title": "Perspectivas del Mercado",
+    "subtitle": "Mantente a la vanguardia con nuestro último análisis de mercado y tendencias",
+    "viewAll": "Ver Todas las Perspectivas"
+  },
+  "featuredReports": {
+    "title": "Informes Destacados",
+    "subtitle": "Análisis en profundidad e informes completos del mercado",
+    "downloadReport": "Descargar Informe"
+  },
+  "companyInfo": {
+    "title": "Acerca de Nuestra Empresa",
+    "description": "Somos un proveedor líder de soluciones de datos financieros y análisis, sirviendo a inversores institucionales, corporaciones y profesionales financieros en todo el mundo.",
+    "experience": "Años de Experiencia",
+    "clients": "Clientes Globales",
+    "datasets": "Conjuntos de Datos Disponibles"
+  },
+  "contact": {
+    "title": "Contáctanos",
+    "subtitle": "Ponte en contacto con nuestro equipo para más información",
+    "name": "Nombre",
+    "email": "Correo Electrónico",
+    "message": "Mensaje",
+    "send": "Enviar Mensaje",
+    "address": "Dirección",
+    "phone": "Teléfono",
+    "businessHours": "Horario Comercial"
+  },
+  "auth": {
+    "login": "Iniciar Sesión",
+    "register": "Registrarse",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "name": "Nombre",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+    "dontHaveAccount": "¿No tienes una cuenta?",
+    "signIn": "Iniciar Sesión",
+    "signUp": "Registrarse",
+    "resetPassword": "Restablecer Contraseña",
+    "sendResetEmail": "Enviar Correo de Restablecimiento",
+    "newPassword": "Nueva Contraseña",
+    "resetPasswordSuccess": "Contraseña restablecida con éxito",
+    "backToLogin": "Volver al Inicio de Sesión"
+  },
+  "account": {
+    "title": "Configuración de Cuenta",
+    "subscription": "Suscripción",
+    "profile": "Información del Perfil",
+    "billing": "Información de Facturación"
+  },
+  "admin": {
+    "title": "Panel de Administración",
+    "uploadData": "Subir Datos",
+    "manageUsers": "Administrar Usuarios",
+    "selectFile": "Seleccionar Archivo",
+    "upload": "Subir",
+    "dragDropFile": "Arrastra y suelta tu archivo Excel aquí, o haz clic para seleccionar",
+    "supportedFormats": "Formatos soportados: .xlsx, .xls"
+  },
+  "datasetView": {
+    "title": "Conjunto de Datos Financieros",
+    "filters": "Filtros",
+    "export": "Exportar",
+    "loading": "Cargando...",
+    "noData": "No hay datos disponibles",
+    "rowsPerPage": "Filas por página",
+    "of": "de",
+    "previous": "Anterior",
+    "next": "Siguiente"
+  },
+  "subscription": {
+    "title": "Planes de Suscripción",
+    "currentPlan": "Plan Actual",
+    "upgrade": "Actualizar",
+    "features": "Características incluidas",
+    "price": "Precio"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "close": "Cerrar",
+    "ok": "OK",
+    "yes": "Sí",
+    "no": "No",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "clear": "Limpiar",
+    "apply": "Aplicar",
+    "reset": "Restablecer"
+  },
+  "onAuthSuccess": {
+    "title": "¡Registro Exitoso!",
+    "message": "Su cuenta ha sido verificada con éxito. Será redirigido a la página de inicio de sesión en",
+    "seconds": "segundos",
+    "redirecting": "Redirigiendo a la página de inicio de sesión..."
+  },
+  "notFound": {
+    "title": "Página No Encontrada",
+    "message": "La página que está buscando no existe.",
+    "goHome": "Ir al Inicio"
+  }
+}

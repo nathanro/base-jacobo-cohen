@@ -1,5 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BarChart, Database, Globe, PieChart, Search, TrendingUp } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 const services = [
 {
@@ -35,16 +36,50 @@ const services = [
 
 
 const ServicesSection = () => {
+  const { t } = useTranslation();
+  
+  const services = [
+    {
+      icon: BarChart,
+      titleKey: "services.marketAnalysis.title",
+      descriptionKey: "services.marketAnalysis.description"
+    },
+    {
+      icon: Database,
+      titleKey: "services.bigDataAnalytics.title",
+      descriptionKey: "services.bigDataAnalytics.description"
+    },
+    {
+      icon: Search,
+      titleKey: "services.industryResearch.title",
+      descriptionKey: "services.industryResearch.description"
+    },
+    {
+      icon: TrendingUp,
+      titleKey: "services.trendAnalysis.title",
+      descriptionKey: "services.trendAnalysis.description"
+    },
+    {
+      icon: Globe,
+      titleKey: "services.globalMarketIntelligence.title",
+      descriptionKey: "services.globalMarketIntelligence.description"
+    },
+    {
+      icon: PieChart,
+      titleKey: "services.customResearch.title",
+      descriptionKey: "services.customResearch.description"
+    }
+  ];
+
   return (
     <section className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Our Research Services
+            {t('services.title')}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Comprehensive market research solutions powered by advanced analytics 
-            and deep industry expertise to drive your business forward.
+            {t('services.subtitle')}
           </p>
         </div>
         
@@ -55,11 +90,11 @@ const ServicesSection = () => {
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                   <service.icon className="h-8 w-8 text-blue-600" />
                 </div>
-                <CardTitle className="text-xl font-semibold text-gray-900">{service.title}</CardTitle>
+                <CardTitle className="text-xl font-semibold text-gray-900">{t(service.titleKey)}</CardTitle>
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-gray-600 leading-relaxed">
-                  {service.description}
+                  {t(service.descriptionKey)}
                 </CardDescription>
               </CardContent>
             </Card>

@@ -6,6 +6,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Navigation } from '@/components/navigation/Navigation';
 import { showError, showSuccess } from '@/utils/toast';
 import { MadeWithDyad } from '@/components/powered-by-publiexpert';
+import { useTranslation } from 'react-i18next';
 
 // Actualizado para incluir tu correo electrónico
 const ADMIN_EMAILS = ['nathan@publiexpert.com'];
@@ -13,6 +14,7 @@ const ADMIN_EMAILS = ['nathan@publiexpert.com'];
 const Admin = () => {
   const { user, loading, profile } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [isAdmin, setIsAdmin] = useState(false);
   const [checkingAdmin, setCheckingAdmin] = useState(true);
   const [updatingSubscription, setUpdatingSubscription] = useState(false);

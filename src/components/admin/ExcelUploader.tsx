@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { supabase } from '@/integrations/supabase/client';
 import { showError, showSuccess } from '@/utils/toast';
+import { useTranslation } from 'react-i18next';
 
 export function ExcelUploader() {
   const [file, setFile] = useState<File | null>(null);
@@ -14,6 +15,7 @@ export function ExcelUploader() {
   const [description, setDescription] = useState('');
   const [isPremium, setIsPremium] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -88,15 +90,15 @@ export function ExcelUploader() {
   return (
     <Card className="w-full max-w-2xl">
       <CardHeader>
-        <CardTitle>Upload Financial Data</CardTitle>
+        <CardTitle>{t('admin.uploadFinancialData')}</CardTitle>
         <CardDescription>
-          Upload an Excel file containing financial data to make it available to subscribers
+          {t('admin.uploadFinancialDataDescription')}
         </CardDescription>
       </CardHeader>
       <form onSubmit={handleUpload}>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="dataset-name">Dataset Name</Label>
+            <Label htmlFor="dataset-name">{t('admin.datasetName')}</Label>
             <Input
               id="dataset-name"
               value={datasetName}
@@ -106,7 +108,7 @@ export function ExcelUploader() {
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="description">Description</Label>
+            <Label htmlFor="description">{t('admin.description')}</Label>
             <Input
               id="description"
               value={description}
@@ -115,7 +117,7 @@ export function ExcelUploader() {
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="excel-file">Excel File</Label>
+            <Label htmlFor="excel-file">{t('admin.excelFile')}</Label>
             <Input
               id="excel-file"
               type="file"
@@ -131,12 +133,12 @@ export function ExcelUploader() {
               checked={isPremium}
               onCheckedChange={(checked) => setIsPremium(checked === true)} />
 
-            <Label htmlFor="premium">Premium Content (subscribers only)</Label>
+            <Label htmlFor="premium">{t('admin.premiumContent')}</Label>
           </div>
         </CardContent>
         <CardFooter>
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? 'Uploading...' : 'Upload Data'}
+            {loading ? t('common.loading') : t('admin.uploadData')}
           </Button>
         </CardFooter>
       </form>

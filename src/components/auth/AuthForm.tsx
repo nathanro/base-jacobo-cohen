@@ -9,17 +9,22 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { showError, showSuccess } from '@/utils/toast';
+import { useTranslation } from 'react-i18next';
 import { Loader2, AlertCircle, Mail } from 'lucide-react';
 
 const signInSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
-  password: z.string().min(1, 'Password is required'),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
 });
 
 const signUpSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Please enter a valid email address'),
   password: z.string().min(6, 'Password must be at least 6 characters'),
+  confirmPassword: z.string(),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords don't match",
+  path: ["confirmPassword"],
 });
 
 const forgotPasswordSchema = z.object({
@@ -34,13 +39,14 @@ export function AuthForm() {
   const [activeTab, setActiveTab] = useState('signin');
   const [isLoading, setIsLoading] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const { t } = useTranslation();
 
   const signInForm = useForm<SignInForm>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
       email: '',
-      password: '',
-    },
+      password: ''
+    }
   });
 
   const signUpForm = useForm<SignUpForm>({
@@ -48,15 +54,15 @@ export function AuthForm() {
     defaultValues: {
       name: '',
       email: '',
-      password: '',
-    },
+      password: ''
+    }
   });
 
   const forgotPasswordForm = useForm<ForgotPasswordForm>({
     resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
-      email: '',
-    },
+      email: ''
+    }
   });
 
   const handleSignIn = async (data: SignInForm) => {
@@ -64,7 +70,7 @@ export function AuthForm() {
     try {
       const response = await window.ezsite.apis.login({
         email: data.email,
-        password: data.password,
+        password: data.password
       });
 
       if (response.error) {
@@ -86,7 +92,7 @@ export function AuthForm() {
       const response = await window.ezsite.apis.register({
         email: data.email,
         password: data.password,
-        name: data.name,
+        name: data.name
       });
 
       if (response.error) {
@@ -107,7 +113,7 @@ export function AuthForm() {
     setIsLoading(true);
     try {
       const response = await window.ezsite.apis.sendResetPwdEmail({
-        email: data.email,
+        email: data.email
       });
 
       if (response.error) {
@@ -130,10 +136,10 @@ export function AuthForm() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Mail className="w-5 h-5" />
-            Reset Password
+            {t('auth.resetPassword')}
           </CardTitle>
           <CardDescription>
-            Enter your email address and we'll send you a link to reset your password.
+            {t('auth.resetPasswordDescription')}
           </CardDescription>
         </CardHeader>
         <form onSubmit={forgotPasswordForm.handleSubmit(handleForgotPassword)}>
@@ -145,46 +151,46 @@ export function AuthForm() {
                 type="email"
                 placeholder="your@email.com"
                 {...forgotPasswordForm.register('email')}
-                disabled={isLoading}
-              />
-              {forgotPasswordForm.formState.errors.email && (
-                <Alert variant="destructive">
+                disabled={isLoading} />
+
+              {forgotPasswordForm.formState.errors.email &&
+              <Alert variant="destructive">
                   <AlertCircle className="h-4 w-4" />
                   <AlertDescription>
                     {forgotPasswordForm.formState.errors.email.message}
                   </AlertDescription>
                 </Alert>
-              )}
+              }
             </div>
           </CardContent>
           <CardFooter className="flex flex-col space-y-2">
-            <Button 
-              type="submit" 
-              className="w-full" 
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <>
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={isLoading}>
+
+              {isLoading ?
+              <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Sending...
-                </>
-              ) : (
-                'Send Reset Link'
-              )}
+                </> :
+
+              'Send Reset Link'
+              }
             </Button>
             <Button
               type="button"
               variant="ghost"
               className="w-full"
               onClick={() => setShowForgotPassword(false)}
-              disabled={isLoading}
-            >
-              Back to Sign In
+              disabled={isLoading}>
+
+              {t('auth.backToSignIn')}
             </Button>
           </CardFooter>
         </form>
-      </Card>
-    );
+      </Card>);
+
   }
 
   return (
@@ -205,22 +211,22 @@ export function AuthForm() {
           <form onSubmit={signInForm.handleSubmit(handleSignIn)}>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="signin-email">Email</Label>
+                <Label htmlFor="signin-email">{t('auth.email')}</Label>
                 <Input
                   id="signin-email"
                   type="email"
                   placeholder="your@email.com"
                   {...signInForm.register('email')}
-                  disabled={isLoading}
-                />
-                {signInForm.formState.errors.email && (
-                  <Alert variant="destructive">
+                  disabled={isLoading} />
+
+                {signInForm.formState.errors.email &&
+                <Alert variant="destructive">
                     <AlertCircle className="h-4 w-4" />
                     <AlertDescription>
                       {signInForm.formState.errors.email.message}
                     </AlertDescription>
                   </Alert>
-                )}
+                }
               </div>
               <div className="space-y-2">
                 <Label htmlFor="signin-password">Password</Label>
@@ -228,40 +234,40 @@ export function AuthForm() {
                   id="signin-password"
                   type="password"
                   {...signInForm.register('password')}
-                  disabled={isLoading}
-                />
-                {signInForm.formState.errors.password && (
-                  <Alert variant="destructive">
+                  disabled={isLoading} />
+
+                {signInForm.formState.errors.password &&
+                <Alert variant="destructive">
                     <AlertCircle className="h-4 w-4" />
                     <AlertDescription>
                       {signInForm.formState.errors.password.message}
                     </AlertDescription>
                   </Alert>
-                )}
+                }
               </div>
             </CardContent>
             <CardFooter className="flex flex-col space-y-2">
-              <Button 
-                type="submit" 
-                className="w-full" 
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <>
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={isLoading}>
+
+                {isLoading ?
+                <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Signing in...
-                  </>
-                ) : (
-                  'Sign In'
-                )}
+                  </> :
+
+                'Sign In'
+                }
               </Button>
               <Button
                 type="button"
                 variant="ghost"
                 className="w-full text-sm"
                 onClick={() => setShowForgotPassword(true)}
-                disabled={isLoading}
-              >
+                disabled={isLoading}>
+
                 Forgot your password?
               </Button>
             </CardFooter>
@@ -286,16 +292,16 @@ export function AuthForm() {
                   type="text"
                   placeholder="John Doe"
                   {...signUpForm.register('name')}
-                  disabled={isLoading}
-                />
-                {signUpForm.formState.errors.name && (
-                  <Alert variant="destructive">
+                  disabled={isLoading} />
+
+                {signUpForm.formState.errors.name &&
+                <Alert variant="destructive">
                     <AlertCircle className="h-4 w-4" />
                     <AlertDescription>
                       {signUpForm.formState.errors.name.message}
                     </AlertDescription>
                   </Alert>
-                )}
+                }
               </div>
               <div className="space-y-2">
                 <Label htmlFor="signup-email">Email</Label>
@@ -304,16 +310,16 @@ export function AuthForm() {
                   type="email"
                   placeholder="your@email.com"
                   {...signUpForm.register('email')}
-                  disabled={isLoading}
-                />
-                {signUpForm.formState.errors.email && (
-                  <Alert variant="destructive">
+                  disabled={isLoading} />
+
+                {signUpForm.formState.errors.email &&
+                <Alert variant="destructive">
                     <AlertCircle className="h-4 w-4" />
                     <AlertDescription>
                       {signUpForm.formState.errors.email.message}
                     </AlertDescription>
                   </Alert>
-                )}
+                }
               </div>
               <div className="space-y-2">
                 <Label htmlFor="signup-password">Password</Label>
@@ -322,37 +328,37 @@ export function AuthForm() {
                   type="password"
                   placeholder="Minimum 6 characters"
                   {...signUpForm.register('password')}
-                  disabled={isLoading}
-                />
-                {signUpForm.formState.errors.password && (
-                  <Alert variant="destructive">
+                  disabled={isLoading} />
+
+                {signUpForm.formState.errors.password &&
+                <Alert variant="destructive">
                     <AlertCircle className="h-4 w-4" />
                     <AlertDescription>
                       {signUpForm.formState.errors.password.message}
                     </AlertDescription>
                   </Alert>
-                )}
+                }
               </div>
             </CardContent>
             <CardFooter>
-              <Button 
-                type="submit" 
-                className="w-full" 
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <>
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={isLoading}>
+
+                {isLoading ?
+                <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Creating account...
-                  </>
-                ) : (
-                  'Create Account'
-                )}
+                  </> :
+
+                'Create Account'
+                }
               </Button>
             </CardFooter>
           </form>
         </Card>
       </TabsContent>
-    </Tabs>
-  );
+    </Tabs>);
+
 }

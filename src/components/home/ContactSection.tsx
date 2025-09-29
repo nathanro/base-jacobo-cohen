@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Mail, Phone, MapPin, Clock, Send, MessageCircle } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const contactInfo = [
 {
@@ -33,6 +34,8 @@ const contactInfo = [
 
 
 const ContactSection = () => {
+  const { t } = useTranslation();
+  
   return (
     <section className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

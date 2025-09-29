@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { TrendingUp, Calendar, ArrowUpRight } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 const insights = [
 {
@@ -38,16 +39,17 @@ const insights = [
 
 
 const MarketInsights = () => {
+  const { t } = useTranslation();
+  
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Latest Market Insights
+            {t('marketInsights.title')}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Stay ahead of the curve with our latest research findings and market intelligence 
-            across key industries and emerging sectors.
+            {t('marketInsights.subtitle')}
           </p>
         </div>
         

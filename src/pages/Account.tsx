@@ -6,10 +6,12 @@ import { SubscriptionCard } from '@/components/subscription/SubscriptionCard';
 import { useAuth } from '@/contexts/AuthContext';
 import { Navigation } from '@/components/navigation/Navigation';
 import { MadeWithDyad } from '@/components/powered-by-publiexpert';
+import { useTranslation } from 'react-i18next';
 
 const Account = () => {
   const { user, profile, loading } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!loading && !user) {
@@ -29,10 +31,10 @@ const Account = () => {
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-900">Account Settings</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t('account.title')}</h1>
           
           <Button variant="outline" onClick={() => navigate('/')}>
-            Back to Home
+            {t('account.backToHome')}
           </Button>
         </div>
       </header>
@@ -41,30 +43,30 @@ const Account = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <Card>
             <CardHeader>
-              <CardTitle>Profile Information</CardTitle>
+              <CardTitle>{t('account.profile')}</CardTitle>
               <CardDescription>
-                Your account details and subscription status
+                {t('account.profileDescription')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-1">
-                <p className="text-sm font-medium text-gray-500">Name</p>
+                <p className="text-sm font-medium text-gray-500">{t('auth.name')}</p>
                 <p>{profile.first_name} {profile.last_name}</p>
               </div>
               
               <div className="space-y-1">
-                <p className="text-sm font-medium text-gray-500">Email</p>
+                <p className="text-sm font-medium text-gray-500">{t('auth.email')}</p>
                 <p>{user.email}</p>
               </div>
               
               <div className="space-y-1">
-                <p className="text-sm font-medium text-gray-500">Subscription Status</p>
+                <p className="text-sm font-medium text-gray-500">{t('account.subscriptionStatus')}</p>
                 <p className="capitalize">{profile.subscription_status}</p>
               </div>
               
               {profile.subscription_end_date &&
               <div className="space-y-1">
-                  <p className="text-sm font-medium text-gray-500">Subscription Ends</p>
+                  <p className="text-sm font-medium text-gray-500">{t('account.subscriptionEnds')}</p>
                   <p>{new Date(profile.subscription_end_date).toLocaleDateString()}</p>
                 </div>
               }

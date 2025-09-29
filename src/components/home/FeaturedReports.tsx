@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { FileText, Download, Eye } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 const reports = [
 {
@@ -34,16 +35,17 @@ const reports = [
 
 
 const FeaturedReports = () => {
+  const { t } = useTranslation();
+  
   return (
     <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Featured Research Reports
+            {t('featuredReports.title')}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Our most comprehensive and sought-after research reports providing deep insights 
-            into high-growth markets and emerging trends.
+            {t('featuredReports.subtitle')}
           </p>
         </div>
         

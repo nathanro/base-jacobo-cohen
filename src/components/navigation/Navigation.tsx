@@ -2,29 +2,32 @@ import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from "@/components/ui/button";
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuSeparator, 
-  DropdownMenuTrigger 
-} from "@/components/ui/dropdown-menu";
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger } from
+"@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { 
-  User, 
-  LogOut, 
-  Settings, 
-  Database, 
+import {
+  User,
+  LogOut,
+  Settings,
+  Database,
   Home,
   Shield,
   Menu,
-  X
-} from 'lucide-react';
+  X } from
+'lucide-react';
 
 export function Navigation() {
   const { user, signOut } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   if (!user) return null;
@@ -32,10 +35,10 @@ export function Navigation() {
   const isAdmin = user.Roles.includes('Administrator');
 
   const navItems = [
-    { path: '/', label: 'Home', icon: Home },
-    { path: '/account', label: 'Account', icon: User },
-    ...(isAdmin ? [{ path: '/admin', label: 'Admin', icon: Shield }] : []),
-  ];
+  { path: '/', label: 'Home', icon: Home },
+  { path: '/account', label: 'Account', icon: User },
+  ...(isAdmin ? [{ path: '/admin', label: 'Admin', icon: Shield }] : [])];
+
 
   const handleSignOut = async () => {
     await signOut();
@@ -66,22 +69,25 @@ export function Navigation() {
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = location.pathname === item.path;
-              
+
               return (
                 <Link
                   key={item.path}
                   to={item.path}
                   className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    isActive 
-                      ? 'bg-blue-100 text-blue-700' 
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-                  }`}
-                >
+                  isActive ?
+                  'bg-blue-100 text-blue-700' :
+                  'text-gray-600 hover:text-gray-900 hover:bg-gray-100'}`
+                  }>
+
                   <Icon className="w-4 h-4" />
                   <span>{item.label}</span>
-                </Link>
-              );
+                </Link>);
+
             })}
+
+            {/* Language Switcher */}
+            <LanguageSwitcher />
 
             {/* User Menu */}
             <DropdownMenu>
@@ -120,41 +126,41 @@ export function Navigation() {
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              {isMobileMenuOpen ? (
-                <X className="w-5 h-5" />
-              ) : (
-                <Menu className="w-5 h-5" />
-              )}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+
+              {isMobileMenuOpen ?
+              <X className="w-5 h-5" /> :
+
+              <Menu className="w-5 h-5" />
+              }
             </Button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden border-t bg-gray-50">
+        {isMobileMenuOpen &&
+        <div className="md:hidden border-t bg-gray-50">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navItems.map((item) => {
-                const Icon = item.icon;
-                const isActive = location.pathname === item.path;
-                
-                return (
-                  <Link
-                    key={item.path}
-                    to={item.path}
-                    className={`flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium ${
-                      isActive 
-                        ? 'bg-blue-100 text-blue-700' 
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-                    }`}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
+              const Icon = item.icon;
+              const isActive = location.pathname === item.path;
+
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium ${
+                  isActive ?
+                  'bg-blue-100 text-blue-700' :
+                  'text-gray-600 hover:text-gray-900 hover:bg-gray-100'}`
+                  }
+                  onClick={() => setIsMobileMenuOpen(false)}>
+
                     <Icon className="w-5 h-5" />
                     <span>{item.label}</span>
-                  </Link>
-                );
-              })}
+                  </Link>);
+
+            })}
               
               <div className="border-t border-gray-200 pt-3">
                 <div className="flex items-center px-3 py-2">
@@ -169,21 +175,21 @@ export function Navigation() {
                   </div>
                 </div>
                 <Button
-                  variant="ghost"
-                  className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
-                  onClick={() => {
-                    handleSignOut();
-                    setIsMobileMenuOpen(false);
-                  }}
-                >
+                variant="ghost"
+                className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
+                onClick={() => {
+                  handleSignOut();
+                  setIsMobileMenuOpen(false);
+                }}>
+
                   <LogOut className="mr-2 h-4 w-4" />
                   Sign Out
                 </Button>
               </div>
             </div>
           </div>
-        )}
+        }
       </div>
-    </nav>
-  );
+    </nav>);
+
 }

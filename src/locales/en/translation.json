@@ -1,0 +1,141 @@
+{
+  "navigation": {
+    "home": "Home",
+    "datasets": "Datasets",
+    "account": "Account",
+    "admin": "Admin",
+    "login": "Login",
+    "logout": "Logout",
+    "language": "Language"
+  },
+  "hero": {
+    "title": "Professional Financial Data Analytics",
+    "subtitle": "Access comprehensive financial datasets and market intelligence to make informed investment decisions.",
+    "cta": "Get Started",
+    "learnMore": "Learn More"
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Comprehensive financial data solutions for your business needs",
+    "realTimeData": {
+      "title": "Real-time Data",
+      "description": "Access live market data and financial information as it happens."
+    },
+    "historicalAnalysis": {
+      "title": "Historical Analysis",
+      "description": "Comprehensive historical data analysis for informed decision making."
+    },
+    "customReports": {
+      "title": "Custom Reports",
+      "description": "Tailored reports and analytics based on your specific requirements."
+    }
+  },
+  "marketInsights": {
+    "title": "Market Insights",
+    "subtitle": "Stay ahead with our latest market analysis and trends",
+    "viewAll": "View All Insights"
+  },
+  "featuredReports": {
+    "title": "Featured Reports",
+    "subtitle": "In-depth analysis and comprehensive market reports",
+    "downloadReport": "Download Report"
+  },
+  "companyInfo": {
+    "title": "About Our Company",
+    "description": "We are a leading provider of financial data and analytics solutions, serving institutional investors, corporations, and financial professionals worldwide.",
+    "experience": "Years of Experience",
+    "clients": "Global Clients",
+    "datasets": "Datasets Available"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Get in touch with our team for more information",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send Message",
+    "address": "Address",
+    "phone": "Phone",
+    "businessHours": "Business Hours"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "name": "Name",
+    "forgotPassword": "Forgot Password?",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "resetPassword": "Reset Password",
+    "sendResetEmail": "Send Reset Email",
+    "newPassword": "New Password",
+    "resetPasswordSuccess": "Password reset successful",
+    "backToLogin": "Back to Login"
+  },
+  "account": {
+    "title": "Account Settings",
+    "subscription": "Subscription",
+    "profile": "Profile Information",
+    "billing": "Billing Information"
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "uploadData": "Upload Data",
+    "manageUsers": "Manage Users",
+    "selectFile": "Select File",
+    "upload": "Upload",
+    "dragDropFile": "Drag and drop your Excel file here, or click to select",
+    "supportedFormats": "Supported formats: .xlsx, .xls"
+  },
+  "datasetView": {
+    "title": "Financial Dataset",
+    "filters": "Filters",
+    "export": "Export",
+    "loading": "Loading...",
+    "noData": "No data available",
+    "rowsPerPage": "Rows per page",
+    "of": "of",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "subscription": {
+    "title": "Subscription Plans",
+    "currentPlan": "Current Plan",
+    "upgrade": "Upgrade",
+    "features": "Features included",
+    "price": "Price"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "ok": "OK",
+    "yes": "Yes",
+    "no": "No",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear",
+    "apply": "Apply",
+    "reset": "Reset"
+  },
+  "onAuthSuccess": {
+    "title": "Registration Successful!",
+    "message": "Your account has been successfully verified. You will be redirected to the login page in",
+    "seconds": "seconds",
+    "redirecting": "Redirecting to login page..."
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "message": "The page you are looking for does not exist.",
+    "goHome": "Go Home"
+  }
+}
