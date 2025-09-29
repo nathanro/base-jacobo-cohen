@@ -468,7 +468,62 @@ export function FinancialDataTable() {
           textFilter
         }));
 
-        setColumns(generatedColumns);
+        // Add color styling to specific financial columns
+        const styledColumns = generatedColumns.map((col) => {
+          const columnName = col.accessorKey as string;
+          const lowerColumnName = columnName.toLowerCase();
+          
+          // Define colors for specific financial metrics
+          let headerClassName = 'font-semibold';
+          let cellClassName = '';
+          
+          if (lowerColumnName.includes('revenue') || lowerColumnName.includes('sales') || lowerColumnName.includes('income')) {
+            headerClassName += ' text-green-700 bg-green-50 border-green-200';
+            cellClassName = 'text-green-800 bg-green-50/30';
+          } else if (lowerColumnName.includes('expense') || lowerColumnName.includes('cost') || lowerColumnName.includes('expenditure')) {
+            headerClassName += ' text-red-700 bg-red-50 border-red-200';
+            cellClassName = 'text-red-800 bg-red-50/30';
+          } else if (lowerColumnName.includes('asset') || lowerColumnName.includes('property') || lowerColumnName.includes('investment')) {
+            headerClassName += ' text-blue-700 bg-blue-50 border-blue-200';
+            cellClassName = 'text-blue-800 bg-blue-50/30';
+          } else if (lowerColumnName.includes('liabilit') || lowerColumnName.includes('debt') || lowerColumnName.includes('payable')) {
+            headerClassName += ' text-purple-700 bg-purple-50 border-purple-200';
+            cellClassName = 'text-purple-800 bg-purple-50/30';
+          }
+
+          return {
+            ...col,
+            header: ({ column }) => {
+              return (
+                <Button
+                  variant="ghost"
+                  onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+                  className={`w-full flex justify-between items-center hover:bg-gray-50 ${headerClassName}`}>
+                  <span>
+                    {columnName.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
+                  </span>
+                  {column.getIsSorted() === 'asc' ?
+                    <ChevronUp className="ml-2 h-4 w-4" /> :
+                    column.getIsSorted() === 'desc' ?
+                    <ChevronDown className="ml-2 h-4 w-4" /> :
+                    <ChevronsUpDown className="ml-2 h-4 w-4" />
+                  }
+                </Button>
+              );
+            },
+            cell: ({ row }) => {
+              const value = row.getValue(columnName);
+              const baseClassName = cellClassName;
+              // Format numeric values for better display
+              if (typeof value === 'number') {
+                return <div className={`text-right font-mono ${baseClassName}`}>{value.toLocaleString()}</div>;
+              }
+              return <div className={baseClassName}>{value}</div>;
+            }
+          };
+        });
+
+        setColumns(styledColumns);
         showSuccess(`Loaded ${allFinancialData.length} financial records from ${uploads.length} datasets.`);
       } catch (error: any) {
         console.error('Failed to load financial data:', error);
@@ -566,7 +621,62 @@ export function FinancialDataTable() {
             selectFilter :
             textFilter
           }));
-          setColumns(generatedColumns);
+          // Add color styling to specific financial columns
+          const styledColumns = generatedColumns.map((col) => {
+            const columnName = col.accessorKey as string;
+            const lowerColumnName = columnName.toLowerCase();
+            
+            // Define colors for specific financial metrics
+            let headerClassName = 'font-semibold';
+            let cellClassName = '';
+            
+            if (lowerColumnName.includes('revenue') || lowerColumnName.includes('sales') || lowerColumnName.includes('income')) {
+              headerClassName += ' text-green-700 bg-green-50 border-green-200';
+              cellClassName = 'text-green-800 bg-green-50/30';
+            } else if (lowerColumnName.includes('expense') || lowerColumnName.includes('cost') || lowerColumnName.includes('expenditure')) {
+              headerClassName += ' text-red-700 bg-red-50 border-red-200';
+              cellClassName = 'text-red-800 bg-red-50/30';
+            } else if (lowerColumnName.includes('asset') || lowerColumnName.includes('property') || lowerColumnName.includes('investment')) {
+              headerClassName += ' text-blue-700 bg-blue-50 border-blue-200';
+              cellClassName = 'text-blue-800 bg-blue-50/30';
+            } else if (lowerColumnName.includes('liabilit') || lowerColumnName.includes('debt') || lowerColumnName.includes('payable')) {
+              headerClassName += ' text-purple-700 bg-purple-50 border-purple-200';
+              cellClassName = 'text-purple-800 bg-purple-50/30';
+            }
+
+            return {
+              ...col,
+              header: ({ column }) => {
+                return (
+                  <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+                    className={`w-full flex justify-between items-center hover:bg-gray-50 ${headerClassName}`}>
+                    <span>
+                      {columnName.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
+                    </span>
+                    {column.getIsSorted() === 'asc' ?
+                      <ChevronUp className="ml-2 h-4 w-4" /> :
+                      column.getIsSorted() === 'desc' ?
+                      <ChevronDown className="ml-2 h-4 w-4" /> :
+                      <ChevronsUpDown className="ml-2 h-4 w-4" />
+                    }
+                  </Button>
+                );
+              },
+              cell: ({ row }) => {
+                const value = row.getValue(columnName);
+                const baseClassName = cellClassName;
+                // Format numeric values for better display
+                if (typeof value === 'number') {
+                  return <div className={`text-right font-mono ${baseClassName}`}>{value.toLocaleString()}</div>;
+                }
+                return <div className={baseClassName}>{value}</div>;
+              }
+            };
+          });
+
+          setColumns(styledColumns);
           showSuccess(`Loaded ${allFinancialData.length} financial records from ${uploads.length} datasets.`);
         }
       } catch (error: any) {

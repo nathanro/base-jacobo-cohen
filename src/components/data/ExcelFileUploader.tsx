@@ -80,6 +80,22 @@ export function ExcelFileUploader({ onUploadSuccess }: ExcelFileUploaderProps) {
     const toastId = showLoading('Uploading dataset...');
 
     try {
+      // First, delete any existing files (to ensure only one file at a time)
+      const existingFilesResponse = await window.ezsite.apis.tablePage(41729, {
+        PageNo: 1,
+        PageSize: 1000,
+        OrderByField: 'id',
+        IsAsc: false
+      });
+
+      if (existingFilesResponse.data?.List && existingFilesResponse.data.List.length > 0) {
+        // Delete all existing files
+        for (const existingFile of existingFilesResponse.data.List) {
+          await window.ezsite.apis.tableDelete(41729, { ID: existingFile.id });
+        }
+        showSuccess(`Replaced existing dataset with new file`);
+      }
+
       const uploadData = {
         filename: selectedFile.name,
         file_data: JSON.stringify(parsedData),
