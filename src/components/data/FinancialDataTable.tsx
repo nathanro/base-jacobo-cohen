@@ -626,7 +626,12 @@ export function FinancialDataTable() {
               // Format numeric values for better display
               if (typeof value === 'number') {
                 // Check if this value should be displayed as percentage
-                if (shouldConvertToPercentage(columnName, value)) {
+                // Skip percentage conversion for 'revenue' and 'cost of revenue' columns
+                const columnLower = columnName.toLowerCase();
+                const isRevenueOrCostOfRevenue = columnLower.includes('revenue') || 
+                  (columnLower.includes('cost') && columnLower.includes('revenue'));
+                
+                if (!isRevenueOrCostOfRevenue && shouldConvertToPercentage(columnName, value)) {
                   const percentage = formatAsPercentage(value, 2);
                   return (
                     <div className={`text-right font-mono ${baseClassName}`} title={`Raw value: ${value.toLocaleString()}`}>
