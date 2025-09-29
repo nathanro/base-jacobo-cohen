@@ -123,6 +123,10 @@ function PriorityFilterSection({
     const config = columnFilterConfigs[columnName];
     if (!column || !config) return null;
 
+    // Check if this is one of the percentage display filters
+    const isPercentageFilter = key === 'sales_grow_per_year' || key === 'sales_grow_per_quarter' || key === 'margin' || 
+                               label === 'Sales Growth Quarter' || label === 'Sales Growth Per Year' || label === 'Margin';
+
     return (
       <div key={key} className="space-y-2">
         <label className="text-sm font-semibold text-blue-700 flex items-center space-x-2">
@@ -133,10 +137,11 @@ function PriorityFilterSection({
         </label>
         <div className="border-2 border-blue-200 rounded-md p-3 bg-blue-50">
           {config.type === 'range' && config.min !== undefined && config.max !== undefined &&
-          <RangeFilterControl
+          <PercentageRangeFilterControl
             column={column}
             min={config.min}
             max={config.max}
+            forcePercentageDisplay={isPercentageFilter}
             t={t} />
 
           }
@@ -166,8 +171,9 @@ function PriorityFilterSection({
         <Filter className="h-5 w-5 text-blue-600" />
         <h3 className="font-semibold text-blue-800">Key Financial Metrics Filters</h3>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {renderPriorityFilter('sales_grow_per_year', 'Sales Growth Per Year')}
+        {renderPriorityFilter('sales_grow_per_quarter', 'Sales Growth Quarter')}
         {renderPriorityFilter('margin', 'Margin')}
         {renderPriorityFilter('debt', 'Debt')}
       </div>
@@ -256,6 +262,96 @@ function RangeFilterControl({
         <span>{formatValue(displayMax)}</span>
       </div>
       {shouldUsePercentage &&
+      <div className="text-xs text-gray-600">
+          Raw range: {formatValue(min)} to {formatValue(max)}
+        </div>
+      }
+    </div>);
+
+}
+
+function PercentageRangeFilterControl({
+  column,
+  min,
+  max,
+  forcePercentageDisplay,
+  t
+
+
+
+
+}: {column: any;min: number;max: number;forcePercentageDisplay?: boolean;t: any;}) {
+  // Check if this column should use percentage conversion or force percentage display
+  const shouldUsePercentage = shouldConvertToPercentage(column.id, max);
+  const displayAsPercentage = forcePercentageDisplay || shouldUsePercentage;
+
+  // Set up display range and values
+  const displayMin = displayAsPercentage ? 0 : min;
+  const displayMax = displayAsPercentage ? 100 : max;
+
+  // Initialize filter value - convert to percentage if needed
+  const initialFilterValue = column.getFilterValue() as [number, number] || (
+  displayAsPercentage ? [0, 100] : [min, max]);
+
+  const [localValue, setLocalValue] = useState(initialFilterValue);
+
+  const formatValue = (value: number) => {
+    if (displayAsPercentage) {
+      return `${value.toFixed(2)}%`;
+    }
+
+    // Format large numbers with appropriate units
+    if (Math.abs(value) >= 1e12) {
+      return `${(value / 1e12).toFixed(1)}T`;
+    } else if (Math.abs(value) >= 1e9) {
+      return `${(value / 1e9).toFixed(1)}B`;
+    } else if (Math.abs(value) >= 1e6) {
+      return `${(value / 1e6).toFixed(1)}M`;
+    } else if (Math.abs(value) >= 1e3) {
+      return `${(value / 1e3).toFixed(1)}K`;
+    }
+    return value.toFixed(2);
+  };
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      // Reset filter if values are at default range
+      const isDefaultRange = displayAsPercentage ?
+      localValue[0] === 0 && localValue[1] === 100 :
+      localValue[0] === min && localValue[1] === max;
+
+      column.setFilterValue(isDefaultRange ? undefined : localValue);
+    }, 300);
+    return () => clearTimeout(timeoutId);
+  }, [localValue, column, min, max, displayAsPercentage]);
+
+  const step = displayAsPercentage ? getPercentageStep(2) : (max - min) / 100;
+
+  return (
+    <div className="space-y-2">
+      <div className="flex items-center space-x-2 text-sm">
+        <span>From: {formatValue(localValue[0])}</span>
+        <span>-</span>
+        <span>To: {formatValue(localValue[1])}</span>
+      </div>
+      {displayAsPercentage &&
+      <div className="text-xs text-blue-600 bg-blue-50 p-2 rounded">
+          💡 Values displayed as percentage scale (0-100%) for easier filtering
+        </div>
+      }
+      <Slider
+        value={localValue}
+        onValueChange={setLocalValue}
+        min={displayMin}
+        max={displayMax}
+        step={step}
+        className="w-full" />
+
+      <div className="flex justify-between text-xs text-gray-500">
+        <span>{formatValue(displayMin)}</span>
+        <span>{formatValue(displayMax)}</span>
+      </div>
+      {displayAsPercentage && !shouldUsePercentage &&
       <div className="text-xs text-gray-600">
           Raw range: {formatValue(min)} to {formatValue(max)}
         </div>
@@ -355,6 +451,7 @@ export function FinancialDataTable() {
     // Define patterns for each priority filter
     const patterns = {
       sales_grow_per_year: /sales.*grow.*year|grow.*sales.*year|sales.*year.*grow|year.*sales.*grow|growth.*rate|growth_rate|sales_growth/i,
+      sales_grow_per_quarter: /sales.*grow.*quarter|grow.*sales.*quarter|quarter.*sales.*grow|quarter.*growth|sales.*quarter/i,
       margin: /margin|profit.*margin|gross.*margin|net.*margin|profit_margin/i,
       debt: /debt|debt.*ratio|total.*debt|long.*debt|short.*debt/i
     };
@@ -1110,14 +1207,25 @@ export function FinancialDataTable() {
 
                             {config.type === 'range' &&
                           config.min !== undefined &&
-                          config.max !== undefined &&
-                          <RangeFilterControl
-                            column={column}
-                            min={config.min}
-                            max={config.max}
-                            t={t} />
-
-                          }
+                          config.max !== undefined && (
+                          (() => {
+                            // Check if this is one of the percentage display filters
+                            const columnLower = column.id.toLowerCase();
+                            const isPercentageFilter = 
+                              columnLower.includes('sales') && (columnLower.includes('grow') || columnLower.includes('growth')) && 
+                              (columnLower.includes('year') || columnLower.includes('quarter')) ||
+                              columnLower.includes('margin');
+                            
+                            return (
+                              <PercentageRangeFilterControl
+                                column={column}
+                                min={config.min}
+                                max={config.max}
+                                forcePercentageDisplay={isPercentageFilter}
+                                t={t} />
+                            );
+                          })()
+                          )}
 
                             {config.type === 'select' && config.options &&
                           <SelectFilterControl column={column} options={config.options} t={t} />
