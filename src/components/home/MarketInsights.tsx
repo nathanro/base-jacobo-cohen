@@ -42,45 +42,45 @@ const MarketInsights = () => {
   const { t } = useTranslation();
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             {t('marketInsights.title')}
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             {t('marketInsights.subtitle')}
           </p>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {insights.map((insight, index) =>
-          <Card key={index} className="group hover:shadow-xl transition-all duration-300 cursor-pointer border-l-4 border-l-transparent hover:border-l-blue-500">
+          <Card key={index} className="group hover:shadow-xl transition-all duration-300 cursor-pointer border-l-4 border-l-transparent hover:border-l-accent">
               <CardHeader className="flex flex-row items-start space-y-0 pb-4">
                 <div className="flex-1">
                   <div className="flex items-center space-x-2 mb-3">
                     <Badge variant="secondary" className="text-xs">
                       {insight.category}
                     </Badge>
-                    <div className="flex items-center text-xs text-gray-500">
+                    <div className="flex items-center text-xs text-muted-foreground">
                       <Calendar className="h-3 w-3 mr-1" />
                       {insight.date}
                     </div>
                   </div>
-                  <CardTitle className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+                  <CardTitle className="text-lg font-semibold text-foreground group-hover:text-accent transition-colors">
                     {insight.title}
                   </CardTitle>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <div className="flex items-center text-green-600 font-semibold text-sm">
+                  <div className="flex items-center text-emerald-600 font-semibold text-sm">
                     <TrendingUp className="h-4 w-4 mr-1" />
                     {insight.growth}
                   </div>
-                  <ArrowUpRight className="h-5 w-5 text-gray-400 group-hover:text-blue-500 transition-colors" />
+                  <ArrowUpRight className="h-5 w-5 text-muted-foreground group-hover:text-accent transition-colors" />
                 </div>
               </CardHeader>
               <CardContent>
-                <CardDescription className="text-gray-600 leading-relaxed">
+                <CardDescription className="text-muted-foreground leading-relaxed">
                   {insight.description}
                 </CardDescription>
               </CardContent>

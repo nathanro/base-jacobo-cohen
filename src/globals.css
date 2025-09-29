@@ -4,117 +4,113 @@
 
 @layer base {
   :root {
-    /* Using #B6B0A5 for light background */
-    --background: 28 10% 68%;
+    /* Palette Color #B6B0A5 - Light beige for backgrounds */
+    --background: 46 13% 69%;
     --foreground: 222.2 84% 4.9%;
 
-    /* Using #A49F82 for card background */
+    /* Palette Color #A49F82 - Light brownish gray for cards */
     --card: 49 14% 58%;
     --card-foreground: 222.2 84% 4.9%;
 
-    /* Using #A49F82 for popover */
+    /* Palette Color #A49F82 - Light brownish gray for popover */
     --popover: 49 14% 58%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    /* Using #2E2F3C for primary */
+    /* Palette Color #2E2F3C - Dark blue-gray for primary */
     --primary: 234 17% 21%;
     --primary-foreground: 210 40% 98%;
 
-    /* Using #9B8B79 for secondary */
+    /* Palette Color #9B8B79 - Warm brownish gray for secondary */
     --secondary: 28 13% 54%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
-    /* Using #A49F82 for muted */
+    /* Palette Color #A49F82 - Light brownish gray for muted */
     --muted: 49 14% 58%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    /* Using #202F5A for accent */
+    /* Palette Color #202F5A - Dark blue for accent */
     --accent: 219 48% 25%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    /* Using #32333F for border */
+    /* Palette Color #32333F - Darker blue-gray for borders */
     --border: 236 11% 22%;
-    /* Using #9B8B79 for input */
+    /* Palette Color #9B8B79 - Warm brownish gray for inputs */
     --input: 28 13% 54%;
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
 
-    /* Using #B6B0A5 for sidebar background */
-    --sidebar-background: 28 10% 68%;
-
+    /* Palette Color #B6B0A5 - Light beige for sidebar background */
+    --sidebar-background: 46 13% 69%;
     --sidebar-foreground: 240 5.3% 26.1%;
 
-    /* Using #32333F for sidebar primary */
+    /* Palette Color #32333F - Darker blue-gray for sidebar primary */
     --sidebar-primary: 236 11% 22%;
-
     --sidebar-primary-foreground: 0 0% 98%;
 
-    /* Using #A49F82 for sidebar accent */
+    /* Palette Color #A49F82 - Light brownish gray for sidebar accent */
     --sidebar-accent: 49 14% 58%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
 
-    /* Using #9B8B79 for sidebar border */
+    /* Palette Color #9B8B79 - Warm brownish gray for sidebar border */
     --sidebar-border: 28 13% 54%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
-    /* Using #1D1723 for dark background */
+    /* Palette Color #1D1723 - Very dark purple for dark background */
     --background: 262 26% 12%;
     --foreground: 210 40% 98%;
 
-    /* Using #2E2F3C for dark card */
+    /* Palette Color #2E2F3C - Dark blue-gray for dark cards */
     --card: 234 17% 21%;
     --card-foreground: 210 40% 98%;
 
-    /* Using #2E2F3C for dark popover */
+    /* Palette Color #2E2F3C - Dark blue-gray for dark popover */
     --popover: 234 17% 21%;
     --popover-foreground: 210 40% 98%;
 
-    /* Using #9B8B79 for dark primary */
+    /* Palette Color #9B8B79 - Warm brownish gray for dark primary */
     --primary: 28 13% 54%;
     --primary-foreground: 222.2 47.4% 11.2%;
 
-    /* Using #32333F for dark secondary */
+    /* Palette Color #32333F - Darker blue-gray for dark secondary */
     --secondary: 236 11% 22%;
     --secondary-foreground: 210 40% 98%;
 
-    /* Using #210E35 for dark muted */
+    /* Palette Color #210E35 - Dark purple for dark muted */
     --muted: 270 53% 14%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    /* Using #202F5A for dark accent */
+    /* Palette Color #202F5A - Dark blue for dark accent */
     --accent: 219 48% 25%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    /* Using #32333F for dark border */
+    /* Palette Color #32333F - Darker blue-gray for dark borders */
     --border: 236 11% 22%;
-    /* Using #2E2F3C for dark input */
+    /* Palette Color #2E2F3C - Dark blue-gray for dark inputs */
     --input: 234 17% 21%;
     --ring: 212.7 26.8% 83.9%;
     
-    /* Using #000000 for dark sidebar background */
+    /* Palette Color #000000 - Black for dark sidebar background */
     --sidebar-background: 0 0% 0%;
     --sidebar-foreground: 240 4.8% 95.9%;
     
-    /* Using #202F5A for dark sidebar primary */
+    /* Palette Color #202F5A - Dark blue for dark sidebar primary */
     --sidebar-primary: 219 48% 25%;
     --sidebar-primary-foreground: 0 0% 100%;
     
-    /* Using #210E35 for dark sidebar accent */
+    /* Palette Color #210E35 - Dark purple for dark sidebar accent */
     --sidebar-accent: 270 53% 14%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     
-    /* Using #1D1723 for dark sidebar border */
+    /* Palette Color #1D1723 - Very dark purple for dark sidebar border */
     --sidebar-border: 262 26% 12%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }

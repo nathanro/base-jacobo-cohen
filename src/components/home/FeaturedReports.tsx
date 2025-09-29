@@ -38,25 +38,25 @@ const FeaturedReports = () => {
   const { t } = useTranslation();
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+    <section className="py-20 bg-gradient-to-br from-background to-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             {t('featuredReports.title')}
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             {t('featuredReports.subtitle')}
           </p>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {reports.map((report, index) =>
-          <Card key={index} className="group hover:shadow-2xl transition-all duration-300 bg-white border-0 shadow-lg overflow-hidden">
-              <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white relative">
+          <Card key={index} className="group hover:shadow-2xl transition-all duration-300 bg-card border-0 shadow-lg overflow-hidden">
+              <CardHeader className="bg-gradient-to-r from-primary to-accent text-primary-foreground relative">
                 <div className="absolute top-4 right-4">
                   <FileText className="h-6 w-6 opacity-80" />
                 </div>
-                <Badge variant="secondary" className="w-fit mb-2 bg-white/20 text-white border-white/30">
+                <Badge variant="secondary" className="w-fit mb-2 bg-primary-foreground/20 text-primary-foreground border-primary-foreground/30">
                   {report.category}
                 </Badge>
                 <CardTitle className="text-xl font-bold leading-tight mb-2">
@@ -68,30 +68,30 @@ const FeaturedReports = () => {
               </CardHeader>
               
               <CardContent className="p-6">
-                <CardDescription className="text-gray-600 mb-4 leading-relaxed">
+                <CardDescription className="text-muted-foreground mb-4 leading-relaxed">
                   {report.description}
                 </CardDescription>
                 
                 <div className="space-y-2 mb-6">
-                  <h4 className="font-semibold text-sm text-gray-900">Key Highlights:</h4>
+                  <h4 className="font-semibold text-sm text-foreground">Key Highlights:</h4>
                   {report.highlights.map((highlight, idx) =>
-                <div key={idx} className="text-sm text-gray-600 flex items-center">
-                      <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></div>
+                <div key={idx} className="text-sm text-muted-foreground flex items-center">
+                      <div className="w-1.5 h-1.5 bg-primary rounded-full mr-2"></div>
                       {highlight}
                     </div>
                 )}
                 </div>
                 
-                <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                  <div className="text-2xl font-bold text-blue-600">
+                <div className="flex items-center justify-between pt-4 border-t border-border">
+                  <div className="text-2xl font-bold text-primary">
                     {report.price}
                   </div>
                   <div className="flex space-x-2">
-                    <Button variant="outline" size="sm" className="group-hover:border-blue-500">
+                    <Button variant="outline" size="sm" className="group-hover:border-primary">
                       <Eye className="h-4 w-4 mr-1" />
                       Preview
                     </Button>
-                    <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                    <Button size="sm" className="bg-primary hover:bg-primary/90">
                       <Download className="h-4 w-4 mr-1" />
                       Buy Now
                     </Button>

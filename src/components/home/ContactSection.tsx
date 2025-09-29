@@ -14,36 +14,36 @@ const ContactSection = () => {
     icon: Mail,
     titleKey: "contact.email",
     details: ["research@datainsights.com", "sales@datainsights.com"],
-    color: "bg-blue-100 text-blue-600"
+    color: "bg-primary/10 text-primary"
   },
   {
     icon: Phone,
     titleKey: "contact.phone",
     details: ["+1 (555) 123-4567", "+1 (555) 987-6543"],
-    color: "bg-green-100 text-green-600"
+    color: "bg-emerald-100 text-emerald-600"
   },
   {
     icon: MapPin,
     titleKey: "contact.address",
     details: ["123 Business District", "New York, NY 10001"],
-    color: "bg-purple-100 text-purple-600"
+    color: "bg-accent/10 text-accent"
   },
   {
     icon: Clock,
     titleKey: "contact.businessHours",
     details: ["Mon - Fri: 9:00 AM - 6:00 PM", "Sat: 10:00 AM - 4:00 PM"],
-    color: "bg-orange-100 text-orange-600"
+    color: "bg-secondary/10 text-secondary"
   }];
 
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             {t('contact.title')}
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             {t('contact.subtitle')}
           </p>
         </div>
@@ -63,7 +63,7 @@ const ContactSection = () => {
                 </CardHeader>
                 <CardContent>
                   {info.details.map((detail, idx) =>
-                <CardDescription key={idx} className="text-gray-600 mb-1">
+                <CardDescription key={idx} className="text-muted-foreground mb-1">
                       {detail}
                     </CardDescription>
                 )}
@@ -71,7 +71,7 @@ const ContactSection = () => {
               </Card>
             )}
             
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-blue-600 to-indigo-600 text-white">
+            <Card className="border-0 shadow-lg bg-gradient-to-br from-primary to-accent text-primary-foreground">
               <CardHeader>
                 <div className="flex items-center space-x-3">
                   <MessageCircle className="h-6 w-6" />
@@ -79,7 +79,7 @@ const ContactSection = () => {
                 </div>
               </CardHeader>
               <CardContent>
-                <CardDescription className="text-blue-100 mb-4">
+                <CardDescription className="text-primary-foreground/80 mb-4">
                   Our research consultants are available for immediate assistance 
                   with your market intelligence needs.
                 </CardDescription>
@@ -138,12 +138,12 @@ const ContactSection = () => {
                 
                 <div className="flex items-center space-x-2">
                   <input type="checkbox" id="newsletter" className="rounded border-gray-300" />
-                  <Label htmlFor="newsletter" className="text-sm text-gray-600">
+                  <Label htmlFor="newsletter" className="text-sm text-muted-foreground">
                     Subscribe to our newsletter for market insights and updates
                   </Label>
                 </div>
                 
-                <Button size="lg" className="w-full bg-blue-600 hover:bg-blue-700">
+                <Button size="lg" className="w-full bg-primary hover:bg-primary/90">
                   <Send className="h-5 w-5 mr-2" />
                   {t('contact.send')}
                 </Button>
