@@ -1,55 +1,40 @@
-import { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Button } from "@/components/ui/button";
-import { FinancialDataTable } from '@/components/data/FinancialDataTable';
 import { useAuth } from '@/contexts/AuthContext';
 import { Navigation } from '@/components/navigation/Navigation';
 import { MadeWithDyad } from '@/components/powered-by-publiexpert';
 import { useTranslation } from 'react-i18next';
+import { FinancialDataTable } from '@/components/data/FinancialDataTable';
 
 const DatasetView = () => {
-  const { id } = useParams<{id: string;}>();
   const { user, loading } = useAuth();
-  const navigate = useNavigate();
   const { t } = useTranslation();
 
-  useEffect(() => {
-    if (!loading && !user) {
-      navigate('/login');
-    }
-  }, [user, loading, navigate]);
-
-  if (loading || !user) {
+  if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p>Loading...</p>
-      </div>);
-
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      </div>
+    );
   }
 
-  if (!id) {
+  if (!user) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p>Dataset not found</p>
-      </div>);
-
+        <p>{t('auth.loginRequired')}</p>
+      </div>
+    );
   }
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Navigation />
       <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-900">{t('datasetView.title')}</h1>
-          
-          <Button variant="outline" onClick={() => navigate('/')}>
-            Back to Home
-          </Button>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <h1 className="text-2xl font-bold text-gray-900">{t('datasetView.title') || 'Financial Data Dashboard'}</h1>
         </div>
       </header>
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
-        <FinancialDataTable datasetId={id} />
+        <FinancialDataTable />
       </main>
       
       <footer className="bg-white border-t mt-auto">
@@ -57,8 +42,8 @@ const DatasetView = () => {
           <MadeWithDyad />
         </div>
       </footer>
-    </div>);
-
+    </div>
+  );
 };
 
 export default DatasetView;

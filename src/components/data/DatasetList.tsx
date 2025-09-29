@@ -1,122 +1,172 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Lock } from 'lucide-react';
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { supabase } from '@/integrations/supabase/client';
+import { FileSpreadsheet, Calendar, User, Database } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { showError } from '@/utils/toast';
 import { useAuth } from '@/contexts/AuthContext';
+import { SampleDataUploader } from './SampleDataUploader';
 
-type Dataset = {
-  id: string;
-  name: string;
-  description: string | null;
-  created_at: string;
-  updated_at: string;
+type ExcelUpload = {
+  id: number;
+  filename: string;
+  description: string;
+  upload_date: string;
+  file_size: number;
   is_premium: boolean;
+  dataset_name: string;
+  uploaded_by: number;
+  file_data: string;
 };
 
 export function DatasetList() {
-  const [datasets, setDatasets] = useState<Dataset[]>([]);
+  const [uploads, setUploads] = useState<ExcelUpload[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const { profile } = useAuth();
+  const { user } = useAuth();
 
-  const isPremiumUser = profile?.subscription_status === 'premium';
+  const fetchUploads = async () => {
+    setLoading(true);
+    try {
+      const response = await window.ezsite.apis.tablePage(41729, {
+        PageNo: 1,
+        PageSize: 100,
+        OrderByField: 'upload_date',
+        IsAsc: false,
+      });
+
+      if (response.error) {
+        throw new Error(response.error);
+      }
+
+      setUploads(response.data?.List || []);
+    } catch (error: any) {
+      console.error('Failed to load datasets:', error);
+      showError(error.message || 'Failed to load datasets');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchDatasets = async () => {
-      setLoading(true);
-      try {
-        const { data, error } = await supabase.
-        from('financial_datasets').
-        select('*').
-        order('created_at', { ascending: false });
-
-        if (error) throw error;
-        setDatasets(data || []);
-      } catch (error: any) {
-        showError(error.message || 'Failed to load datasets');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchDatasets();
+    fetchUploads();
   }, []);
 
-  const handleViewDataset = (id: string, isPremium: boolean) => {
-    if (isPremium && !isPremiumUser) {
-      showError('This dataset requires a premium subscription');
-      return;
-    }
+  const handleViewDataset = () => {
+    navigate('/datasets/view');
+  };
 
-    navigate(`/datasets/${id}`);
+  const formatFileSize = (bytes: number) => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  };
+
+  const getRecordCount = (fileData: string) => {
+    try {
+      const data = JSON.parse(fileData || '[]');
+      return Array.isArray(data) ? data.length : 0;
+    } catch {
+      return 0;
+    }
   };
 
   if (loading) {
     return (
       <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Available Datasets</h2>
+        <h2 className="text-2xl font-bold">Available Financial Datasets</h2>
         <div className="h-40 flex items-center justify-center">
-          Loading datasets...
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
         </div>
-      </div>);
-
+      </div>
+    );
   }
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold">Available Datasets</h2>
-      
-      {datasets.length === 0 ?
-      <div className="text-center p-8 border rounded-lg">
-          <p className="text-muted-foreground">No datasets available yet.</p>
-        </div> :
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold">Available Financial Datasets</h2>
+        <Button onClick={handleViewDataset} className="flex items-center space-x-2">
+          <Database className="h-4 w-4" />
+          <span>View All Data</span>
+        </Button>
+      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {datasets.map((dataset) =>
-        <Card key={dataset.id}>
-              <CardHeader>
-                <div className="flex justify-between items-start">
-                  <CardTitle className="text-xl">{dataset.name}</CardTitle>
-                  {dataset.is_premium &&
-              <Badge variant="secondary" className="ml-2">
-                      <Lock className="h-3 w-3 mr-1" />
-                      Premium
-                    </Badge>
-              }
-                </div>
-                <CardDescription>
-                  {new Date(dataset.created_at).toLocaleDateString()}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">
-                  {dataset.description || 'No description available'}
-                </p>
-              </CardContent>
-              <CardFooter>
-                <Button
-              onClick={() => handleViewDataset(dataset.id, dataset.is_premium)}
-              variant={dataset.is_premium && !isPremiumUser ? "outline" : "default"}
-              className="w-full">
+      {uploads.length === 0 && (
+        <SampleDataUploader />
+      )}
 
-                  {dataset.is_premium && !isPremiumUser ?
-              <>
-                      <Lock className="h-4 w-4 mr-2" />
-                      Requires Premium
-                    </> :
-
-              'View Data'
-              }
-                </Button>
-              </CardFooter>
-            </Card>
-        )}
+      {uploads.length === 0 ? (
+        <div className="text-center p-8 border rounded-lg">
+          <FileSpreadsheet className="h-12 w-12 mx-auto mb-4 text-gray-400" />
+          <p className="text-muted-foreground mb-4">No financial datasets available yet.</p>
+          <p className="text-sm text-gray-500">
+            Use the sample data uploader above or upload Excel files through the admin panel.
+          </p>
         </div>
-      }
-    </div>);
-
+      ) : (
+        <div className="space-y-4">
+          <div className="text-sm text-gray-600 mb-4">
+            Found {uploads.length} dataset{uploads.length !== 1 ? 's' : ''} with{' '}
+            {uploads.reduce((total, upload) => total + getRecordCount(upload.file_data), 0)} total records
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {uploads.map((upload) => (
+              <Card key={upload.id} className="hover:shadow-md transition-shadow">
+                <CardHeader>
+                  <div className="flex justify-between items-start">
+                    <CardTitle className="text-lg flex items-center space-x-2">
+                      <FileSpreadsheet className="h-5 w-5 text-green-600" />
+                      <span>{upload.dataset_name || upload.filename}</span>
+                    </CardTitle>
+                    {upload.is_premium && (
+                      <Badge variant="secondary" className="ml-2">
+                        Premium
+                      </Badge>
+                    )}
+                  </div>
+                  <CardDescription className="flex items-center space-x-4 text-xs">
+                    <span className="flex items-center space-x-1">
+                      <Calendar className="h-3 w-3" />
+                      <span>{new Date(upload.upload_date).toLocaleDateString()}</span>
+                    </span>
+                    <span>{formatFileSize(upload.file_size)}</span>
+                  </CardDescription>
+                </CardHeader>
+                
+                <CardContent>
+                  <div className="space-y-2">
+                    <p className="text-sm text-muted-foreground">
+                      {upload.description || 'No description available'}
+                    </p>
+                    <div className="flex items-center space-x-4 text-xs text-gray-500">
+                      <span className="flex items-center space-x-1">
+                        <Database className="h-3 w-3" />
+                        <span>{getRecordCount(upload.file_data)} records</span>
+                      </span>
+                      <span>File: {upload.filename}</span>
+                    </div>
+                  </div>
+                </CardContent>
+                
+                <CardFooter>
+                  <Button
+                    onClick={handleViewDataset}
+                    variant="default"
+                    className="w-full"
+                  >
+                    View Data
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }

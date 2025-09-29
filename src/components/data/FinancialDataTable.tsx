@@ -11,23 +11,23 @@ import {
   SortingState,
   FilterFn,
 } from '@tanstack/react-table';
-import { 
-  ChevronDown, 
-  ChevronUp, 
-  ChevronsUpDown, 
-  Filter, 
-  X, 
+import {
+  ChevronDown,
+  ChevronUp,
+  ChevronsUpDown,
+  Filter,
+  X,
   Settings2,
-  RotateCcw 
+  RotateCcw,
 } from 'lucide-react';
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Slider } from "@/components/ui/slider";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Slider } from '@/components/ui/slider';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
+import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible';
 import {
   Table,
   TableBody,
@@ -35,14 +35,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { supabase } from '@/integrations/supabase/client';
-import { showError } from '@/utils/toast';
+} from '@/components/ui/table';
+import { showError, showSuccess } from '@/utils/toast';
 import { useTranslation } from 'react-i18next';
-
-interface FinancialDataTableProps {
-  datasetId: string;
-}
 
 interface ColumnFilter {
   id: string;
@@ -57,7 +52,7 @@ interface ColumnFilter {
 const rangeFilter: FilterFn<any> = (row, columnId, filterValue) => {
   const value = parseFloat(row.getValue(columnId));
   if (isNaN(value)) return true;
-  
+
   const [min, max] = filterValue || [null, null];
   if (min !== null && value < min) return false;
   if (max !== null && value > max) return false;
@@ -76,18 +71,18 @@ const textFilter: FilterFn<any> = (row, columnId, filterValue) => {
   return value.includes(filterValue.toLowerCase());
 };
 
-function RangeFilterControl({ 
-  column, 
-  min, 
-  max, 
-  t 
-}: { 
-  column: any; 
-  min: number; 
-  max: number; 
-  t: any; 
+function RangeFilterControl({
+  column,
+  min,
+  max,
+  t,
+}: {
+  column: any;
+  min: number;
+  max: number;
+  t: any;
 }) {
-  const filterValue = column.getFilterValue() as [number, number] || [min, max];
+  const filterValue = (column.getFilterValue() as [number, number]) || [min, max];
   const [localValue, setLocalValue] = useState(filterValue);
 
   useEffect(() => {
@@ -100,9 +95,9 @@ function RangeFilterControl({
   return (
     <div className="space-y-2">
       <div className="flex items-center space-x-2 text-sm">
-        <span>{t('datasetView.filterControls.rangeFrom')}: {localValue[0].toFixed(2)}</span>
+        <span>From: {localValue[0].toFixed(2)}</span>
         <span>-</span>
-        <span>{t('datasetView.filterControls.rangeTo')}: {localValue[1].toFixed(2)}</span>
+        <span>To: {localValue[1].toFixed(2)}</span>
       </div>
       <Slider
         value={localValue}
@@ -120,16 +115,16 @@ function RangeFilterControl({
   );
 }
 
-function SelectFilterControl({ 
-  column, 
-  options, 
-  t 
-}: { 
-  column: any; 
-  options: string[]; 
-  t: any; 
+function SelectFilterControl({
+  column,
+  options,
+  t,
+}: {
+  column: any;
+  options: string[];
+  t: any;
 }) {
-  const filterValue = column.getFilterValue() as string[] || [];
+  const filterValue = (column.getFilterValue() as string[]) || [];
 
   const handleValueChange = (value: string) => {
     if (value === 'all') {
@@ -138,7 +133,7 @@ function SelectFilterControl({
       column.setFilterValue([]);
     } else {
       const newValue = filterValue.includes(value)
-        ? filterValue.filter(v => v !== value)
+        ? filterValue.filter((v) => v !== value)
         : [...filterValue, value];
       column.setFilterValue(newValue.length === 0 ? undefined : newValue);
     }
@@ -148,18 +143,20 @@ function SelectFilterControl({
     <div className="space-y-2">
       <Select onValueChange={handleValueChange}>
         <SelectTrigger className="w-full">
-          <SelectValue placeholder={`${t('datasetView.filterControls.filterBy')} ${column.id}`} />
+          <SelectValue placeholder={`Filter by ${column.id}`} />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">{t('datasetView.filterControls.selectAll')}</SelectItem>
-          <SelectItem value="none">{t('datasetView.filterControls.selectNone')}</SelectItem>
+          <SelectItem value="all">Select All</SelectItem>
+          <SelectItem value="none">Select None</SelectItem>
           <Separator className="my-1" />
           {options.map((option) => (
             <SelectItem key={option} value={option}>
               <div className="flex items-center space-x-2">
                 <span>{option}</span>
                 {filterValue.includes(option) && (
-                  <Badge variant="secondary" className="text-xs">✓</Badge>
+                  <Badge variant="secondary" className="text-xs">
+                    ✓
+                  </Badge>
                 )}
               </div>
             </SelectItem>
@@ -168,7 +165,7 @@ function SelectFilterControl({
       </Select>
       {filterValue.length > 0 && (
         <div className="flex flex-wrap gap-1">
-          {filterValue.map(value => (
+          {filterValue.map((value) => (
             <Badge key={value} variant="secondary" className="text-xs">
               {value}
               <button
@@ -185,7 +182,7 @@ function SelectFilterControl({
   );
 }
 
-export function FinancialDataTable({ datasetId }: FinancialDataTableProps) {
+export function FinancialDataTable() {
   const [data, setData] = useState<any[]>([]);
   const [columns, setColumns] = useState<ColumnDef<any>[]>([]);
   const [loading, setLoading] = useState(true);
@@ -193,61 +190,67 @@ export function FinancialDataTable({ datasetId }: FinancialDataTableProps) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [showFilters, setShowFilters] = useState(false);
   const [columnFilterConfigs, setColumnFilterConfigs] = useState<Record<string, ColumnFilter>>({});
-  const [datasetInfo, setDatasetInfo] = useState<{name: string; description: string | null;}>({
-    name: '',
-    description: null
-  });
 
   const { t } = useTranslation();
 
   // Analyze data to determine filter configurations
   const analyzeColumnData = useMemo(() => {
     if (data.length === 0) return {};
-    
+
     const configs: Record<string, ColumnFilter> = {};
     const firstRow = data[0];
-    
-    Object.keys(firstRow).forEach(key => {
-      const values = data.map(row => row[key]).filter(v => v !== null && v !== undefined);
-      const numericValues = values.map(v => parseFloat(v)).filter(v => !isNaN(v));
-      const uniqueValues = [...new Set(values.map(v => String(v)))];
-      
+
+    Object.keys(firstRow).forEach((key) => {
+      const values = data.map((row) => row[key]).filter((v) => v !== null && v !== undefined);
+      const numericValues = values.map((v) => parseFloat(v)).filter((v) => !isNaN(v));
+      const uniqueValues = [...new Set(values.map((v) => String(v)))];
+
       // Detect financial metrics that need special handling
       const keyLower = key.toLowerCase();
-      const isFinancialMetric = keyLower.includes('sales') || keyLower.includes('growth') || 
-                               keyLower.includes('margin') || keyLower.includes('debt') ||
-                               keyLower.includes('revenue') || keyLower.includes('profit') ||
-                               keyLower.includes('assets') || keyLower.includes('ratio');
-      
+      const isFinancialMetric =
+        keyLower.includes('sales') ||
+        keyLower.includes('growth') ||
+        keyLower.includes('grow') ||
+        keyLower.includes('margin') ||
+        keyLower.includes('debt') ||
+        keyLower.includes('revenue') ||
+        keyLower.includes('profit') ||
+        keyLower.includes('assets') ||
+        keyLower.includes('ratio') ||
+        keyLower.includes('year') ||
+        keyLower.includes('per');
+
       if (numericValues.length > values.length * 0.8 || isFinancialMetric) {
         // Numeric/Range filter
         const min = Math.min(...numericValues);
         const max = Math.max(...numericValues);
-        configs[key] = {
-          id: key,
-          type: 'range',
-          value: [min, max],
-          min,
-          max
-        };
+        if (min !== max) {
+          configs[key] = {
+            id: key,
+            type: 'range',
+            value: [min, max],
+            min,
+            max,
+          };
+        }
       } else if (uniqueValues.length <= Math.min(20, values.length / 2)) {
         // Select filter for categorical data
         configs[key] = {
           id: key,
           type: 'select',
           value: [],
-          options: uniqueValues.sort()
+          options: uniqueValues.sort(),
         };
       } else {
         // Text filter
         configs[key] = {
           id: key,
           type: 'text',
-          value: ''
+          value: '',
         };
       }
     });
-    
+
     return configs;
   }, [data]);
 
@@ -259,68 +262,100 @@ export function FinancialDataTable({ datasetId }: FinancialDataTableProps) {
     const fetchData = async () => {
       setLoading(true);
       try {
-        // Fetch dataset info
-        const { data: datasetData, error: datasetError } = await supabase
-          .from('financial_datasets')
-          .select('name, description')
-          .eq('id', datasetId)
-          .single();
+        // Fetch data from excel_uploads table using EasySite API
+        const response = await window.ezsite.apis.tablePage(41729, {
+          PageNo: 1,
+          PageSize: 1000,
+          OrderByField: 'id',
+          IsAsc: false,
+        });
 
-        if (datasetError) throw datasetError;
-        setDatasetInfo(datasetData);
+        if (response.error) {
+          throw new Error(response.error);
+        }
 
-        // Fetch financial data
-        const { data: financialData, error: dataError } = await supabase
-          .from('financial_data')
-          .select('data')
-          .eq('dataset_id', datasetId)
-          .single();
+        const uploads = response.data?.List || [];
+        
+        if (uploads.length === 0) {
+          showError('No financial data uploads found. Please upload some Excel files first.');
+          return;
+        }
 
-        if (dataError) throw dataError;
-
-        if (financialData && Array.isArray(financialData.data)) {
-          setData(financialData.data);
-
-          // Generate columns from the first row with enhanced headers
-          if (financialData.data.length > 0) {
-            const firstRow = financialData.data[0];
-            const generatedColumns: ColumnDef<any>[] = Object.keys(firstRow).map((key) => ({
-              accessorKey: key,
-              header: ({ column }) => {
-                return (
-                  <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                    className="w-full flex justify-between items-center hover:bg-gray-50"
-                  >
-                    <span className="font-semibold">
-                      {t(`datasetView.columns.${key.toLowerCase()}`) || key}
-                    </span>
-                    {column.getIsSorted() === "asc" ? (
-                      <ChevronUp className="ml-2 h-4 w-4" />
-                    ) : column.getIsSorted() === "desc" ? (
-                      <ChevronDown className="ml-2 h-4 w-4" />
-                    ) : (
-                      <ChevronsUpDown className="ml-2 h-4 w-4" />
-                    )}
-                  </Button>
-                );
-              },
-              cell: ({ row }) => {
-                const value = row.getValue(key);
-                // Format numeric values for better display
-                if (typeof value === 'number') {
-                  return <div className="text-right font-mono">{value.toLocaleString()}</div>;
-                }
-                return <div>{value}</div>;
-              },
-              filterFn: columnFilterConfigs[key]?.type === 'range' ? rangeFilter :
-                        columnFilterConfigs[key]?.type === 'select' ? selectFilter : textFilter
-            }));
-            setColumns(generatedColumns);
+        // Parse and combine data from all uploads
+        let allFinancialData: any[] = [];
+        
+        for (const upload of uploads) {
+          try {
+            const fileData = JSON.parse(upload.file_data || '[]');
+            if (Array.isArray(fileData) && fileData.length > 0) {
+              // Add metadata to each row
+              const dataWithMetadata = fileData.map((row: any, index: number) => ({
+                ...row,
+                _source_file: upload.filename,
+                _dataset_name: upload.dataset_name || upload.filename,
+                _upload_id: upload.id,
+                _row_number: index + 1,
+              }));
+              allFinancialData = [...allFinancialData, ...dataWithMetadata];
+            }
+          } catch (parseError) {
+            console.warn(`Failed to parse data from ${upload.filename}:`, parseError);
           }
         }
+
+        if (allFinancialData.length === 0) {
+          showError('No valid financial data found in the uploaded files.');
+          return;
+        }
+
+        setData(allFinancialData);
+
+        // Generate columns from the first row
+        const firstRow = allFinancialData[0];
+        const generatedColumns: ColumnDef<any>[] = Object.keys(firstRow)
+          .filter((key) => !key.startsWith('_')) // Hide metadata columns from main view
+          .map((key) => ({
+            accessorKey: key,
+            header: ({ column }) => {
+              return (
+                <Button
+                  variant="ghost"
+                  onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+                  className="w-full flex justify-between items-center hover:bg-gray-50"
+                >
+                  <span className="font-semibold">
+                    {key.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
+                  </span>
+                  {column.getIsSorted() === 'asc' ? (
+                    <ChevronUp className="ml-2 h-4 w-4" />
+                  ) : column.getIsSorted() === 'desc' ? (
+                    <ChevronDown className="ml-2 h-4 w-4" />
+                  ) : (
+                    <ChevronsUpDown className="ml-2 h-4 w-4" />
+                  )}
+                </Button>
+              );
+            },
+            cell: ({ row }) => {
+              const value = row.getValue(key);
+              // Format numeric values for better display
+              if (typeof value === 'number') {
+                return <div className="text-right font-mono">{value.toLocaleString()}</div>;
+              }
+              return <div>{value}</div>;
+            },
+            filterFn:
+              analyzeColumnData[key]?.type === 'range'
+                ? rangeFilter
+                : analyzeColumnData[key]?.type === 'select'
+                ? selectFilter
+                : textFilter,
+          }));
+
+        setColumns(generatedColumns);
+        showSuccess(`Loaded ${allFinancialData.length} financial records from ${uploads.length} datasets.`);
       } catch (error: any) {
+        console.error('Failed to load financial data:', error);
         showError(error.message || 'Failed to load financial data');
       } finally {
         setLoading(false);
@@ -328,7 +363,7 @@ export function FinancialDataTable({ datasetId }: FinancialDataTableProps) {
     };
 
     fetchData();
-  }, [datasetId, t]);
+  }, []);
 
   const table = useReactTable({
     data,
@@ -350,14 +385,14 @@ export function FinancialDataTable({ datasetId }: FinancialDataTableProps) {
     },
     initialState: {
       pagination: {
-        pageSize: 20,
+        pageSize: 25,
       },
     },
   });
 
   const resetAllFilters = () => {
     setColumnFilters([]);
-    table.getAllColumns().forEach(column => {
+    table.getAllColumns().forEach((column) => {
       column.setFilterValue(undefined);
     });
   };
@@ -368,7 +403,7 @@ export function FinancialDataTable({ datasetId }: FinancialDataTableProps) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>{t('datasetView.loading')}</CardTitle>
+          <CardTitle>Loading Financial Data...</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="h-40 flex items-center justify-center">
@@ -379,11 +414,31 @@ export function FinancialDataTable({ datasetId }: FinancialDataTableProps) {
     );
   }
 
+  if (data.length === 0) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>No Financial Data Available</CardTitle>
+          <CardDescription>
+            Upload Excel files with financial data to get started.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="text-center p-8">
+            <p className="text-muted-foreground">
+              No financial datasets have been uploaded yet. Please contact your administrator to upload financial data files.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card className="w-full">
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
-          <span>{datasetInfo.name}</span>
+          <span>Financial Data Dashboard</span>
           <div className="flex items-center space-x-2">
             <Button
               variant="outline"
@@ -392,9 +447,7 @@ export function FinancialDataTable({ datasetId }: FinancialDataTableProps) {
               className="flex items-center space-x-2"
             >
               <Filter className="h-4 w-4" />
-              <span>
-                {showFilters ? t('datasetView.filterControls.hideFilters') : t('datasetView.filterControls.showFilters')}
-              </span>
+              <span>{showFilters ? 'Hide Filters' : 'Show Filters'}</span>
               {activeFilterCount > 0 && (
                 <Badge variant="secondary" className="ml-2">
                   {activeFilterCount}
@@ -409,16 +462,16 @@ export function FinancialDataTable({ datasetId }: FinancialDataTableProps) {
                 className="flex items-center space-x-2"
               >
                 <RotateCcw className="h-4 w-4" />
-                <span>{t('datasetView.filterControls.resetAll')}</span>
+                <span>Reset All</span>
               </Button>
             )}
           </div>
         </CardTitle>
-        {datasetInfo.description && (
-          <CardDescription>{datasetInfo.description}</CardDescription>
-        )}
+        <CardDescription>
+          Financial data from uploaded Excel files with advanced filtering and analysis tools.
+        </CardDescription>
       </CardHeader>
-      
+
       <CardContent>
         <div className="space-y-6">
           <Collapsible open={showFilters} onOpenChange={setShowFilters}>
@@ -426,11 +479,12 @@ export function FinancialDataTable({ datasetId }: FinancialDataTableProps) {
               <div className="p-4 bg-gray-50 rounded-lg border">
                 <div className="flex items-center space-x-2 mb-4">
                   <Settings2 className="h-4 w-4" />
-                  <h3 className="font-medium">{t('datasetView.filters')}</h3>
+                  <h3 className="font-medium">Column Filters</h3>
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                  {table.getAllColumns()
+                  {table
+                    .getAllColumns()
                     .filter((column) => column.getCanFilter())
                     .map((column) => {
                       const config = columnFilterConfigs[column.id];
@@ -439,37 +493,37 @@ export function FinancialDataTable({ datasetId }: FinancialDataTableProps) {
                       return (
                         <div key={column.id} className="space-y-2">
                           <label className="text-sm font-medium flex items-center space-x-2">
-                            <span>{t(`datasetView.columns.${column.id.toLowerCase()}`) || column.id}</span>
+                            <span>
+                              {column.id.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
+                            </span>
                             <Badge variant="outline" className="text-xs">
-                              {t(`datasetView.filterControls.${config.type}Filter`)}
+                              {config.type}
                             </Badge>
                           </label>
-                          
+
                           <div className="border rounded-md p-3 bg-white">
                             {config.type === 'text' && (
                               <Input
-                                placeholder={`${t('datasetView.filterControls.searchPlaceholder')}${column.id}`}
+                                placeholder={`Search ${column.id}...`}
                                 value={(column.getFilterValue() as string) ?? ''}
                                 onChange={(e) => column.setFilterValue(e.target.value)}
                                 className="w-full"
                               />
                             )}
-                            
-                            {config.type === 'range' && config.min !== undefined && config.max !== undefined && (
-                              <RangeFilterControl
-                                column={column}
-                                min={config.min}
-                                max={config.max}
-                                t={t}
-                              />
-                            )}
-                            
+
+                            {config.type === 'range' &&
+                              config.min !== undefined &&
+                              config.max !== undefined && (
+                                <RangeFilterControl
+                                  column={column}
+                                  min={config.min}
+                                  max={config.max}
+                                  t={t}
+                                />
+                              )}
+
                             {config.type === 'select' && config.options && (
-                              <SelectFilterControl
-                                column={column}
-                                options={config.options}
-                                t={t}
-                              />
+                              <SelectFilterControl column={column} options={config.options} t={t} />
                             )}
                           </div>
                         </div>
@@ -479,7 +533,7 @@ export function FinancialDataTable({ datasetId }: FinancialDataTableProps) {
               </div>
             </CollapsibleContent>
           </Collapsible>
-          
+
           <div className="rounded-md border">
             <Table>
               <TableHeader>
@@ -489,10 +543,7 @@ export function FinancialDataTable({ datasetId }: FinancialDataTableProps) {
                       <TableHead key={header.id} className="bg-gray-50">
                         {header.isPlaceholder
                           ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
+                          : flexRender(header.column.columnDef.header, header.getContext())}
                       </TableHead>
                     ))}
                   </TableRow>
@@ -503,7 +554,7 @@ export function FinancialDataTable({ datasetId }: FinancialDataTableProps) {
                   table.getRowModel().rows.map((row) => (
                     <TableRow
                       key={row.id}
-                      data-state={row.getIsSelected() && "selected"}
+                      data-state={row.getIsSelected() && 'selected'}
                       className="hover:bg-gray-50"
                     >
                       {row.getVisibleCells().map((cell) => (
@@ -516,14 +567,14 @@ export function FinancialDataTable({ datasetId }: FinancialDataTableProps) {
                 ) : (
                   <TableRow>
                     <TableCell colSpan={columns.length} className="h-24 text-center">
-                      {t('datasetView.noData')}
+                      No data available.
                     </TableCell>
                   </TableRow>
                 )}
               </TableBody>
             </Table>
           </div>
-          
+
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Button
@@ -532,7 +583,7 @@ export function FinancialDataTable({ datasetId }: FinancialDataTableProps) {
                 onClick={() => table.previousPage()}
                 disabled={!table.getCanPreviousPage()}
               >
-                {t('datasetView.previous')}
+                Previous
               </Button>
               <Button
                 variant="outline"
@@ -540,14 +591,12 @@ export function FinancialDataTable({ datasetId }: FinancialDataTableProps) {
                 onClick={() => table.nextPage()}
                 disabled={!table.getCanNextPage()}
               >
-                {t('datasetView.next')}
+                Next
               </Button>
             </div>
-            
+
             <div className="flex items-center space-x-2">
-              <span className="text-sm text-muted-foreground">
-                {t('datasetView.rowsPerPage')}:
-              </span>
+              <span className="text-sm text-muted-foreground">Rows per page:</span>
               <Select
                 value={`${table.getState().pagination.pageSize}`}
                 onValueChange={(value) => {
@@ -558,7 +607,7 @@ export function FinancialDataTable({ datasetId }: FinancialDataTableProps) {
                   <SelectValue placeholder={table.getState().pagination.pageSize} />
                 </SelectTrigger>
                 <SelectContent side="top">
-                  {[10, 20, 30, 40, 50].map((pageSize) => (
+                  {[10, 25, 50, 100].map((pageSize) => (
                     <SelectItem key={pageSize} value={`${pageSize}`}>
                       {pageSize}
                     </SelectItem>
@@ -566,10 +615,10 @@ export function FinancialDataTable({ datasetId }: FinancialDataTableProps) {
                 </SelectContent>
               </Select>
             </div>
-            
+
             <div className="text-sm text-muted-foreground">
-              {t('datasetView.of').replace('%1', `${table.getState().pagination.pageIndex + 1}`).replace('%2', `${table.getPageCount()}`)} 
-              {` (${table.getFilteredRowModel().rows.length} ${data.length > table.getFilteredRowModel().rows.length ? 'filtered' : 'total'} rows)`}
+              Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()} 
+              ({table.getFilteredRowModel().rows.length} {data.length > table.getFilteredRowModel().rows.length ? 'filtered' : 'total'} rows)
             </div>
           </div>
         </div>
