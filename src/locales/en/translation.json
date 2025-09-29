@@ -114,13 +114,173 @@
     "billing": "Billing Information"
   },
   "admin": {
-    "title": "Admin Dashboard",
-    "uploadData": "Upload Research Data",
-    "manageUsers": "Manage Users",
-    "selectFile": "Select File",
-    "upload": "Upload",
-    "dragDropFile": "Drag and drop your research data file here, or click to select",
-    "supportedFormats": "Supported formats: .xlsx, .xls, .csv"
+    "title": "Administration Panel",
+    "loading": "Loading...",
+    "accessDenied": "Access Denied",
+    "noPermission": "You don't have permission to access this page.",
+    "backToHome": "Back to Home",
+    "welcomeTitle": "Welcome Administrator",
+    "userName": "User:",
+    "userEmail": "Email:",
+    "userRole": "Role:",
+    "description": "As an administrator, you can manage website content, upload financial data, and perform maintenance tasks.",
+    "tabs": {
+      "dashboard": "Dashboard",
+      "users": "User Management",
+      "roles": "Role Management", 
+      "data": "Data Management",
+      "settings": "System Settings"
+    },
+    "userManagement": {
+      "title": "User Management",
+      "addUser": "Add User",
+      "editUser": "Edit User",
+      "deleteUser": "Delete User",
+      "confirmDelete": "Are you sure you want to delete this user?",
+      "userName": "Name",
+      "userEmail": "Email",
+      "userPhone": "Phone Number", 
+      "userRole": "Role",
+      "userStatus": "Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "createdAt": "Created At",
+      "actions": "Actions",
+      "searchUsers": "Search users...",
+      "noUsers": "No users found",
+      "loadingUsers": "Loading users...",
+      "userAdded": "User added successfully",
+      "userUpdated": "User updated successfully",
+      "userDeleted": "User deleted successfully",
+      "errorAddingUser": "Error adding user",
+      "errorUpdatingUser": "Error updating user",
+      "errorDeletingUser": "Error deleting user",
+      "errorLoadingUsers": "Error loading users",
+      "validation": {
+        "nameRequired": "Name is required",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Invalid email format",
+        "passwordRequired": "Password is required",
+        "passwordMinLength": "Password must be at least 6 characters",
+        "roleRequired": "Role is required",
+        "phoneInvalid": "Invalid phone number format"
+      }
+    },
+    "roleManagement": {
+      "title": "Role Management",
+      "addRole": "Add Role",
+      "editRole": "Edit Role",
+      "deleteRole": "Delete Role",
+      "confirmDelete": "Are you sure you want to delete this role?",
+      "roleName": "Role Name",
+      "roleCode": "Role Code",
+      "roleDescription": "Description",
+      "createdAt": "Created At",
+      "actions": "Actions",
+      "searchRoles": "Search roles...",
+      "noRoles": "No roles found",
+      "loadingRoles": "Loading roles...",
+      "roleAdded": "Role added successfully",
+      "roleUpdated": "Role updated successfully", 
+      "roleDeleted": "Role deleted successfully",
+      "errorAddingRole": "Error adding role",
+      "errorUpdatingRole": "Error updating role",
+      "errorDeletingRole": "Error deleting role",
+      "errorLoadingRoles": "Error loading roles",
+      "validation": {
+        "nameRequired": "Role name is required",
+        "nameMinLength": "Role name must be at least 2 characters",
+        "descriptionMaxLength": "Description must not exceed 500 characters"
+      }
+    },
+    "dashboard": {
+      "title": "Administration Dashboard",
+      "subtitle": "System overview and quick access to administrative functions",
+      "stats": {
+        "totalUsers": "Total Users",
+        "activeUsers": "Active Users",
+        "totalDatasets": "Total Datasets",
+        "systemHealth": "System Health"
+      }
+    },
+    "userManagement": {
+      "title": "User Management",
+      "description": "Manage system users and their permissions",
+      "createUser": "Create New User",
+      "editUser": "Edit User",
+      "deleteUser": "Delete User",
+      "confirmDelete": "Are you sure you want to delete this user?",
+      "usersList": "Users List",
+      "searchUsers": "Search users...",
+      "filterByRole": "Filter by role",
+      "columns": {
+        "name": "Name",
+        "email": "Email",
+        "role": "Role", 
+        "status": "Status",
+        "created": "Created",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "forms": {
+        "name": "Full Name",
+        "email": "Email Address",
+        "role": "User Role",
+        "password": "Password",
+        "confirmPassword": "Confirm Password",
+        "isActive": "Account Active"
+      }
+    },
+    "roleManagement": {
+      "title": "Role Management",
+      "description": "Manage user roles and permissions",
+      "createRole": "Create New Role",
+      "editRole": "Edit Role",
+      "assignRole": "Assign Role",
+      "rolesList": "Roles List",
+      "columns": {
+        "name": "Role Name",
+        "code": "Role Code",
+        "users": "Users Count",
+        "created": "Created",
+        "actions": "Actions"
+      },
+      "forms": {
+        "name": "Role Name",
+        "code": "Role Code",
+        "description": "Description"
+      }
+    },
+    "dataManagement": {
+      "title": "Data Management",
+      "description": "Upload and manage financial datasets",
+      "uploadData": "Upload Financial Data",
+      "uploadDescription": "Use this section to upload Excel files with financial data to the system.",
+      "datasetName": "Dataset Name",
+      "datasetDescription": "Description",
+      "excelFile": "Excel File",
+      "premiumContent": "Premium Content",
+      "uploadFinancialData": "Upload Financial Data",
+      "uploadFinancialDataDescription": "Upload Excel files containing financial data and market research information."
+    },
+    "systemSettings": {
+      "title": "System Settings",
+      "description": "Configure system-wide settings and preferences",
+      "general": "General Settings",
+      "maintenance": "Maintenance Mode",
+      "backups": "Backup Management",
+      "logs": "System Logs"
+    },
+    "instructions": {
+      "title": "Administration Instructions",
+      "userManagementInstructions": "Use the User Management section to create, edit, and manage user accounts. You can assign roles and activate/deactivate accounts.",
+      "roleManagementInstructions": "Role Management allows you to define user permissions and assign roles to users for access control.",
+      "dataManagementInstructions": "Upload financial data through Excel files in the Data Management section. You can mark content as premium.",
+      "systemSettingsInstructions": "Configure system-wide settings including maintenance mode and backup schedules."
+    }
   },
   "datasetView": {
     "title": "Big Data Research Portal",
@@ -156,7 +316,16 @@
     "filter": "Filter",
     "clear": "Clear",
     "apply": "Apply",
-    "reset": "Reset"
+    "reset": "Reset",
+    "create": "Create",
+    "update": "Update",
+    "actions": "Actions",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive"
   },
   "onAuthSuccess": {
     "title": "Registration Successful!",
@@ -168,29 +337,5 @@
     "title": "Page Not Found",
     "message": "The page you are looking for does not exist.",
     "goHome": "Go Home"
-  },
-  "admin": {
-    "title": "Administration Panel",
-    "loading": "Loading...",
-    "accessDenied": "Access Denied",
-    "noPermission": "You don't have permission to access this page.",
-    "backToHome": "Back to Home",
-    "welcomeTitle": "Welcome Administrator",
-    "userName": "User:",
-    "userEmail": "Email:",
-    "userRole": "Role:",
-    "adminDescription": "As an administrator, you can manage website content, upload financial data, and perform maintenance tasks.",
-    "uploadData": "Upload Financial Data",
-    "uploadDescription": "Use this section to upload Excel files with financial data to the system.",
-    "documentation": "Administration Documentation",
-    "docDescription": "Check the detailed instructions for managing the administration panel.",
-    "contentManagement": "Content Management",
-    "contentDesc": "Learn how to manage website content.",
-    "dataManagement": "Data Management",
-    "dataDesc": "Instructions for uploading and managing financial data.",
-    "translations": "Translations",
-    "translationsDesc": "How to update site translations.",
-    "maintenance": "Maintenance",
-    "maintenanceDesc": "Basic site maintenance tasks."
   }
 }

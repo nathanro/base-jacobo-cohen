@@ -90,15 +90,15 @@ export function ExcelUploader() {
   return (
     <Card className="w-full max-w-2xl">
       <CardHeader>
-        <CardTitle>{t('admin.uploadFinancialData')}</CardTitle>
+        <CardTitle>{t('admin.dataManagement.uploadFinancialData')}</CardTitle>
         <CardDescription>
-          {t('admin.uploadFinancialDataDescription')}
+          {t('admin.dataManagement.uploadFinancialDataDescription')}
         </CardDescription>
       </CardHeader>
       <form onSubmit={handleUpload}>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="dataset-name">{t('admin.datasetName')}</Label>
+            <Label htmlFor="dataset-name">{t('admin.dataManagement.datasetName')}</Label>
             <Input
               id="dataset-name"
               value={datasetName}
@@ -108,7 +108,7 @@ export function ExcelUploader() {
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="description">{t('admin.description')}</Label>
+            <Label htmlFor="description">{t('admin.dataManagement.datasetDescription')}</Label>
             <Input
               id="description"
               value={description}
@@ -117,7 +117,7 @@ export function ExcelUploader() {
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="excel-file">{t('admin.excelFile')}</Label>
+            <Label htmlFor="excel-file">{t('admin.dataManagement.excelFile')}</Label>
             <Input
               id="excel-file"
               type="file"
@@ -133,12 +133,12 @@ export function ExcelUploader() {
               checked={isPremium}
               onCheckedChange={(checked) => setIsPremium(checked === true)} />
 
-            <Label htmlFor="premium">{t('admin.premiumContent')}</Label>
+            <Label htmlFor="premium">{t('admin.dataManagement.premiumContent')}</Label>
           </div>
         </CardContent>
         <CardFooter>
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? t('common.loading') : t('admin.uploadData')}
+            {loading ? t('common.loading') : t('admin.dataManagement.uploadData')}
           </Button>
         </CardFooter>
       </form>

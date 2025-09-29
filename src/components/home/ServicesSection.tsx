@@ -6,37 +6,37 @@ const ServicesSection = () => {
   const { t } = useTranslation();
 
   const services = [
-    {
-      icon: BarChart,
-      titleKey: "services.marketAnalysis.title",
-      descriptionKey: "services.marketAnalysis.description"
-    },
-    {
-      icon: Database,
-      titleKey: "services.bigDataAnalytics.title",
-      descriptionKey: "services.bigDataAnalytics.description"
-    },
-    {
-      icon: Search,
-      titleKey: "services.industryResearch.title",
-      descriptionKey: "services.industryResearch.description"
-    },
-    {
-      icon: TrendingUp,
-      titleKey: "services.trendAnalysis.title",
-      descriptionKey: "services.trendAnalysis.description"
-    },
-    {
-      icon: Globe,
-      titleKey: "services.globalMarketIntelligence.title",
-      descriptionKey: "services.globalMarketIntelligence.description"
-    },
-    {
-      icon: PieChart,
-      titleKey: "services.customResearch.title",
-      descriptionKey: "services.customResearch.description"
-    }
-  ];
+  {
+    icon: BarChart,
+    titleKey: "services.marketAnalysis.title",
+    descriptionKey: "services.marketAnalysis.description"
+  },
+  {
+    icon: Database,
+    titleKey: "services.bigDataAnalytics.title",
+    descriptionKey: "services.bigDataAnalytics.description"
+  },
+  {
+    icon: Search,
+    titleKey: "services.industryResearch.title",
+    descriptionKey: "services.industryResearch.description"
+  },
+  {
+    icon: TrendingUp,
+    titleKey: "services.trendAnalysis.title",
+    descriptionKey: "services.trendAnalysis.description"
+  },
+  {
+    icon: Globe,
+    titleKey: "services.globalMarketIntelligence.title",
+    descriptionKey: "services.globalMarketIntelligence.description"
+  },
+  {
+    icon: PieChart,
+    titleKey: "services.customResearch.title",
+    descriptionKey: "services.customResearch.description"
+  }];
+
 
   return (
     <section className="py-20 bg-gray-50">
@@ -51,8 +51,8 @@ const ServicesSection = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <Card key={index} className="group hover:shadow-xl transition-all duration-300 border-0 shadow-lg">
+          {services.map((service, index) =>
+          <Card key={index} className="group hover:shadow-xl transition-all duration-300 border-0 shadow-lg">
               <CardHeader className="text-center">
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                   <service.icon className="h-8 w-8 text-blue-600" />
@@ -65,11 +65,11 @@ const ServicesSection = () => {
                 </CardDescription>
               </CardContent>
             </Card>
-          ))}
+          )}
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 export default ServicesSection;
