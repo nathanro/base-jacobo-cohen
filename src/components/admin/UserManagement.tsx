@@ -1,28 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Trash2, Edit, UserPlus, Search } from 'lucide-react';
-import { showSuccess, showError } from '@/utils/toast';
+import * as z from 'zod';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { showError, showSuccess } from '@/utils/toast';
+import { useTranslation } from 'react-i18next';
+import { Plus, Edit, Trash2, Search, Users } from 'lucide-react';
 
 interface User {
   id: number;
   name: string;
   email: string;
   phone_number: string;
+  create_time: string;
+  is_activated: boolean;
   role_id: number;
   role_name: string;
-  is_activated: boolean;
-  create_time: string;
+  role_code: string;
 }
 
 interface Role {
@@ -32,27 +34,33 @@ interface Role {
   remark: string;
 }
 
-const UserManagement: React.FC = () => {
-  const { t } = useTranslation();
+const userSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  email: z.string().email('Invalid email format'),
+  phone_number: z.string().optional(),
+  password: z.string().optional(),
+  role_id: z.number().min(1, 'Role is required'),
+  is_activated: z.boolean().default(true)
+}).refine((data) => {
+  // Password is required only for new users (when no ID exists)
+  return true; // We'll handle this in the component logic
+}, {
+  message: "Password is required for new users",
+  path: ["password"]
+});
+
+type UserFormData = z.infer<typeof userSchema>;
+
+export function UserManagement() {
   const [users, setUsers] = useState<User[]>([]);
   const [roles, setRoles] = useState<Role[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const { t } = useTranslation();
 
-  const userSchema = z.object({
-    name: z.string().min(1, t('admin.userManagement.validation.nameRequired')),
-    email: z.string().email(t('admin.userManagement.validation.emailInvalid')),
-    phone_number: z.string().optional(),
-    password: editingUser ? z.string().optional() : z.string().min(6, t('admin.userManagement.validation.passwordMinLength')),
-    role_id: z.number().min(1, t('admin.userManagement.validation.roleRequired')),
-    is_activated: z.boolean().default(true)
-  });
-
-  type UserFormData = z.infer<typeof userSchema>;
-
-  const { register, handleSubmit, reset, setValue, watch, formState: { errors } } = useForm<UserFormData>({
+  const form = useForm<UserFormData>({
     resolver: zodResolver(userSchema),
     defaultValues: {
       name: '',
@@ -64,29 +72,20 @@ const UserManagement: React.FC = () => {
     }
   });
 
-  const selectedRoleId = watch('role_id');
-
-  useEffect(() => {
-    loadUsers();
-    loadRoles();
-  }, []);
-
   const loadUsers = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
-      const { data, error } = await (window as any).ezsite.apis.tablePage(41233, {
+      const response = await window.ezsite.apis.tablePage(41233, {
         PageNo: 1,
         PageSize: 100,
         OrderByField: "create_time",
-        IsAsc: false,
-        Filters: []
+        IsAsc: false
       });
 
-      if (error) throw error;
-      setUsers(data?.List || []);
-    } catch (error) {
-      console.error('Error loading users:', error);
-      showError(t('admin.userManagement.errorLoadingUsers'));
+      if (response.error) throw response.error;
+      setUsers(response.data.List || []);
+    } catch (error: any) {
+      showError(error || 'Failed to load users');
     } finally {
       setLoading(false);
     }
@@ -94,25 +93,27 @@ const UserManagement: React.FC = () => {
 
   const loadRoles = async () => {
     try {
-      const { data, error } = await (window as any).ezsite.apis.tablePage(41234, {
+      const response = await window.ezsite.apis.tablePage(41234, {
         PageNo: 1,
-        PageSize: 100,
-        OrderByField: "id",
-        IsAsc: true,
-        Filters: []
+        PageSize: 100
       });
 
-      if (error) throw error;
-      setRoles(data?.List || []);
-    } catch (error) {
-      console.error('Error loading roles:', error);
+      if (response.error) throw response.error;
+      setRoles(response.data.List || []);
+    } catch (error: any) {
+      showError(error || 'Failed to load roles');
     }
   };
+
+  useEffect(() => {
+    loadUsers();
+    loadRoles();
+  }, []);
 
   const onSubmit = async (data: UserFormData) => {
     try {
       if (editingUser) {
-        // Update user
+        // Update existing user
         const updateData: any = {
           ID: editingUser.id,
           name: data.name,
@@ -122,17 +123,23 @@ const UserManagement: React.FC = () => {
           is_activated: data.is_activated
         };
 
-        if (data.password) {
+        // Only include password if it's provided
+        if (data.password && data.password.trim()) {
           updateData.password = data.password;
         }
 
-        const { error } = await (window as any).ezsite.apis.tableUpdate(41233, updateData);
-        if (error) throw error;
+        const response = await window.ezsite.apis.tableUpdate(41233, updateData);
+        if (response.error) throw response.error;
 
-        showSuccess(t('admin.userManagement.userUpdated'));
+        showSuccess('User updated successfully');
       } else {
-        // Create user
-        const { error } = await (window as any).ezsite.apis.tableCreate(41233, {
+        // Create new user
+        if (!data.password || data.password.trim().length < 6) {
+          showError('Password is required and must be at least 6 characters long');
+          return;
+        }
+
+        const response = await window.ezsite.apis.tableCreate(41233, {
           name: data.name,
           email: data.email,
           phone_number: data.phone_number || '',
@@ -141,265 +148,321 @@ const UserManagement: React.FC = () => {
           is_activated: data.is_activated
         });
 
-        if (error) throw error;
-
-        showSuccess(t('admin.userManagement.userAdded'));
+        if (response.error) throw response.error;
+        showSuccess('User created successfully');
       }
 
-      setIsDialogOpen(false);
-      reset();
+      setDialogOpen(false);
+      form.reset();
       setEditingUser(null);
-      loadUsers();
-    } catch (error) {
-      console.error('Error saving user:', error);
-      showError(editingUser ? t('admin.userManagement.errorUpdatingUser') : t('admin.userManagement.errorAddingUser'));
+      await loadUsers();
+    } catch (error: any) {
+      showError(error || 'Failed to save user');
     }
   };
 
   const handleEdit = (user: User) => {
     setEditingUser(user);
-    setValue('name', user.name);
-    setValue('email', user.email);
-    setValue('phone_number', user.phone_number);
-    setValue('role_id', user.role_id);
-    setValue('is_activated', user.is_activated);
-    setValue('password', '');
-    setIsDialogOpen(true);
+    form.reset({
+      name: user.name,
+      email: user.email,
+      phone_number: user.phone_number,
+      password: '', // Don't pre-fill password for security
+      role_id: user.role_id,
+      is_activated: user.is_activated
+    });
+    setDialogOpen(true);
   };
 
-  const handleDelete = async (user: User) => {
-    if (!confirm(t('admin.userManagement.confirmDelete'))) return;
+  const handleDelete = async (userId: number) => {
+    if (!confirm('Are you sure you want to delete this user?')) {
+      return;
+    }
 
     try {
-      const { error } = await (window as any).ezsite.apis.tableDelete(41233, { ID: user.id });
-      if (error) throw error;
+      const response = await window.ezsite.apis.tableDelete(41233, { ID: userId });
+      if (response.error) throw response.error;
 
-      showSuccess(t('admin.userManagement.userDeleted'));
-
-      loadUsers();
-    } catch (error) {
-      console.error('Error deleting user:', error);
-      showError(t('admin.userManagement.errorDeletingUser'));
+      showSuccess('User deleted successfully');
+      await loadUsers();
+    } catch (error: any) {
+      showError(error || 'Failed to delete user');
     }
   };
 
-  const handleAddNew = () => {
-    setEditingUser(null);
-    reset();
-    setIsDialogOpen(true);
-  };
-
-  const filteredUsers = users.filter((user) =>
-  user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  user.role_name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredUsers = users.filter(user =>
+    user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user.role_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  if (loading) {
-    return (
-      <Card>
-        <CardHeader>
-          <CardTitle>{t('admin.userManagement.title')}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center justify-center py-8">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
-              <p className="mt-2 text-muted-foreground">{t('admin.userManagement.loadingUsers')}</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>);
-
-  }
+  const getRoleBadgeVariant = (roleCode: string) => {
+    switch (roleCode) {
+      case 'Administrator':
+        return 'destructive';
+      case 'GeneralUser':
+        return 'default';
+      default:
+        return 'secondary';
+    }
+  };
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{t('admin.userManagement.title')}</CardTitle>
+        <CardTitle className="flex items-center gap-2">
+          <Users className="h-5 w-5" />
+          User Management
+        </CardTitle>
         <CardDescription>
-          Manage system users, assign roles, and control access permissions.
+          Manage user accounts, roles, and permissions
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <div className="flex justify-between items-center mb-6">
-          <div className="relative w-64">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+      <CardContent className="space-y-4">
+        {/* Controls */}
+        <div className="flex items-center justify-between gap-4">
+          <div className="relative flex-1 max-w-sm">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder={t('admin.userManagement.searchUsers')}
+              placeholder="Search users..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10" />
-
+              className="pl-10"
+            />
           </div>
           
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-              <Button onClick={handleAddNew} className="gap-2">
-                <UserPlus className="h-4 w-4" />
-                {t('admin.userManagement.addUser')}
+              <Button onClick={() => {
+                setEditingUser(null);
+                form.reset({
+                  name: '',
+                  email: '',
+                  phone_number: '',
+                  password: '',
+                  role_id: 0,
+                  is_activated: true
+                });
+              }}>
+                <Plus className="h-4 w-4 mr-2" />
+                Add User
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="max-w-md">
               <DialogHeader>
                 <DialogTitle>
-                  {editingUser ? t('admin.userManagement.editUser') : t('admin.userManagement.addUser')}
+                  {editingUser ? 'Edit User' : 'Add New User'}
                 </DialogTitle>
                 <DialogDescription>
-                  {editingUser ?
-                  'Update user information and role assignment.' :
-                  'Create a new user account and assign appropriate role.'
+                  {editingUser 
+                    ? 'Update user information and permissions' 
+                    : 'Create a new user account'
                   }
                 </DialogDescription>
               </DialogHeader>
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="name">{t('admin.userManagement.userName')}</Label>
-                  <Input
-                    id="name"
-                    {...register('name')}
-                    error={errors.name?.message} />
-
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="email">{t('admin.userManagement.userEmail')}</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    {...register('email')}
-                    error={errors.email?.message} />
-
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="phone_number">{t('admin.userManagement.userPhone')}</Label>
-                  <Input
-                    id="phone_number"
-                    {...register('phone_number')}
-                    error={errors.phone_number?.message} />
-
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="password">
-                    {editingUser ? `${t('auth.password')} (${t('common.optional')})` : t('auth.password')}
-                  </Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    {...register('password')}
-                    error={errors.password?.message} />
-
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="role_id">{t('admin.userManagement.userRole')}</Label>
-                  <Select
-                    value={selectedRoleId ? selectedRoleId.toString() : ''}
-                    onValueChange={(value) => setValue('role_id', parseInt(value))}>
-
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a role" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {roles.map((role) =>
-                      <SelectItem key={role.id} value={role.id.toString()}>
-                          {role.name}
-                        </SelectItem>
-                      )}
-                    </SelectContent>
-                  </Select>
-                  {errors.role_id &&
-                  <p className="text-sm text-destructive">{errors.role_id.message}</p>
-                  }
-                </div>
-                
-                <div className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    id="is_activated"
-                    {...register('is_activated')}
-                    className="rounded border-gray-300" />
-
-                  <Label htmlFor="is_activated">{t('admin.userManagement.active')}</Label>
-                </div>
-                
-                <div className="flex justify-end space-x-2 pt-4">
-                  <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
-                    {t('common.cancel')}
-                  </Button>
-                  <Button type="submit">
-                    {t('common.save')}
-                  </Button>
-                </div>
-              </form>
+              
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Name *</FormLabel>
+                        <FormControl>
+                          <Input {...field} placeholder="Enter full name" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email *</FormLabel>
+                        <FormControl>
+                          <Input {...field} type="email" placeholder="user@example.com" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="phone_number"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Phone Number</FormLabel>
+                        <FormControl>
+                          <Input {...field} placeholder="+1234567890" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          Password {editingUser ? '(leave blank to keep current)' : '*'}
+                        </FormLabel>
+                        <FormControl>
+                          <Input 
+                            {...field} 
+                            type="password" 
+                            placeholder="Enter password"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="role_id"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Role *</FormLabel>
+                        <Select
+                          value={field.value.toString()}
+                          onValueChange={(value) => field.onChange(parseInt(value))}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select a role" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {roles.map((role) => (
+                              <SelectItem key={role.id} value={role.id.toString()}>
+                                {role.name}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="is_activated"
+                    render={({ field }) => (
+                      <FormItem className="flex items-center space-x-2">
+                        <FormControl>
+                          <input
+                            type="checkbox"
+                            checked={field.value}
+                            onChange={field.onChange}
+                            className="h-4 w-4"
+                          />
+                        </FormControl>
+                        <FormLabel className="text-sm font-normal">
+                          Account is active
+                        </FormLabel>
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <div className="flex gap-2">
+                    <Button type="submit" className="flex-1">
+                      {editingUser ? 'Update User' : 'Create User'}
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setDialogOpen(false)}
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                </form>
+              </Form>
             </DialogContent>
           </Dialog>
         </div>
 
-        {filteredUsers.length === 0 ?
-        <div className="text-center py-8">
-            <p className="text-muted-foreground">{t('admin.userManagement.noUsers')}</p>
-          </div> :
-
-        <div className="rounded-md border">
+        {/* Users Table */}
+        {loading ? (
+          <div className="flex items-center justify-center p-8">
+            <div className="h-6 w-6 animate-spin rounded-full border-2 border-current border-t-transparent" />
+            <span className="ml-2">Loading users...</span>
+          </div>
+        ) : (
+          <div className="rounded-md border">
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>{t('admin.userManagement.userName')}</TableHead>
-                  <TableHead>{t('admin.userManagement.userEmail')}</TableHead>
-                  <TableHead>{t('admin.userManagement.userPhone')}</TableHead>
-                  <TableHead>{t('admin.userManagement.userRole')}</TableHead>
-                  <TableHead>{t('admin.userManagement.userStatus')}</TableHead>
-                  <TableHead>{t('admin.userManagement.createdAt')}</TableHead>
-                  <TableHead>{t('admin.userManagement.actions')}</TableHead>
+                  <TableHead>Name</TableHead>
+                  <TableHead>Email</TableHead>
+                  <TableHead>Phone</TableHead>
+                  <TableHead>Role</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Created</TableHead>
+                  <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredUsers.map((user) =>
-              <TableRow key={user.id}>
-                    <TableCell className="font-medium">{user.name}</TableCell>
-                    <TableCell>{user.email}</TableCell>
-                    <TableCell>{user.phone_number}</TableCell>
-                    <TableCell>
-                      <Badge variant="secondary">{user.role_name}</Badge>
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant={user.is_activated ? "default" : "destructive"}>
-                        {user.is_activated ? t('admin.userManagement.active') : t('admin.userManagement.inactive')}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>{new Date(user.create_time).toLocaleDateString()}</TableCell>
-                    <TableCell>
-                      <div className="flex items-center space-x-2">
-                        <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleEdit(user)}
-                      className="h-8 w-8 p-0">
-
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                        <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleDelete(user)}
-                      className="h-8 w-8 p-0 text-destructive hover:text-destructive">
-
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
+                {filteredUsers.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
+                      No users found
                     </TableCell>
                   </TableRow>
-              )}
+                ) : (
+                  filteredUsers.map((user) => (
+                    <TableRow key={user.id}>
+                      <TableCell className="font-medium">{user.name}</TableCell>
+                      <TableCell>{user.email}</TableCell>
+                      <TableCell>{user.phone_number || '-'}</TableCell>
+                      <TableCell>
+                        <Badge variant={getRoleBadgeVariant(user.role_code)}>
+                          {user.role_name}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant={user.is_activated ? 'default' : 'secondary'}>
+                          {user.is_activated ? 'Active' : 'Inactive'}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        {new Date(user.create_time).toLocaleDateString()}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex items-center justify-end gap-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleEdit(user)}
+                          >
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="destructive"
+                            size="sm"
+                            onClick={() => handleDelete(user.id)}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
               </TableBody>
             </Table>
           </div>
-        }
+        )}
       </CardContent>
-    </Card>);
-
-};
-
-export default UserManagement;
+    </Card>
+  );
+}

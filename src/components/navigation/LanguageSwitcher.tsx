@@ -17,8 +17,8 @@ const LanguageSwitcher: React.FC = () => {
     localStorage.setItem('language', value);
   };
 
-  const currentLanguage = i18n.language.startsWith('en') ? 'en' : 
-                         i18n.language.startsWith('es') ? 'es' : 'en';
+  const currentLanguage = i18n.language.startsWith('en') ? 'en' :
+  i18n.language.startsWith('es') ? 'es' : 'en';
 
   return (
     <Select value={currentLanguage} onValueChange={handleLanguageChange}>
@@ -34,8 +34,8 @@ const LanguageSwitcher: React.FC = () => {
         <SelectItem value="en">English</SelectItem>
         <SelectItem value="es">Español</SelectItem>
       </SelectContent>
-    </Select>
-  );
+    </Select>);
+
 
 };
 
