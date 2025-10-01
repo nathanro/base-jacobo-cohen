@@ -608,18 +608,37 @@ export function FinancialDataTable() {
           return;
         }
 
+        // Sort data by fiscal_year (desc), report_period, then original row number
+        // This ensures consistent ordering while maintaining data integrity
+        allFinancialData.sort((a, b) => {
+          // First sort by fiscal year (descending - newest first)
+          const yearA = a._fiscal_year || 0;
+          const yearB = b._fiscal_year || 0;
+          if (yearB !== yearA) return yearB - yearA;
+          
+          // Then by report period (Q1, Q2, Q3, Q4, or full year)
+          const periodA = a._report_period || '';
+          const periodB = b._report_period || '';
+          if (periodA !== periodB) return periodA.localeCompare(periodB);
+          
+          // Finally by row number to maintain original order within same period
+          const rowA = a._row_number || 0;
+          const rowB = b._row_number || 0;
+          return rowA - rowB;
+        });
+
         setData(allFinancialData);
 
         // Generate columns from all unique keys across all rows to ensure no columns are missing
         const allKeys = new Set<string>();
         allFinancialData.forEach((row) => {
           Object.keys(row).forEach((key) => {
-            if (!key.startsWith('_')) { // Hide metadata columns from main view
+            if (!key.startsWith('_')) {// Hide metadata columns from main view
               allKeys.add(key);
             }
           });
         });
-        
+
         const sortedKeys = Array.from(allKeys).sort();
         const generatedColumns: ColumnDef<any>[] = sortedKeys.map((key) => ({
           accessorKey: key,
@@ -855,6 +874,25 @@ export function FinancialDataTable() {
           }
         }
 
+        // Sort data by fiscal_year (desc), report_period, then original row number
+        // This ensures consistent ordering while maintaining data integrity
+        allFinancialData.sort((a, b) => {
+          // First sort by fiscal year (descending - newest first)
+          const yearA = a._fiscal_year || 0;
+          const yearB = b._fiscal_year || 0;
+          if (yearB !== yearA) return yearB - yearA;
+          
+          // Then by report period (Q1, Q2, Q3, Q4, or full year)
+          const periodA = a._report_period || '';
+          const periodB = b._report_period || '';
+          if (periodA !== periodB) return periodA.localeCompare(periodB);
+          
+          // Finally by row number to maintain original order within same period
+          const rowA = a._row_number || 0;
+          const rowB = b._row_number || 0;
+          return rowA - rowB;
+        });
+
         setData(allFinancialData);
 
         if (allFinancialData.length > 0) {
@@ -862,13 +900,56 @@ export function FinancialDataTable() {
           const allKeys = new Set<string>();
           allFinancialData.forEach((row) => {
             Object.keys(row).forEach((key) => {
-              if (!key.startsWith('_')) { // Hide metadata columns from main view
+              if (!key.startsWith('_')) {// Hide metadata columns from main view
                 allKeys.add(key);
               }
             });
           });
-          
-          const sortedKeys = Array.from(allKeys).sort();
+
+          // Sort columns in a logical order for financial data
+          // Priority order: date/time fields, company info, revenue/sales, costs, margins, growth, assets, liabilities
+          const sortedKeys = Array.from(allKeys).sort((a, b) => {
+            const aLower = a.toLowerCase();
+            const bLower = b.toLowerCase();
+            
+            // Define priority groups
+            const getPriority = (key: string) => {
+              const k = key.toLowerCase();
+              // Group 1: Date/Time/Period fields (highest priority)
+              if (k.includes('date') || k.includes('year') || k.includes('quarter') || k.includes('period')) return 1;
+              // Group 2: Company identifiers
+              if (k.includes('company') || k.includes('ticker') || k.includes('symbol')) return 2;
+              // Group 3: Revenue and Sales
+              if (k.includes('revenue') && !k.includes('cost')) return 3;
+              if (k.includes('sales') && !k.includes('cost')) return 4;
+              // Group 4: Costs and Expenses
+              if (k.includes('cost') || k.includes('expense')) return 5;
+              // Group 5: Margins and Ratios
+              if (k.includes('margin') || k.includes('ratio')) return 6;
+              // Group 6: Growth metrics
+              if (k.includes('growth') || k.includes('grow')) return 7;
+              // Group 7: Income and Profit
+              if (k.includes('income') || k.includes('profit') || k.includes('ebitda')) return 8;
+              // Group 8: Assets
+              if (k.includes('asset')) return 9;
+              // Group 9: Liabilities and Debt
+              if (k.includes('liability') || k.includes('debt') || k.includes('payable')) return 10;
+              // Group 10: Equity and Capital
+              if (k.includes('equity') || k.includes('capital')) return 11;
+              // Group 11: Everything else
+              return 12;
+            };
+            
+            const priorityA = getPriority(aLower);
+            const priorityB = getPriority(bLower);
+            
+            // If same priority, sort alphabetically
+            if (priorityA === priorityB) {
+              return a.localeCompare(b);
+            }
+            
+            return priorityA - priorityB;
+          });
           const generatedColumns: ColumnDef<any>[] = sortedKeys.map((key) => ({
             accessorKey: key,
             header: ({ column }) => {
