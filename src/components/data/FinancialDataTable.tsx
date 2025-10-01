@@ -124,8 +124,8 @@ function PriorityFilterSection({
     if (!column || !config) return null;
 
     // Check if this is one of the percentage display filters
-    const isPercentageFilter = key === 'sales_grow_per_year' || key === 'sales_grow_per_quarter' || key === 'margin' || 
-                               label === 'Sales Growth Quarter' || label === 'Sales Growth Per Year' || label === 'Margin';
+    const isPercentageFilter = key === 'sales_grow_per_year' || key === 'sales_grow_per_quarter' || key === 'margin' ||
+    label === 'Sales Growth Quarter' || label === 'Sales Growth Per Year' || label === 'Margin';
 
     return (
       <div key={key} className="space-y-2">
@@ -694,16 +694,35 @@ export function FinancialDataTable() {
           let headerClassName = 'font-semibold';
           let cellClassName = '';
 
-          if (lowerColumnName.includes('revenue') || lowerColumnName.includes('sales') || lowerColumnName.includes('income')) {
+          // Check for Revenue columns - should be green
+          if (lowerColumnName.includes('revenue')) {
             headerClassName += ' text-green-700 bg-green-50 border-green-200';
-            cellClassName = 'text-green-800 bg-green-50/30';
-          } else if (lowerColumnName.includes('expense') || lowerColumnName.includes('cost') || lowerColumnName.includes('expenditure')) {
+            cellClassName = 'text-green-600';
+          } 
+          // Check for Cost of Revenue columns - should be red (more specific check)
+          else if ((lowerColumnName.includes('cost') && lowerColumnName.includes('revenue')) || 
+                   lowerColumnName === 'cost of revenue' || 
+                   lowerColumnName.includes('cost_of_revenue')) {
+            headerClassName += ' text-red-700 bg-red-50 border-red-200';
+            cellClassName = 'text-red-600';
+          } 
+          // Other cost/expense columns
+          else if (lowerColumnName.includes('expense') || lowerColumnName.includes('cost') || lowerColumnName.includes('expenditure')) {
             headerClassName += ' text-red-700 bg-red-50 border-red-200';
             cellClassName = 'text-red-800 bg-red-50/30';
-          } else if (lowerColumnName.includes('asset') || lowerColumnName.includes('property') || lowerColumnName.includes('investment')) {
+          } 
+          // Sales and income columns
+          else if (lowerColumnName.includes('sales') || lowerColumnName.includes('income')) {
+            headerClassName += ' text-green-700 bg-green-50 border-green-200';
+            cellClassName = 'text-green-800 bg-green-50/30';
+          } 
+          // Asset columns
+          else if (lowerColumnName.includes('asset') || lowerColumnName.includes('property') || lowerColumnName.includes('investment')) {
             headerClassName += ' text-blue-700 bg-blue-50 border-blue-200';
             cellClassName = 'text-blue-800 bg-blue-50/30';
-          } else if (lowerColumnName.includes('liabilit') || lowerColumnName.includes('debt') || lowerColumnName.includes('payable')) {
+          } 
+          // Liability columns
+          else if (lowerColumnName.includes('liabilit') || lowerColumnName.includes('debt') || lowerColumnName.includes('payable')) {
             headerClassName += ' text-purple-700 bg-purple-50 border-purple-200';
             cellClassName = 'text-purple-800 bg-purple-50/30';
           }
@@ -913,16 +932,35 @@ export function FinancialDataTable() {
             let headerClassName = 'font-semibold';
             let cellClassName = '';
 
-            if (lowerColumnName.includes('revenue') || lowerColumnName.includes('sales') || lowerColumnName.includes('income')) {
+            // Check for Revenue columns - should be green
+            if (lowerColumnName.includes('revenue')) {
               headerClassName += ' text-green-700 bg-green-50 border-green-200';
-              cellClassName = 'text-green-800 bg-green-50/30';
-            } else if (lowerColumnName.includes('expense') || lowerColumnName.includes('cost') || lowerColumnName.includes('expenditure')) {
+              cellClassName = 'text-green-600';
+            } 
+            // Check for Cost of Revenue columns - should be red (more specific check)
+            else if ((lowerColumnName.includes('cost') && lowerColumnName.includes('revenue')) || 
+                     lowerColumnName === 'cost of revenue' || 
+                     lowerColumnName.includes('cost_of_revenue')) {
+              headerClassName += ' text-red-700 bg-red-50 border-red-200';
+              cellClassName = 'text-red-600';
+            } 
+            // Other cost/expense columns
+            else if (lowerColumnName.includes('expense') || lowerColumnName.includes('cost') || lowerColumnName.includes('expenditure')) {
               headerClassName += ' text-red-700 bg-red-50 border-red-200';
               cellClassName = 'text-red-800 bg-red-50/30';
-            } else if (lowerColumnName.includes('asset') || lowerColumnName.includes('property') || lowerColumnName.includes('investment')) {
+            } 
+            // Sales and income columns
+            else if (lowerColumnName.includes('sales') || lowerColumnName.includes('income')) {
+              headerClassName += ' text-green-700 bg-green-50 border-green-200';
+              cellClassName = 'text-green-800 bg-green-50/30';
+            } 
+            // Asset columns
+            else if (lowerColumnName.includes('asset') || lowerColumnName.includes('property') || lowerColumnName.includes('investment')) {
               headerClassName += ' text-blue-700 bg-blue-50 border-blue-200';
               cellClassName = 'text-blue-800 bg-blue-50/30';
-            } else if (lowerColumnName.includes('liabilit') || lowerColumnName.includes('debt') || lowerColumnName.includes('payable')) {
+            } 
+            // Liability columns
+            else if (lowerColumnName.includes('liabilit') || lowerColumnName.includes('debt') || lowerColumnName.includes('payable')) {
               headerClassName += ' text-purple-700 bg-purple-50 border-purple-200';
               cellClassName = 'text-purple-800 bg-purple-50/30';
             }
@@ -1207,25 +1245,25 @@ export function FinancialDataTable() {
 
                             {config.type === 'range' &&
                           config.min !== undefined &&
-                          config.max !== undefined && (
+                          config.max !== undefined &&
                           (() => {
                             // Check if this is one of the percentage display filters
                             const columnLower = column.id.toLowerCase();
-                            const isPercentageFilter = 
-                              columnLower.includes('sales') && (columnLower.includes('grow') || columnLower.includes('growth')) && 
-                              (columnLower.includes('year') || columnLower.includes('quarter')) ||
-                              columnLower.includes('margin');
-                            
+                            const isPercentageFilter =
+                            columnLower.includes('sales') && (columnLower.includes('grow') || columnLower.includes('growth')) && (
+                            columnLower.includes('year') || columnLower.includes('quarter')) ||
+                            columnLower.includes('margin');
+
                             return (
                               <PercentageRangeFilterControl
                                 column={column}
                                 min={config.min}
                                 max={config.max}
                                 forcePercentageDisplay={isPercentageFilter}
-                                t={t} />
-                            );
+                                t={t} />);
+
                           })()
-                          )}
+                          }
 
                             {config.type === 'select' && config.options &&
                           <SelectFilterControl column={column} options={config.options} t={t} />
