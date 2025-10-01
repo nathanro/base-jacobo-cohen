@@ -439,17 +439,17 @@ export function FinancialDataTable() {
   const { t } = useTranslation();
 
   // Define exact column order as per database
-  // Note: current_liabilities columns (4, 3, 2, 1) must appear AFTER total_assets columns in descending order
+  // Note: current_liabilities columns (4, 3, 2, 1, 0) must appear AFTER total_assets columns in descending order
   const EXACT_COLUMN_ORDER = [
   'Symbol', '4_total_revenue_qq', '3_total_revenue_qq', '2_total_revenue_qq', '1_total_revenue_qq', '0_total_revenue_qq',
   '4_total_revenue', '3_total_revenue', '2_total_revenue', '1_total_revenue', '0_total_revenue',
   '4_cost_of_revenue', '3_cost_of_revenue', '2_cost_of_revenue', '1_cost_of_revenue', '0_cost_of_revenue',
   '4_basic_earnings_per_share', '3_basic_earnings_per_share', '2_basic_earnings_per_share', '1_basic_earnings_per_share', '0_basic_earnings_per_share',
   '4_total_assets', '3_total_assets', '2_total_assets', '1_total_assets', '0_total_assets',
-  '4_current_liabilities', '3_current_liabilities', '2_current_liabilities', '1_current_liabilities',
+  '4_current_liabilities', '3_current_liabilities', '2_current_liabilities', '1_current_liabilities', '0_current_liabilities',
   '4_total_liabilities_net_minority_interest', '3_total_liabilities_net_minority_interest', '2_total_liabilities_net_minority_interest', '1_total_liabilities_net_minority_interest', '0_total_liabilities_net_minority_interest',
   '4_retained_earnings', '3_retained_earnings', '2_retained_earnings', '1_retained_earnings', '0_retained_earnings',
-  '0_shares_outstanding', '0_price', '0_market_cap', '0_dividend_yield', 'groww', 'margin', 'asset / liabilities ratio',
+  '0_shares_outstanding', '0_price', '0_market_cap', '0_dividend_yield', 'eps', 'groww', 'graha', 'debt', 'margin', 'asset / liabilities ratio',
   '0_name', '0_stock_exchange', '0_sector', '0_industry_category', '0_business_phone_no', '0_hq_address1', '0_hq_address_city'];
 
 
