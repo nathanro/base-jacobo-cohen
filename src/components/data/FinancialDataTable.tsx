@@ -720,25 +720,28 @@ export function FinancialDataTable() {
             },
             cell: ({ row }) => {
               const value = row.getValue(key);
-              // Format numeric values for better display
+              // Display complete numeric values without abbreviation
               if (typeof value === 'number') {
-                // Format large numbers with appropriate units
-                let formattedValue = value.toLocaleString();
-                if (Math.abs(value) >= 1e12) {
-                  formattedValue = `${(value / 1e12).toFixed(2)}T`;
-                } else if (Math.abs(value) >= 1e9) {
-                  formattedValue = `${(value / 1e9).toFixed(2)}B`;
-                } else if (Math.abs(value) >= 1e6) {
-                  formattedValue = `${(value / 1e6).toFixed(2)}M`;
-                } else if (Math.abs(value) >= 1e3) {
-                  formattedValue = `${(value / 1e3).toFixed(2)}K`;
-                } else {
-                  formattedValue = value.toFixed(2);
-                }
-
-                return <div className={`text-right font-mono ${cellClassName}`} title={`Exact value: ${value.toLocaleString()}`}>{formattedValue}</div>;
+                // Display full number with locale formatting and thousands separators
+                const formattedValue = value.toLocaleString('en-US', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                });
+                
+                return (
+                  <div 
+                    className={`text-right font-mono ${cellClassName} whitespace-nowrap px-2`}
+                    style={{ minWidth: '120px' }}
+                  >
+                    {formattedValue}
+                  </div>
+                );
               }
-              return <div className={cellClassName}>{value}</div>;
+              return (
+                <div className={`${cellClassName} whitespace-normal break-words px-2`}>
+                  {value}
+                </div>
+              );
             },
             filterFn:
             analyzeColumnData[key]?.type === 'range' ?
