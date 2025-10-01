@@ -439,17 +439,19 @@ export function FinancialDataTable() {
   const { t } = useTranslation();
 
   // Define exact column order as per database
+  // Note: current_liabilities columns (4, 3, 2, 1) must appear AFTER total_assets columns in descending order
   const EXACT_COLUMN_ORDER = [
-    'Symbol', '4_total_revenue_qq', '3_total_revenue_qq', '2_total_revenue_qq', '1_total_revenue_qq', '0_total_revenue_qq',
-    '4_total_revenue', '3_total_revenue', '2_total_revenue', '1_total_revenue', '0_total_revenue',
-    '4_cost_of_revenue', '3_cost_of_revenue', '2_cost_of_revenue', '1_cost_of_revenue', '0_cost_of_revenue',
-    '4_basic_earnings_per_share', '3_basic_earnings_per_share', '2_basic_earnings_per_share', '1_basic_earnings_per_share', '0_basic_earnings_per_share',
-    '4_total_assets', '3_total_assets', '2_total_assets', '1_total_assets', '0_total_assets',
-    '4_total_liabilities_net_minority_interest', '3_total_liabilities_net_minority_interest', '2_total_liabilities_net_minority_interest', '1_total_liabilities_net_minority_interest', '0_total_liabilities_net_minority_interest',
-    '4_retained_earnings', '3_retained_earnings', '2_retained_earnings', '1_retained_earnings', '0_retained_earnings',
-    '0_shares_outstanding', '0_price', '0_market_cap', '0_dividend_yield', 'groww', 'margin', 'asset / liabilities ratio',
-    '0_name', '0_stock_exchange', '0_sector', '0_industry_category', '0_business_phone_no', '0_hq_address1', '0_hq_address_city'
-  ];
+  'Symbol', '4_total_revenue_qq', '3_total_revenue_qq', '2_total_revenue_qq', '1_total_revenue_qq', '0_total_revenue_qq',
+  '4_total_revenue', '3_total_revenue', '2_total_revenue', '1_total_revenue', '0_total_revenue',
+  '4_cost_of_revenue', '3_cost_of_revenue', '2_cost_of_revenue', '1_cost_of_revenue', '0_cost_of_revenue',
+  '4_basic_earnings_per_share', '3_basic_earnings_per_share', '2_basic_earnings_per_share', '1_basic_earnings_per_share', '0_basic_earnings_per_share',
+  '4_total_assets', '3_total_assets', '2_total_assets', '1_total_assets', '0_total_assets',
+  '4_current_liabilities', '3_current_liabilities', '2_current_liabilities', '1_current_liabilities',
+  '4_total_liabilities_net_minority_interest', '3_total_liabilities_net_minority_interest', '2_total_liabilities_net_minority_interest', '1_total_liabilities_net_minority_interest', '0_total_liabilities_net_minority_interest',
+  '4_retained_earnings', '3_retained_earnings', '2_retained_earnings', '1_retained_earnings', '0_retained_earnings',
+  '0_shares_outstanding', '0_price', '0_market_cap', '0_dividend_yield', 'groww', 'margin', 'asset / liabilities ratio',
+  '0_name', '0_stock_exchange', '0_sector', '0_industry_category', '0_business_phone_no', '0_hq_address1', '0_hq_address_city'];
+
 
   // Find columns that match our 3 priority filters only
   const findMatchingColumns = useMemo(() => {
@@ -650,16 +652,16 @@ export function FinancialDataTable() {
         });
 
         // Use exact column order as specified, only include columns that exist in data
-        const sortedKeys = EXACT_COLUMN_ORDER.filter(col => allKeys.has(col));
+        const sortedKeys = EXACT_COLUMN_ORDER.filter((col) => allKeys.has(col));
         // Add any columns not in the predefined order at the end
-        allKeys.forEach(key => {
+        allKeys.forEach((key) => {
           if (!EXACT_COLUMN_ORDER.includes(key)) {
             sortedKeys.push(key);
           }
         });
         const generatedColumns: ColumnDef<any>[] = sortedKeys.map((key) => {
           const lowerColumnName = key.toLowerCase();
-          
+
           // Define colors for specific financial metrics
           let headerClassName = 'font-semibold';
           let cellClassName = '';
@@ -670,8 +672,8 @@ export function FinancialDataTable() {
             cellClassName = 'text-green-600';
           }
           // Check for Cost of Revenue columns - should be red
-          else if (lowerColumnName.includes('cost_of_revenue') || 
-                   (lowerColumnName.includes('cost') && lowerColumnName.includes('revenue'))) {
+          else if (lowerColumnName.includes('cost_of_revenue') ||
+          lowerColumnName.includes('cost') && lowerColumnName.includes('revenue')) {
             headerClassName += ' text-red-700 bg-red-50 border-red-200';
             cellClassName = 'text-red-600';
           }
@@ -713,8 +715,8 @@ export function FinancialDataTable() {
                   <ChevronDown className="ml-2 h-4 w-4" /> :
                   <ChevronsUpDown className="ml-2 h-4 w-4" />
                   }
-                </Button>
-              );
+                </Button>);
+
             },
             cell: ({ row }) => {
               const value = row.getValue(key);
@@ -836,16 +838,16 @@ export function FinancialDataTable() {
           });
 
           // Use exact column order as specified, only include columns that exist in data
-          const sortedKeys = EXACT_COLUMN_ORDER.filter(col => allKeys.has(col));
+          const sortedKeys = EXACT_COLUMN_ORDER.filter((col) => allKeys.has(col));
           // Add any columns not in the predefined order at the end
-          allKeys.forEach(key => {
+          allKeys.forEach((key) => {
             if (!EXACT_COLUMN_ORDER.includes(key)) {
               sortedKeys.push(key);
             }
           });
           const generatedColumns: ColumnDef<any>[] = sortedKeys.map((key) => {
             const lowerColumnName = key.toLowerCase();
-            
+
             // Define colors for specific financial metrics
             let headerClassName = 'font-semibold';
             let cellClassName = '';
@@ -856,8 +858,8 @@ export function FinancialDataTable() {
               cellClassName = 'text-green-600';
             }
             // Check for Cost of Revenue columns - should be red
-            else if (lowerColumnName.includes('cost_of_revenue') || 
-                     (lowerColumnName.includes('cost') && lowerColumnName.includes('revenue'))) {
+            else if (lowerColumnName.includes('cost_of_revenue') ||
+            lowerColumnName.includes('cost') && lowerColumnName.includes('revenue')) {
               headerClassName += ' text-red-700 bg-red-50 border-red-200';
               cellClassName = 'text-red-600';
             }
@@ -899,8 +901,8 @@ export function FinancialDataTable() {
                     <ChevronDown className="ml-2 h-4 w-4" /> :
                     <ChevronsUpDown className="ml-2 h-4 w-4" />
                     }
-                  </Button>
-                );
+                  </Button>);
+
               },
               cell: ({ row }) => {
                 const value = row.getValue(key);
