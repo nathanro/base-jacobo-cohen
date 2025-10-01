@@ -123,9 +123,8 @@ function PriorityFilterSection({
     const config = columnFilterConfigs[columnName];
     if (!column || !config) return null;
 
-    // Check if this is one of the percentage display filters
-    const isPercentageFilter = key === 'sales_grow_per_year' || key === 'sales_grow_per_quarter' || key === 'margin' ||
-    label === 'Sales Growth Quarter' || label === 'Sales Growth Per Year' || label === 'Margin';
+    // All 3 filters should display as percentage
+    const isPercentageFilter = true;
 
     return (
       <div key={key} className="space-y-2">
@@ -171,11 +170,10 @@ function PriorityFilterSection({
         <Filter className="h-5 w-5 text-blue-600" />
         <h3 className="font-semibold text-blue-800">Key Financial Metrics Filters</h3>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {renderPriorityFilter('sales_grow_per_year', 'Sales Growth Per Year')}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {renderPriorityFilter('sales_grow_per_quarter', 'Sales Growth Quarter')}
+        {renderPriorityFilter('sales_grow_per_year', 'Sales Growth Per Year')}
         {renderPriorityFilter('margin', 'Margin')}
-        {renderPriorityFilter('debt', 'Debt')}
       </div>
     </div>);
 
@@ -440,7 +438,20 @@ export function FinancialDataTable() {
 
   const { t } = useTranslation();
 
-  // Find columns that match our priority filters
+  // Define exact column order as per database
+  const EXACT_COLUMN_ORDER = [
+    'Symbol', '4_total_revenue_qq', '3_total_revenue_qq', '2_total_revenue_qq', '1_total_revenue_qq', '0_total_revenue_qq',
+    '4_total_revenue', '3_total_revenue', '2_total_revenue', '1_total_revenue', '0_total_revenue',
+    '4_cost_of_revenue', '3_cost_of_revenue', '2_cost_of_revenue', '1_cost_of_revenue', '0_cost_of_revenue',
+    '4_basic_earnings_per_share', '3_basic_earnings_per_share', '2_basic_earnings_per_share', '1_basic_earnings_per_share', '0_basic_earnings_per_share',
+    '4_total_assets', '3_total_assets', '2_total_assets', '1_total_assets', '0_total_assets',
+    '4_total_liabilities_net_minority_interest', '3_total_liabilities_net_minority_interest', '2_total_liabilities_net_minority_interest', '1_total_liabilities_net_minority_interest', '0_total_liabilities_net_minority_interest',
+    '4_retained_earnings', '3_retained_earnings', '2_retained_earnings', '1_retained_earnings', '0_retained_earnings',
+    '0_shares_outstanding', '0_price', '0_market_cap', '0_dividend_yield', 'groww', 'margin', 'asset / liabilities ratio',
+    '0_name', '0_stock_exchange', '0_sector', '0_industry_category', '0_business_phone_no', '0_hq_address1', '0_hq_address_city'
+  ];
+
+  // Find columns that match our 3 priority filters only
   const findMatchingColumns = useMemo(() => {
     if (data.length === 0) return {};
 
@@ -448,12 +459,11 @@ export function FinancialDataTable() {
     const columnNames = Object.keys(firstRow);
     const matches: Record<string, string> = {};
 
-    // Define patterns for each priority filter
+    // Only 3 filters: Sales Growth Quarter, Sales Growth Per Year, and Margin
     const patterns = {
-      sales_grow_per_year: /sales.*grow.*year|grow.*sales.*year|sales.*year.*grow|year.*sales.*grow|growth.*rate|growth_rate|sales_growth/i,
-      sales_grow_per_quarter: /sales.*grow.*quarter|grow.*sales.*quarter|quarter.*sales.*grow|quarter.*growth|sales.*quarter/i,
-      margin: /margin|profit.*margin|gross.*margin|net.*margin|profit_margin/i,
-      debt: /debt|debt.*ratio|total.*debt|long.*debt|short.*debt/i
+      sales_grow_per_quarter: /sales.*grow.*quarter|grow.*sales.*quarter|quarter.*sales.*grow|quarter.*growth|sales.*quarter|4_total_revenue_qq/i,
+      sales_grow_per_year: /sales.*grow.*year|grow.*sales.*year|sales.*year.*grow|year.*sales.*grow|growth.*rate|growth_rate|sales_growth|groww/i,
+      margin: /margin|profit.*margin|gross.*margin|net.*margin|profit_margin/i
     };
 
     Object.keys(patterns).forEach((priorityKey) => {
@@ -615,12 +625,12 @@ export function FinancialDataTable() {
           const yearA = a._fiscal_year || 0;
           const yearB = b._fiscal_year || 0;
           if (yearB !== yearA) return yearB - yearA;
-          
+
           // Then by report period (Q1, Q2, Q3, Q4, or full year)
           const periodA = a._report_period || '';
           const periodB = b._report_period || '';
           if (periodA !== periodB) return periodA.localeCompare(periodB);
-          
+
           // Finally by row number to maintain original order within same period
           const rowA = a._row_number || 0;
           const rowB = b._row_number || 0;
@@ -639,122 +649,55 @@ export function FinancialDataTable() {
           });
         });
 
-        const sortedKeys = Array.from(allKeys).sort();
-        const generatedColumns: ColumnDef<any>[] = sortedKeys.map((key) => ({
-          accessorKey: key,
-          header: ({ column }) => {
-            return (
-              <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-                className="w-full flex justify-between items-center hover:bg-gray-50">
-
-                  <span className="font-semibold">
-                    {key.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
-                  </span>
-                  {column.getIsSorted() === 'asc' ?
-                <ChevronUp className="ml-2 h-4 w-4" /> :
-                column.getIsSorted() === 'desc' ?
-                <ChevronDown className="ml-2 h-4 w-4" /> :
-
-                <ChevronsUpDown className="ml-2 h-4 w-4" />
-                }
-                </Button>);
-
-          },
-          cell: ({ row }) => {
-            const value = row.getValue(key);
-            // Format numeric values for better display
-            if (typeof value === 'number') {
-              // Check if this value should be displayed as percentage
-              // Skip percentage conversion for 'revenue' and 'cost of revenue' columns
-              const columnLower = key.toLowerCase();
-              const isRevenueOrCostOfRevenue = columnLower.includes('revenue') ||
-              columnLower.includes('cost') && columnLower.includes('revenue');
-
-              if (!isRevenueOrCostOfRevenue && shouldConvertToPercentage(key, value)) {
-                const percentage = formatAsPercentage(value, 2);
-                return (
-                  <div className="text-right font-mono" title={`Raw value: ${value.toLocaleString()}`}>
-                    {percentage}
-                  </div>);
-
-              }
-
-              // For revenue and cost of revenue columns, show as complete integers
-              if (isRevenueOrCostOfRevenue) {
-                const formattedValue = Math.round(value).toLocaleString();
-                return <div className="text-right font-mono" title={`Exact value: ${value.toLocaleString()}`}>{formattedValue}</div>;
-              }
-
-              // Format large numbers with appropriate units for better readability
-              let formattedValue = value.toLocaleString();
-              if (Math.abs(value) >= 1e12) {
-                formattedValue = `${(value / 1e12).toFixed(1)}T`;
-              } else if (Math.abs(value) >= 1e9) {
-                formattedValue = `${(value / 1e9).toFixed(1)}B`;
-              } else if (Math.abs(value) >= 1e6) {
-                formattedValue = `${(value / 1e6).toFixed(1)}M`;
-              } else if (Math.abs(value) >= 1e3) {
-                formattedValue = `${(value / 1e3).toFixed(1)}K`;
-              }
-
-              return <div className="text-right font-mono" title={`Exact value: ${value.toLocaleString()}`}>{formattedValue}</div>;
-            }
-            return <div>{value}</div>;
-          },
-          filterFn:
-          analyzeColumnData[key]?.type === 'range' ?
-          rangeFilter :
-          analyzeColumnData[key]?.type === 'select' ?
-          selectFilter :
-          textFilter
-        }));
-
-        // Add color styling to specific financial columns
-        const styledColumns = generatedColumns.map((col) => {
-          const columnName = col.accessorKey as string;
-          const lowerColumnName = columnName.toLowerCase();
-
+        // Use exact column order as specified, only include columns that exist in data
+        const sortedKeys = EXACT_COLUMN_ORDER.filter(col => allKeys.has(col));
+        // Add any columns not in the predefined order at the end
+        allKeys.forEach(key => {
+          if (!EXACT_COLUMN_ORDER.includes(key)) {
+            sortedKeys.push(key);
+          }
+        });
+        const generatedColumns: ColumnDef<any>[] = sortedKeys.map((key) => {
+          const lowerColumnName = key.toLowerCase();
+          
           // Define colors for specific financial metrics
           let headerClassName = 'font-semibold';
           let cellClassName = '';
 
-          // Check for Revenue columns - should be green
-          if (lowerColumnName.includes('revenue')) {
+          // Check for Revenue columns - should be green (not cost of revenue)
+          if (lowerColumnName.includes('revenue') && !lowerColumnName.includes('cost')) {
             headerClassName += ' text-green-700 bg-green-50 border-green-200';
             cellClassName = 'text-green-600';
           }
-          // Check for Cost of Revenue columns - should be red (more specific check)
-          else if (lowerColumnName.includes('cost') && lowerColumnName.includes('revenue') ||
-          lowerColumnName === 'cost of revenue' ||
-          lowerColumnName.includes('cost_of_revenue')) {
+          // Check for Cost of Revenue columns - should be red
+          else if (lowerColumnName.includes('cost_of_revenue') || 
+                   (lowerColumnName.includes('cost') && lowerColumnName.includes('revenue'))) {
             headerClassName += ' text-red-700 bg-red-50 border-red-200';
             cellClassName = 'text-red-600';
           }
-          // Other cost/expense columns
-          else if (lowerColumnName.includes('expense') || lowerColumnName.includes('cost') || lowerColumnName.includes('expenditure')) {
-            headerClassName += ' text-red-700 bg-red-50 border-red-200';
-            cellClassName = 'text-red-800 bg-red-50/30';
-          }
-          // Sales and income columns
-          else if (lowerColumnName.includes('sales') || lowerColumnName.includes('income')) {
-            headerClassName += ' text-green-700 bg-green-50 border-green-200';
-            cellClassName = 'text-green-800 bg-green-50/30';
+          // Earnings per share
+          else if (lowerColumnName.includes('earnings') || lowerColumnName.includes('eps')) {
+            headerClassName += ' text-purple-700 bg-purple-50 border-purple-200';
+            cellClassName = 'text-purple-600';
           }
           // Asset columns
-          else if (lowerColumnName.includes('asset') || lowerColumnName.includes('property') || lowerColumnName.includes('investment')) {
+          else if (lowerColumnName.includes('asset')) {
             headerClassName += ' text-blue-700 bg-blue-50 border-blue-200';
-            cellClassName = 'text-blue-800 bg-blue-50/30';
+            cellClassName = 'text-blue-600';
           }
           // Liability columns
-          else if (lowerColumnName.includes('liabilit') || lowerColumnName.includes('debt') || lowerColumnName.includes('payable')) {
-            headerClassName += ' text-purple-700 bg-purple-50 border-purple-200';
-            cellClassName = 'text-purple-800 bg-purple-50/30';
+          else if (lowerColumnName.includes('liabilit') || lowerColumnName.includes('debt')) {
+            headerClassName += ' text-orange-700 bg-orange-50 border-orange-200';
+            cellClassName = 'text-orange-600';
+          }
+          // Retained earnings
+          else if (lowerColumnName.includes('retained')) {
+            headerClassName += ' text-indigo-700 bg-indigo-50 border-indigo-200';
+            cellClassName = 'text-indigo-600';
           }
 
           return {
-            ...col,
+            accessorKey: key,
             header: ({ column }) => {
               return (
                 <Button
@@ -762,7 +705,7 @@ export function FinancialDataTable() {
                   onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
                   className={`w-full flex justify-between items-center hover:bg-gray-50 ${headerClassName}`}>
                   <span>
-                    {columnName.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
+                    {key.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
                   </span>
                   {column.getIsSorted() === 'asc' ?
                   <ChevronUp className="ml-2 h-4 w-4" /> :
@@ -770,55 +713,41 @@ export function FinancialDataTable() {
                   <ChevronDown className="ml-2 h-4 w-4" /> :
                   <ChevronsUpDown className="ml-2 h-4 w-4" />
                   }
-                </Button>);
-
+                </Button>
+              );
             },
             cell: ({ row }) => {
-              const value = row.getValue(columnName);
-              const baseClassName = cellClassName;
+              const value = row.getValue(key);
               // Format numeric values for better display
               if (typeof value === 'number') {
-                // Check if this value should be displayed as percentage
-                // Skip percentage conversion for 'revenue' and 'cost of revenue' columns
-                const columnLower = columnName.toLowerCase();
-                const isRevenueOrCostOfRevenue = columnLower.includes('revenue') ||
-                columnLower.includes('cost') && columnLower.includes('revenue');
-
-                if (!isRevenueOrCostOfRevenue && shouldConvertToPercentage(columnName, value)) {
-                  const percentage = formatAsPercentage(value, 2);
-                  return (
-                    <div className={`text-right font-mono ${baseClassName}`} title={`Raw value: ${value.toLocaleString()}`}>
-                      {percentage}
-                    </div>);
-
-                }
-
-                // For revenue and cost of revenue columns, show as complete integers
-                if (isRevenueOrCostOfRevenue) {
-                  const formattedValue = Math.round(value).toLocaleString();
-                  return <div className={`text-right font-mono ${baseClassName}`} title={`Exact value: ${value.toLocaleString()}`}>{formattedValue}</div>;
-                }
-
-                // Format large numbers with appropriate units for other columns
+                // Format large numbers with appropriate units
                 let formattedValue = value.toLocaleString();
                 if (Math.abs(value) >= 1e12) {
-                  formattedValue = `${(value / 1e12).toFixed(1)}T`;
+                  formattedValue = `${(value / 1e12).toFixed(2)}T`;
                 } else if (Math.abs(value) >= 1e9) {
-                  formattedValue = `${(value / 1e9).toFixed(1)}B`;
+                  formattedValue = `${(value / 1e9).toFixed(2)}B`;
                 } else if (Math.abs(value) >= 1e6) {
-                  formattedValue = `${(value / 1e6).toFixed(1)}M`;
+                  formattedValue = `${(value / 1e6).toFixed(2)}M`;
                 } else if (Math.abs(value) >= 1e3) {
-                  formattedValue = `${(value / 1e3).toFixed(1)}K`;
+                  formattedValue = `${(value / 1e3).toFixed(2)}K`;
+                } else {
+                  formattedValue = value.toFixed(2);
                 }
 
-                return <div className={`text-right font-mono ${baseClassName}`} title={`Exact value: ${value.toLocaleString()}`}>{formattedValue}</div>;
+                return <div className={`text-right font-mono ${cellClassName}`} title={`Exact value: ${value.toLocaleString()}`}>{formattedValue}</div>;
               }
-              return <div className={baseClassName}>{value}</div>;
-            }
+              return <div className={cellClassName}>{value}</div>;
+            },
+            filterFn:
+            analyzeColumnData[key]?.type === 'range' ?
+            rangeFilter :
+            analyzeColumnData[key]?.type === 'select' ?
+            selectFilter :
+            textFilter
           };
         });
 
-        setColumns(styledColumns);
+        setColumns(generatedColumns);
         showSuccess(`Loaded ${allFinancialData.length} financial records from ${uploads.length} datasets.`);
       } catch (error: any) {
         console.error('Failed to load financial data:', error);
@@ -881,12 +810,12 @@ export function FinancialDataTable() {
           const yearA = a._fiscal_year || 0;
           const yearB = b._fiscal_year || 0;
           if (yearB !== yearA) return yearB - yearA;
-          
+
           // Then by report period (Q1, Q2, Q3, Q4, or full year)
           const periodA = a._report_period || '';
           const periodB = b._report_period || '';
           if (periodA !== periodB) return periodA.localeCompare(periodB);
-          
+
           // Finally by row number to maintain original order within same period
           const rowA = a._row_number || 0;
           const rowB = b._row_number || 0;
@@ -906,163 +835,55 @@ export function FinancialDataTable() {
             });
           });
 
-          // Sort columns in a logical order for financial data
-          // Priority order: date/time fields, company info, revenue/sales, costs, margins, growth, assets, liabilities
-          const sortedKeys = Array.from(allKeys).sort((a, b) => {
-            const aLower = a.toLowerCase();
-            const bLower = b.toLowerCase();
-            
-            // Define priority groups
-            const getPriority = (key: string) => {
-              const k = key.toLowerCase();
-              // Group 1: Date/Time/Period fields (highest priority)
-              if (k.includes('date') || k.includes('year') || k.includes('quarter') || k.includes('period')) return 1;
-              // Group 2: Company identifiers
-              if (k.includes('company') || k.includes('ticker') || k.includes('symbol')) return 2;
-              // Group 3: Revenue and Sales
-              if (k.includes('revenue') && !k.includes('cost')) return 3;
-              if (k.includes('sales') && !k.includes('cost')) return 4;
-              // Group 4: Costs and Expenses
-              if (k.includes('cost') || k.includes('expense')) return 5;
-              // Group 5: Margins and Ratios
-              if (k.includes('margin') || k.includes('ratio')) return 6;
-              // Group 6: Growth metrics
-              if (k.includes('growth') || k.includes('grow')) return 7;
-              // Group 7: Income and Profit
-              if (k.includes('income') || k.includes('profit') || k.includes('ebitda')) return 8;
-              // Group 8: Assets
-              if (k.includes('asset')) return 9;
-              // Group 9: Liabilities and Debt
-              if (k.includes('liability') || k.includes('debt') || k.includes('payable')) return 10;
-              // Group 10: Equity and Capital
-              if (k.includes('equity') || k.includes('capital')) return 11;
-              // Group 11: Everything else
-              return 12;
-            };
-            
-            const priorityA = getPriority(aLower);
-            const priorityB = getPriority(bLower);
-            
-            // If same priority, sort alphabetically
-            if (priorityA === priorityB) {
-              return a.localeCompare(b);
+          // Use exact column order as specified, only include columns that exist in data
+          const sortedKeys = EXACT_COLUMN_ORDER.filter(col => allKeys.has(col));
+          // Add any columns not in the predefined order at the end
+          allKeys.forEach(key => {
+            if (!EXACT_COLUMN_ORDER.includes(key)) {
+              sortedKeys.push(key);
             }
-            
-            return priorityA - priorityB;
           });
-          const generatedColumns: ColumnDef<any>[] = sortedKeys.map((key) => ({
-            accessorKey: key,
-            header: ({ column }) => {
-              return (
-                <Button
-                  variant="ghost"
-                  onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-                  className="w-full flex justify-between items-center hover:bg-gray-50">
-
-                    <span className="font-semibold">
-                      {key.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
-                    </span>
-                    {column.getIsSorted() === 'asc' ?
-                  <ChevronUp className="ml-2 h-4 w-4" /> :
-                  column.getIsSorted() === 'desc' ?
-                  <ChevronDown className="ml-2 h-4 w-4" /> :
-
-                  <ChevronsUpDown className="ml-2 h-4 w-4" />
-                  }
-                  </Button>);
-
-            },
-            cell: ({ row }) => {
-              const value = row.getValue(key);
-              if (typeof value === 'number') {
-                // Check if this value should be displayed as percentage
-                // Skip percentage conversion for 'revenue' and 'cost of revenue' columns
-                const columnLower = key.toLowerCase();
-                const isRevenueOrCostOfRevenue = columnLower.includes('revenue') ||
-                columnLower.includes('cost') && columnLower.includes('revenue');
-
-                if (!isRevenueOrCostOfRevenue && shouldConvertToPercentage(key, value)) {
-                  const percentage = formatAsPercentage(value, 2);
-                  return (
-                    <div className="text-right font-mono" title={`Raw value: ${value.toLocaleString()}`}>
-                      {percentage}
-                    </div>);
-
-                }
-
-                // For revenue and cost of revenue columns, show as complete integers
-                if (isRevenueOrCostOfRevenue) {
-                  const formattedValue = Math.round(value).toLocaleString();
-                  return <div className="text-right font-mono" title={`Exact value: ${value.toLocaleString()}`}>{formattedValue}</div>;
-                }
-
-                // Format large numbers with appropriate units
-                let formattedValue = value.toLocaleString();
-                if (Math.abs(value) >= 1e12) {
-                  formattedValue = `${(value / 1e12).toFixed(1)}T`;
-                } else if (Math.abs(value) >= 1e9) {
-                  formattedValue = `${(value / 1e9).toFixed(1)}B`;
-                } else if (Math.abs(value) >= 1e6) {
-                  formattedValue = `${(value / 1e6).toFixed(1)}M`;
-                } else if (Math.abs(value) >= 1e3) {
-                  formattedValue = `${(value / 1e3).toFixed(1)}K`;
-                }
-
-                return <div className="text-right font-mono" title={`Exact value: ${value.toLocaleString()}`}>{formattedValue}</div>;
-              }
-              return <div>{value}</div>;
-            },
-            filterFn:
-            analyzeColumnData[key]?.type === 'range' ?
-            rangeFilter :
-            analyzeColumnData[key]?.type === 'select' ?
-            selectFilter :
-            textFilter
-          }));
-          // Add color styling to specific financial columns
-          const styledColumns = generatedColumns.map((col) => {
-            const columnName = col.accessorKey as string;
-            const lowerColumnName = columnName.toLowerCase();
-
+          const generatedColumns: ColumnDef<any>[] = sortedKeys.map((key) => {
+            const lowerColumnName = key.toLowerCase();
+            
             // Define colors for specific financial metrics
             let headerClassName = 'font-semibold';
             let cellClassName = '';
 
-            // Check for Revenue columns - should be green
-            if (lowerColumnName.includes('revenue')) {
+            // Check for Revenue columns - should be green (not cost of revenue)
+            if (lowerColumnName.includes('revenue') && !lowerColumnName.includes('cost')) {
               headerClassName += ' text-green-700 bg-green-50 border-green-200';
               cellClassName = 'text-green-600';
             }
-            // Check for Cost of Revenue columns - should be red (more specific check)
-            else if (lowerColumnName.includes('cost') && lowerColumnName.includes('revenue') ||
-            lowerColumnName === 'cost of revenue' ||
-            lowerColumnName.includes('cost_of_revenue')) {
+            // Check for Cost of Revenue columns - should be red
+            else if (lowerColumnName.includes('cost_of_revenue') || 
+                     (lowerColumnName.includes('cost') && lowerColumnName.includes('revenue'))) {
               headerClassName += ' text-red-700 bg-red-50 border-red-200';
               cellClassName = 'text-red-600';
             }
-            // Other cost/expense columns
-            else if (lowerColumnName.includes('expense') || lowerColumnName.includes('cost') || lowerColumnName.includes('expenditure')) {
-              headerClassName += ' text-red-700 bg-red-50 border-red-200';
-              cellClassName = 'text-red-800 bg-red-50/30';
-            }
-            // Sales and income columns
-            else if (lowerColumnName.includes('sales') || lowerColumnName.includes('income')) {
-              headerClassName += ' text-green-700 bg-green-50 border-green-200';
-              cellClassName = 'text-green-800 bg-green-50/30';
+            // Earnings per share
+            else if (lowerColumnName.includes('earnings') || lowerColumnName.includes('eps')) {
+              headerClassName += ' text-purple-700 bg-purple-50 border-purple-200';
+              cellClassName = 'text-purple-600';
             }
             // Asset columns
-            else if (lowerColumnName.includes('asset') || lowerColumnName.includes('property') || lowerColumnName.includes('investment')) {
+            else if (lowerColumnName.includes('asset')) {
               headerClassName += ' text-blue-700 bg-blue-50 border-blue-200';
-              cellClassName = 'text-blue-800 bg-blue-50/30';
+              cellClassName = 'text-blue-600';
             }
             // Liability columns
-            else if (lowerColumnName.includes('liabilit') || lowerColumnName.includes('debt') || lowerColumnName.includes('payable')) {
-              headerClassName += ' text-purple-700 bg-purple-50 border-purple-200';
-              cellClassName = 'text-purple-800 bg-purple-50/30';
+            else if (lowerColumnName.includes('liabilit') || lowerColumnName.includes('debt')) {
+              headerClassName += ' text-orange-700 bg-orange-50 border-orange-200';
+              cellClassName = 'text-orange-600';
+            }
+            // Retained earnings
+            else if (lowerColumnName.includes('retained')) {
+              headerClassName += ' text-indigo-700 bg-indigo-50 border-indigo-200';
+              cellClassName = 'text-indigo-600';
             }
 
             return {
-              ...col,
+              accessorKey: key,
               header: ({ column }) => {
                 return (
                   <Button
@@ -1070,7 +891,7 @@ export function FinancialDataTable() {
                     onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
                     className={`w-full flex justify-between items-center hover:bg-gray-50 ${headerClassName}`}>
                     <span>
-                      {columnName.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
+                      {key.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
                     </span>
                     {column.getIsSorted() === 'asc' ?
                     <ChevronUp className="ml-2 h-4 w-4" /> :
@@ -1078,55 +899,41 @@ export function FinancialDataTable() {
                     <ChevronDown className="ml-2 h-4 w-4" /> :
                     <ChevronsUpDown className="ml-2 h-4 w-4" />
                     }
-                  </Button>);
-
+                  </Button>
+                );
               },
               cell: ({ row }) => {
-                const value = row.getValue(columnName);
-                const baseClassName = cellClassName;
+                const value = row.getValue(key);
                 // Format numeric values for better display
                 if (typeof value === 'number') {
-                  // Check if this value should be displayed as percentage
-                  // Skip percentage conversion for 'revenue' and 'cost of revenue' columns
-                  const columnLower = columnName.toLowerCase();
-                  const isRevenueOrCostOfRevenue = columnLower.includes('revenue') ||
-                  columnLower.includes('cost') && columnLower.includes('revenue');
-
-                  if (!isRevenueOrCostOfRevenue && shouldConvertToPercentage(columnName, value)) {
-                    const percentage = formatAsPercentage(value, 2);
-                    return (
-                      <div className={`text-right font-mono ${baseClassName}`} title={`Raw value: ${value.toLocaleString()}`}>
-                        {percentage}
-                      </div>);
-
-                  }
-
-                  // For revenue and cost of revenue columns, show as complete integers
-                  if (isRevenueOrCostOfRevenue) {
-                    const formattedValue = Math.round(value).toLocaleString();
-                    return <div className={`text-right font-mono ${baseClassName}`} title={`Exact value: ${value.toLocaleString()}`}>{formattedValue}</div>;
-                  }
-
-                  // Format large numbers with appropriate units for other columns
+                  // Format large numbers with appropriate units
                   let formattedValue = value.toLocaleString();
                   if (Math.abs(value) >= 1e12) {
-                    formattedValue = `${(value / 1e12).toFixed(1)}T`;
+                    formattedValue = `${(value / 1e12).toFixed(2)}T`;
                   } else if (Math.abs(value) >= 1e9) {
-                    formattedValue = `${(value / 1e9).toFixed(1)}B`;
+                    formattedValue = `${(value / 1e9).toFixed(2)}B`;
                   } else if (Math.abs(value) >= 1e6) {
-                    formattedValue = `${(value / 1e6).toFixed(1)}M`;
+                    formattedValue = `${(value / 1e6).toFixed(2)}M`;
                   } else if (Math.abs(value) >= 1e3) {
-                    formattedValue = `${(value / 1e3).toFixed(1)}K`;
+                    formattedValue = `${(value / 1e3).toFixed(2)}K`;
+                  } else {
+                    formattedValue = value.toFixed(2);
                   }
 
-                  return <div className={`text-right font-mono ${baseClassName}`} title={`Exact value: ${value.toLocaleString()}`}>{formattedValue}</div>;
+                  return <div className={`text-right font-mono ${cellClassName}`} title={`Exact value: ${value.toLocaleString()}`}>{formattedValue}</div>;
                 }
-                return <div className={baseClassName}>{value}</div>;
-              }
+                return <div className={cellClassName}>{value}</div>;
+              },
+              filterFn:
+              analyzeColumnData[key]?.type === 'range' ?
+              rangeFilter :
+              analyzeColumnData[key]?.type === 'select' ?
+              selectFilter :
+              textFilter
             };
           });
 
-          setColumns(styledColumns);
+          setColumns(generatedColumns);
           showSuccess(`Loaded ${allFinancialData.length} financial records from ${uploads.length} datasets.`);
         }
       } catch (error: any) {
@@ -1298,78 +1105,7 @@ export function FinancialDataTable() {
                 table={table}
                 t={t} />
 
-              
-              <div className="p-4 bg-gray-50 rounded-lg border">
-                <div className="flex items-center space-x-2 mb-4">
-                  <Settings2 className="h-4 w-4" />
-                  <h3 className="font-medium">All Column Filters</h3>
-                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                  {table.
-                  getAllColumns().
-                  filter((column) => column.getCanFilter()).
-                  map((column) => {
-                    const config = columnFilterConfigs[column.id];
-                    if (!config) return null;
-
-                    return (
-                      <div key={column.id} className="space-y-2">
-                          <label className="text-sm font-medium flex items-center space-x-2">
-                            <span>
-                              {column.id.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
-                            </span>
-                            <Badge variant="outline" className="text-xs">
-                              {config.type}
-                            </Badge>
-                            {config.isPriority &&
-                          <Badge variant="default" className="text-xs bg-blue-100 text-blue-800">
-                                Key Metric
-                              </Badge>
-                          }
-                          </label>
-
-                          <div className={`border rounded-md p-3 ${config.isPriority ? 'bg-blue-50 border-blue-200' : 'bg-white'}`}>
-                            {config.type === 'text' &&
-                          <Input
-                            placeholder={`Search ${column.id}...`}
-                            value={column.getFilterValue() as string ?? ''}
-                            onChange={(e) => column.setFilterValue(e.target.value)}
-                            className="w-full" />
-
-                          }
-
-                            {config.type === 'range' &&
-                          config.min !== undefined &&
-                          config.max !== undefined &&
-                          (() => {
-                            // Check if this is one of the percentage display filters
-                            const columnLower = column.id.toLowerCase();
-                            const isPercentageFilter =
-                            columnLower.includes('sales') && (columnLower.includes('grow') || columnLower.includes('growth')) && (
-                            columnLower.includes('year') || columnLower.includes('quarter')) ||
-                            columnLower.includes('margin');
-
-                            return (
-                              <PercentageRangeFilterControl
-                                column={column}
-                                min={config.min}
-                                max={config.max}
-                                forcePercentageDisplay={isPercentageFilter}
-                                t={t} />);
-
-                          })()
-                          }
-
-                            {config.type === 'select' && config.options &&
-                          <SelectFilterControl column={column} options={config.options} t={t} />
-                          }
-                          </div>
-                        </div>);
-
-                  })}
-                </div>
-              </div>
             </CollapsibleContent>
           </Collapsible>
 
