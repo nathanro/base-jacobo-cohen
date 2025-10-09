@@ -2,6 +2,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { MadeWithDyad } from '@/components/powered-by-publiexpert';
 import { Navigation } from '@/components/navigation/Navigation';
 import BigDataHeroSection from '@/components/home/BigDataHeroSection';
+import VideoSection from '@/components/home/VideoSection';
 import KeyMetricsSection from '@/components/home/KeyMetricsSection';
 import TargetAudienceSection from '@/components/home/TargetAudienceSection';
 import ResearcherSection from '@/components/home/ResearcherSection';
@@ -19,6 +20,7 @@ const Index = () => {
       <Navigation />
       <main>
         <BigDataHeroSection />
+        <VideoSection />
         <KeyMetricsSection />
         <TargetAudienceSection />
         <ResearcherSection />

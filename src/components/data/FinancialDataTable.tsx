@@ -727,21 +727,21 @@ export function FinancialDataTable() {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2
                 });
-                
+
                 return (
-                  <div 
+                  <div
                     className={`text-right font-mono ${cellClassName} whitespace-nowrap px-2`}
-                    style={{ minWidth: '120px' }}
-                  >
+                    style={{ minWidth: '120px' }}>
+
                     {formattedValue}
-                  </div>
-                );
+                  </div>);
+
               }
               return (
                 <div className={`${cellClassName} whitespace-normal break-words px-2`}>
                   {value}
-                </div>
-              );
+                </div>);
+
             },
             filterFn:
             analyzeColumnData[key]?.type === 'range' ?

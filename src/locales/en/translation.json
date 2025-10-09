@@ -8,6 +8,10 @@
     "logout": "Logout",
     "language": "Language"
   },
+  "video": {
+    "title": "See How It Works",
+    "subtitle": "Discover the power of our Big Data analytics platform through this comprehensive overview of our features and capabilities."
+  },
   "hero": {
     "title1": "Leading Big Data",
     "title2": "Market Research",

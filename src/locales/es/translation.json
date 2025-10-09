@@ -8,6 +8,10 @@
     "logout": "Cerrar Sesión",
     "language": "Idioma"
   },
+  "video": {
+    "title": "Ve Cómo Funciona",
+    "subtitle": "Descubre el poder de nuestra plataforma de análisis de Big Data a través de esta visión integral de nuestras características y capacidades."
+  },
   "hero": {
     "title": "Big Data para Análisis de Inversiones Financieras",
     "subtitle": "Analiza grandes cantidades de información de forma rápida para tomar mejores decisiones de inversión utilizando el poder del Big Data",
