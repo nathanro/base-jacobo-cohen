@@ -13,11 +13,25 @@
     "subtitle": "Descubre el poder de nuestra plataforma de análisis de Big Data a través de esta visión integral de nuestras características y capacidades."
   },
   "hero": {
-    "title": "Big Data para Análisis de Inversiones Financieras",
-    "subtitle": "Analiza grandes cantidades de información de forma rápida para tomar mejores decisiones de inversión utilizando el poder del Big Data",
+    "badge": "Inteligencia de Mercado Líder",
+    "title": "Transforma Tu Negocio con",
+    "titleHighlight": "Insights Basados en Datos",
+    "subtitle": "Accede a investigación de mercado integral, análisis de industria e inteligencia empresarial para tomar decisiones estratégicas informadas e impulsar el crecimiento.",
+    "cta": {
+      "primary": "Explorar Investigación",
+      "secondary": "Solicitar Demo"
+    },
+    "stats": {
+      "reports": "Informes de Investigación",
+      "industries": "Industrias Cubiertas",
+      "clients": "Clientes Satisfechos"
+    },
+    "title1": "Big Data para",
+    "title2": "Análisis de Inversiones Financieras",
     "description": "Nuestra plataforma utiliza tecnología de Big Data para procesar y analizar miles de empresas, permitiéndote identificar oportunidades de inversión con datos precisos y análisis profundo.",
     "cta1": "Solicitar Demo",
     "cta2": "Ver Análisis",
+    "learnMore": "Aprender Más",
     "stat1": "5,000+ Empresas Analizadas",
     "stat2": "4 Años de Datos Históricos",
     "stat3": "81 Empresas con 1000%+ Crecimiento"
@@ -109,8 +123,10 @@
     }
   },
   "services": {
-    "title": "Nuestros Servicios",
-    "subtitle": "Soluciones integrales de big data y servicios de investigación de mercados para el éxito empresarial",
+    "badge": "Nuestros Servicios",
+    "title": "Soluciones Integrales de Investigación de Mercado",
+    "subtitle": "Desbloquea el potencial empresarial con nuestra suite completa de servicios de investigación de mercado e inteligencia empresarial adaptados a las necesidades de tu industria.",
+    "learnMore": "Aprender Más",
     "realTimeData": {
       "title": "Análisis en Tiempo Real",
       "description": "Accede a flujos de datos de mercado en vivo y dashboards de análisis en tiempo real para obtener insights de negocio instantáneos e inteligencia competitiva."
@@ -125,27 +141,51 @@
     },
     "marketAnalysis": {
       "title": "Análisis de Mercado",
-      "description": "Análisis integral del tamaño del mercado, tendencias de crecimiento y panorama competitivo en varias industrias y regiones."
+      "description": "Análisis integral del tamaño del mercado, tendencias de crecimiento y panorama competitivo en varias industrias y regiones.",
+      "feature1": "Tamaño de Mercado y Pronósticos",
+      "feature2": "Análisis Competitivo",
+      "feature3": "Oportunidades de Crecimiento"
     },
     "bigDataAnalytics": {
       "title": "Análisis de Big Data",
-      "description": "Análisis avanzados y modelos de machine learning para extraer insights significativos de grandes conjuntos de datos."
+      "description": "Análisis avanzados y modelos de machine learning para extraer insights significativos de grandes conjuntos de datos.",
+      "feature1": "Procesamiento de Datos",
+      "feature2": "Reconocimiento de Patrones",
+      "feature3": "Modelado Predictivo"
     },
     "industryResearch": {
       "title": "Investigación Industrial",
-      "description": "Estudios industriales profundos que cubren dinámicas del mercado, actores clave y oportunidades emergentes."
+      "description": "Estudios industriales profundos que cubren dinámicas del mercado, actores clave y oportunidades emergentes.",
+      "feature1": "Análisis Sectorial",
+      "feature2": "Panorama Competitivo",
+      "feature3": "Insights Regulatorios"
     },
     "trendAnalysis": {
       "title": "Análisis de Tendencias",
-      "description": "Identificación y análisis de tendencias de mercado, patrones de comportamiento del consumidor y proyecciones futuras."
+      "description": "Identificación y análisis de tendencias de mercado, patrones de comportamiento del consumidor y proyecciones futuras.",
+      "feature1": "Modelos Predictivos",
+      "feature2": "Tendencias de Industria",
+      "feature3": "Escenarios Futuros"
     },
     "globalMarketIntelligence": {
       "title": "Inteligencia de Mercado Global",
-      "description": "Insights de mercados transfronterizos y estrategias de expansión internacional para negocios globales."
+      "description": "Insights de mercados transfronterizos y estrategias de expansión internacional para negocios globales.",
+      "feature1": "Análisis Regional",
+      "feature2": "Estudios Interculturales",
+      "feature3": "Estrategia de Entrada al Mercado"
     },
     "customResearch": {
       "title": "Investigación Personalizada",
-      "description": "Soluciones de investigación a medida diseñadas para satisfacer necesidades específicas de negocio y objetivos estratégicos."
+      "description": "Soluciones de investigación a medida diseñadas para satisfacer necesidades específicas de negocio y objetivos estratégicos.",
+      "feature1": "Metodología Personalizada",
+      "feature2": "Soporte Dedicado",
+      "feature3": "Cronograma Flexible"
+    },
+    "cta": {
+      "title": "¿Necesitas una Solución Personalizada?",
+      "description": "Nuestro equipo de expertos puede crear una solución de investigación a medida que se ajuste perfectamente a tus objetivos y requisitos empresariales.",
+      "primary": "Obtener Cotización Personalizada",
+      "secondary": "Programar Consulta"
     }
   },
   "marketInsights": {

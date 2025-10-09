@@ -23,13 +23,13 @@ const VideoSection = () => {
               src="https://www.youtube.com/embed/0Hag78KWaMQ"
               title={t('video.title')}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            />
+              allowFullScreen />
+
           </div>
         </Card>
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 export default VideoSection;
